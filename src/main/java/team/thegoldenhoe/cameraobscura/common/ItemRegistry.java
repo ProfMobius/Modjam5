@@ -17,7 +17,7 @@ public class ItemRegistry {
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
 
-		camera = registerItem(registry, new Item(), "camera");
+		camera = registerItem(registry, new ItemCamera(), "camera");
 	}
 
 	private static Item registerItem(IForgeRegistry<Item> registry, Item item, String name) {
