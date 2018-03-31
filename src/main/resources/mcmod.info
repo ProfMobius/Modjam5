@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "cameraobscura",
+  "name": "Camera Obscura",
+  "description": "Capture your favorite moments and share them with your friends!",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://github.com/ProfMobius/Modjam5",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["ProfMobius", "RazzleberryFox", "Cojomax99"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
