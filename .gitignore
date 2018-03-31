@@ -1,0 +1,28 @@
+# gradle
+/build/
+.gradle
+
+# forge
+config/
+saves/
+
+# eclipse
+.classpath
+.project
+.settings
+bin
+logs
+eclipse
+*.launch
+
+# run
+run
+
+# intellij
+.idea
+out
+*.iml
+*.ipr
+*.iws
+
+Thumbs.db
