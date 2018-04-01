@@ -29,7 +29,8 @@ public class RendererProp extends TileEntitySpecialRenderer<TileProps> {
         }
 
         if (tile != null) {
-            ((CSClientModelWrapperVBO) ModelHandler.getModelByID(tile.getRenderingType()).wrapper).render(tile, partialTicks, renderPass, showOutline, (tile.rotation * 22.5F), Vector3.invY, halfBlock, neghalfBlock);
+            CSClientModelWrapperVBO wrapper = (CSClientModelWrapperVBO) ModelHandler.getModelByID(tile.getRenderingType()).wrapper;
+            wrapper.render(tile, partialTicks, renderPass, showOutline, (tile.rotation * 22.5F), Vector3.invY, halfBlock, neghalfBlock);
         }
 
         GlStateManager.popMatrix();
@@ -39,6 +40,7 @@ public class RendererProp extends TileEntitySpecialRenderer<TileProps> {
             GlStateManager.pushMatrix();
             GlStateManager.translate(x, y, z); // move rendering to TE rendering Offset XYZ
             CSClientModelWrapperVBO wrapper = (CSClientModelWrapperVBO) ModelHandler.getModelByID(Integer.valueOf(greenScreen)).wrapper;
+            //wrapper.setGlTextureId(0);
             wrapper.render(tile, partialTicks, renderPass, showOutline, (tile.rotation * 22.5F), Vector3.invY, halfBlock, neghalfBlock);
             GlStateManager.popMatrix();
         }

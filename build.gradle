@@ -44,7 +44,7 @@ minecraft {
 }
 
 dependencies {
-    compile "com.mia.craftstudio:PTRLib:1.0.0:dev"
+    compile "com.mia.craftstudio:PTRLib:1.0.1:dev"
 //    deobfCompile "com.mia.craftstudio:PTRLib:1.0.0:dev"
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
