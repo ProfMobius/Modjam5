@@ -18,9 +18,8 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -37,11 +36,17 @@ import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 import team.thegoldenhoe.cameraobscura.utils.SoundRegistry;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy implements IResourceManagerReloadListener {
+    private ResourceLocation loading = new ResourceLocation(Info.MODID, "textures/others/loading.png");
+    private ResourceLocation missing = new ResourceLocation(Info.MODID, "textures/others/missing.png");
+
 
     /**
      * If true, a photograph will be saved during the RenderTickEvent
@@ -75,7 +80,7 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
      * https://mcforge.readthedocs.io/en/latest/models/using/#item-models
      */
     @Override
-    public void setModelResourceLocation(Item item, int meta, String name, String variant) {
+    public void setModelResourceLocation(final Item item, final int meta, final String name, final String variant) {
         if (item != null) {
             ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Info.MODID + ":" + name, variant));
         }
@@ -110,11 +115,11 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
     }
 
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager) {
+    public void onResourceManagerReload(final IResourceManager resourceManager) {
         loadResources(resourceManager);
     }
 
-    private void loadResources(IResourceManager resourceManager) {
+    private void loadResources(final IResourceManager resourceManager) {
         CraftStudioLib.getTimer().reset("Total mipmap");
 
         final ArrayList<ModelMetadata> models = new ArrayList<ModelMetadata>(ModelHandler.getAllModelMetadata());
@@ -168,5 +173,39 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
         }
         ProgressManager.pop(progressBar);
         CraftStudioLib.getTimer().printAcc("Total mipmap");
+    }
+
+    @Override
+    public int getPhotographGLId(final int oldID, final String pictureLocation) {
+        TextureUtil.deleteTexture(oldID);
+        int glID = 0;
+
+        final String dirName = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath();
+        final File directory = new File(dirName, "photographs");
+        final File picture = new File(directory, pictureLocation);
+
+        BufferedImage img = null;
+
+        if (picture.exists() && picture.isFile()) {
+            try {
+                img = ImageIOCS.read(new FileInputStream(picture));
+            } catch (final IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                img = ImageIOCS.read(Minecraft.getMinecraft().getResourceManager().getResource(loading).getInputStream());
+            } catch (final IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        if (img != null) {
+            glID = TextureUtil.glGenTextures();
+            TextureUtil.uploadTextureImage(glID, img);
+        }
+
+        return glID;
     }
 }
