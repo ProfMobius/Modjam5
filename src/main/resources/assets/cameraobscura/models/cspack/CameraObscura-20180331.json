@@ -10,8 +10,9 @@
     "decocraftModelID": 1,
     "craftstudioAssetName": "PictureFrame",
     "craftstudioAssetID": 1985,
+    "tileType": "PictureFrame",
     "tileParams": {
-      "greenScreen" : "2"
+      "greenScreen": "2"
     }
   },
   {
@@ -31,8 +32,9 @@
     "decocraftModelID": 4,
     "craftstudioAssetName": "Polaroid Frame",
     "craftstudioAssetID": 2703,
+    "tileType": "PictureFrame",
     "tileParams": {
-      "greenScreen" : "5"
+      "greenScreen": "5"
     }
   },
   {

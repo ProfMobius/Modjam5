@@ -4,7 +4,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public enum TileTypeMap {
     Props(TileProps.class),
-    ;
+    PictureFrame(TilePictureFrame.class),;
 
     private Class<? extends TileProps> clazz;
 
