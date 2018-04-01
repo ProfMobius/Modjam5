@@ -1,14 +1,12 @@
 package team.thegoldenhoe.cameraobscura.client;
 
 import java.awt.Color;
-import java.awt.CompositeContext;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.ColorConvertOp;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
-import java.awt.image.Raster;
 import java.awt.image.RescaleOp;
 import java.awt.image.WritableRaster;
 
@@ -94,20 +92,20 @@ public class PhotoFilters {
 			return src;
 		}
 	};
-	
+
 	public static final PhotoFilter SOBEL = new PhotoFilter() {
 		@Override
 		public BufferedImage getFilteredImage(BufferedImage src) {
 			int threshold = 30;
-			
+
 			int w = src.getWidth();
 			int h = src.getHeight();
-			
+
 			BufferedImage out = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_BINARY);
-			
+
 			int blackRgb = Color.BLACK.getRGB();
 			int whiteRgb = Color.WHITE.getRGB();
-			
+
 			for (int y = 0; y < h; y++) {
 				for (int x = 0; x < w; x++) {
 					int rgb = src.getRGB(x, y);
@@ -122,8 +120,76 @@ public class PhotoFilters {
 					}
 				}
 			}
-			
+
 			return out;
+		}
+	};
+
+	public static final PhotoFilter VINTAGE = new PhotoFilter() {
+		@Override
+		public BufferedImage getFilteredImage(BufferedImage src) {
+			int w = src.getWidth();
+			int h = src.getHeight();
+
+			WritableRaster raster = src.getRaster();
+
+			// r, g, b per pixel
+			int[] pixels = new int[w * h * 3];
+			raster.getPixels(0, 0, w, h, pixels);
+			adjustChannels(pixels);		
+			raster.setPixels(0, 0, w, h, pixels);
+			return src;
+		}
+
+		/**
+		 * Adjust channels.
+		 *
+		 * @param pixels the pixels
+		 */
+		private void adjustChannels(int[] pixels) {
+			int red, green, blue;
+			for (int i = 0; i < pixels.length; i++) {
+				red = (pixels[i] >> 16) & 0xff;
+				red *= 0.9;
+				if (red > 240)
+					red = 240;
+				if (red < 0)
+					red = 0;
+
+				green = (pixels[i] >> 8) & 0xff;
+				if (green > 123)
+					green *= 1.05;
+				if (green > 255)
+					green = 255;
+				if (green < 0)
+					green = 0;
+
+				blue = (pixels[i]) & 0xff;
+				if (blue < 125) {
+					blue *= 1.15;
+				} else if (blue >= 125) {
+					blue *= 0.85;
+				}
+				if (blue > 255)
+					blue = 255;
+				if (blue < 0)
+					blue = 0;
+
+//				float[] hsb = Color.RGBtoHSB(red, green, blue, null);
+//				float hue = hsb[0];
+//				float saturation = hsb[1];
+//				float brightness = hsb[2];
+//
+//				brightness = 1 - brightness + 0.2f;
+//				
+//				int rgb = Color.HSBtoRGB(hue, saturation, brightness);
+				
+				int rgb = red;
+				rgb = (rgb << 8) + green;
+				rgb = (rgb << 8) + blue;
+
+				pixels[i] = rgb;
+			}
 		}
 	};
 

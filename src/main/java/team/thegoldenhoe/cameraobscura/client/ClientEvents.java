@@ -17,7 +17,7 @@ public class ClientEvents {
 		//   will still be showing since the buffer hasn't been cleared yet
 		if (ClientProxy.photographPending && Minecraft.getMinecraft().gameSettings.hideGUI
 				&& event.phase == TickEvent.Phase.END) {
-			PhotographHelper.capturePhotograph(PhotoFilters.BRIGHT_AND_HAPPY, PhotoFilters.SEPIA);
+			PhotographHelper.capturePhotograph(PhotoFilters.VINTAGE);
 			// Restore hide gui setting to whatever it was before
 			Minecraft.getMinecraft().gameSettings.hideGUI = ClientProxy.hideGUIDefault;
 			ClientProxy.photographPending = false;
