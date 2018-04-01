@@ -7,6 +7,7 @@ import com.mia.craftstudio.minecraft.ModelMetadata;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.AxisAlignedBB;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileTypeMap;
+import team.thegoldenhoe.cameraobscura.common.network.CameraTypes;
 import team.thegoldenhoe.cameraobscura.utils.JsonHelper;
 
 import java.lang.reflect.Field;
@@ -26,6 +27,7 @@ public class CSModelMetadata extends ModelMetadata {
     public boolean limitRotation = false;
     public boolean hasVariableRendering = false;
     public boolean spiderweb = false;
+    public boolean placeable = true;
     public TabProps tab = TabProps.Main;
     public TileTypeMap tileType = TileTypeMap.Props;
     public String sound;
@@ -135,16 +137,13 @@ public class CSModelMetadata extends ModelMetadata {
         return String.format("%04d_%s.png", this.decocraftModelID, this.name.toLowerCase().replaceAll("[/\\\\:*?\"<>|' ]", "_"));
     }
 
-    public boolean isCraftable(final int availableResources) {
-        return availableResources >= getResourceCost();
-    }
+    public CameraTypes getCameraType() {
+        String cameraType = tileParams.get("cameraType");
+        if (cameraType == null) {
+            return CameraTypes.NOT_A_CAMERA;
+        }
 
-    public int getResourceCost() {
-        return Integer.valueOf(tileParams.getOrDefault("resourceCost", "1"));
-    }
-
-    public boolean isEdible() {
-        return Boolean.valueOf(tileParams.getOrDefault("edible", "false"));
+        return CameraTypes.valueOf(cameraType);
     }
 
     public boolean isBlockInList(final IBlockState state, final String key) {

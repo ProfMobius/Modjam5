@@ -85,6 +85,10 @@ public enum ClientEvents {
             if (!(currentItem.getItem() instanceof ItemProps)) return;
             //if (!(Cultivation.data[currentItem.getItemDamage()] instanceof CraftStudioModelData)) return;
 
+            if (!ModelHandler.getModelFromStack(currentItem).placeable) {
+                return;
+            }
+
             final RayTraceResult target = Minecraft.getMinecraft().objectMouseOver;
             if (target == null) return;
             if (target.typeOfHit != RayTraceResult.Type.BLOCK) return;

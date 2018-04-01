@@ -180,7 +180,10 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
         TextureUtil.deleteTexture(oldID);
         int glID = 0;
 
-        final String dirName = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath();
+        final File currentSaveRootDirectory = DimensionManager.getCurrentSaveRootDirectory();
+
+
+        final String dirName = currentSaveRootDirectory.getAbsolutePath();
         final File directory = new File(dirName, "photographs");
         final File picture = new File(directory, pictureLocation);
 
@@ -189,7 +192,7 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
         if ("MISSING".equals(pictureLocation)) {
             try {
                 img = ImageIOCS.read(Minecraft.getMinecraft().getResourceManager().getResource(missing).getInputStream());
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         } else if (picture.exists() && picture.isFile()) {

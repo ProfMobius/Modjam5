@@ -25,7 +25,11 @@
     "name": "Polaroid Camera",
     "decocraftModelID": 3,
     "craftstudioAssetName": "Polaroid Camera",
-    "craftstudioAssetID": 2701
+    "craftstudioAssetID": 2701,
+    "placeable": false,
+    "tileParams": {
+      "cameraType": "POLAROID"
+    }
   },
   {
     "name": "Polaroid Frame",
@@ -47,6 +51,10 @@
     "name": "Vintage Camera",
     "decocraftModelID": 6,
     "craftstudioAssetName": "Vintage_Camera",
-    "craftstudioAssetID": 2707
+    "craftstudioAssetID": 2707,
+    "placeable": false,
+    "tileParams": {
+      "cameraType": "VINTAGE"
+    }
   }
 ]

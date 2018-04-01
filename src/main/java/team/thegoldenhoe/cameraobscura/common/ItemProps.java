@@ -42,6 +42,23 @@ public class ItemProps extends Item {
             return EnumActionResult.FAIL;
         }
 
+        CSModelMetadata data = ModelHandler.getModelFromStack(stack);
+        if (data.placeable) {
+            return place(player, world, pos, hand, side, hitX, hitY, hitZ);
+        }
+
+        return EnumActionResult.FAIL;
+    }
+
+    public EnumActionResult place(final EntityPlayer player, final World world, final BlockPos pos, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+        final ItemStack stack = player.getHeldItem(hand);
+
+        if (stack.getCount() == 0) {
+            return EnumActionResult.FAIL;
+        }
+
+        CSModelMetadata data = ModelHandler.getModelFromStack(stack);
+
         final Block target = world.getBlockState(pos).getBlock();
         int x = pos.getX();
         int y = pos.getY();
@@ -59,7 +76,6 @@ public class ItemProps extends Item {
             return EnumActionResult.FAIL;
         }
 
-        CSModelMetadata data = ModelHandler.getModelFromStack(stack);
         if (data.placedModel != -1) {
             data = ModelHandler.getModelByID(data.placedModel);
         }
