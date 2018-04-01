@@ -12,12 +12,14 @@ import team.thegoldenhoe.cameraobscura.Info;
 public class ItemRegistry {
 
 	public static Item camera;
+	public static Item itemProps;
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
 
 		camera = registerItem(registry, new ItemCamera(), "camera");
+		itemProps = registerItem(registry, new ItemProps(), "csitem");
 	}
 
 	private static Item registerItem(IForgeRegistry<Item> registry, Item item, String name) {
