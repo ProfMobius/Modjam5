@@ -8,6 +8,7 @@ import com.mia.craftstudio.minecraft.client.CSClientModelWrapperVBO;
 import com.mia.craftstudio.minecraft.client.CSClientModelWrapperVariableVBO;
 import com.mia.craftstudio.utils.ImageIOCS;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IReloadableResourceManager;
@@ -53,14 +54,21 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
 
     @Override
     public void preInit() {
+        ClientEvents.register();
+
         ClientRegistry.bindTileEntitySpecialRenderer(TileProps.class, new RendererProp());
         ForgeHooksClient.registerTESRItemStack(ItemRegistry.itemProps, 0, TileProps.class);
     }
 
     @Override
     public void init() {
-        MinecraftForge.EVENT_BUS.register(ClientEvents.INSTANCE);
-        FMLCommonHandler.instance().bus().register(ClientEvents.INSTANCE);
+        super.init();
+
+        final ItemModelMesher itemModelMesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
+
+        for (final Integer key : ModelHandler.getAllModelIDs()) {
+            itemModelMesher.register(ItemRegistry.itemProps, key, new ModelResourceLocation("cameraobscura:csitem", "inventory"));
+        }
     }
 
     /**

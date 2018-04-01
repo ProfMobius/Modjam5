@@ -12,7 +12,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
@@ -32,6 +34,11 @@ public enum ClientEvents {
     private CSModelMetadata model = null;
     private int tx, ty, tz;
     private int tick = 0;
+
+    public static void register() {
+        MinecraftForge.EVENT_BUS.register(INSTANCE);
+        FMLCommonHandler.instance().bus().register(INSTANCE);
+    }
 
     @SubscribeEvent
     public void capturePhotographs(RenderTickEvent event) {
