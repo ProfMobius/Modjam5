@@ -2,6 +2,7 @@ package team.thegoldenhoe.cameraobscura;
 
 import org.apache.logging.log4j.Logger;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -9,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import team.thegoldenhoe.cameraobscura.common.CommonProxy;
 import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
+import team.thegoldenhoe.cameraobscura.common.network.Events;
 
 @Mod(modid = Info.MODID, name = Info.NAME, version = Info.VERSION)
 public class CameraObscura {
@@ -31,5 +33,6 @@ public class CameraObscura {
 	public void init(FMLInitializationEvent event) {
 		CONetworkHandler.init();
 		proxy.init();
+		MinecraftForge.EVENT_BUS.register(new Events());
 	}
 }

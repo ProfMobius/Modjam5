@@ -40,19 +40,15 @@ public class ItemCamera extends Item {
 				byte[] imageBytes = stream.toByteArray();
 				ByteBuffer buff = ByteBuffer.wrap(imageBytes);
 				short order = 0;
+				int bytePacketLen = 30000;
+				int uuid = PhotoDataHandler.getUniqueID();
 
 				while (buff.hasRemaining()) {
-					byte[] subImageBytes = new byte[30000];
-					buff.get(subImageBytes, buff.position(), buff.remaining() > 30000 ? 30000 : buff.remaining());
-					CONetworkHandler.NETWORK.sendToServer(
-							new MessagePhotoData(PhotoDataHandler.getUniqueID(), "testphoto", subImageBytes, order, imageBytes.length));
+					byte[] subImageBytes = new byte[buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining()];
+					buff.get(subImageBytes, 0, buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining());
+					MessagePhotoData msg = new MessagePhotoData(uuid, "test", subImageBytes, order, imageBytes.length);
+					CONetworkHandler.NETWORK.sendToServer(msg);
 					order++;
-					
-					if (buff.remaining() > 30000) {
-						buff.position(buff.position() + 30000);
-					} else {
-						buff.position(buff.limit());
-					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

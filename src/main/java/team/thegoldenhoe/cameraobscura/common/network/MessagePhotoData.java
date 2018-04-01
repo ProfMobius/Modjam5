@@ -3,9 +3,6 @@ package team.thegoldenhoe.cameraobscura.common.network;
 import java.util.Comparator;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -63,12 +60,7 @@ public class MessagePhotoData implements IMessage {
 
 		@Override
 		public IMessage onMessage(MessagePhotoData message, MessageContext ctx) {
-			EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
-			// temporary, obviously...or is it?
-			serverPlayer.getServerWorld().addScheduledTask(() -> {
-				serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.DIAMOND, 1));
-			});
-
+			PhotoDataHandler.bufferMessage(message);
 			System.out.println("Num bytes recv:" + message.data.length);
 			return null;
 		}}

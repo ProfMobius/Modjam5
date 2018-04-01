@@ -10,7 +10,7 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class PhotoDataHandler {
-	
+
 	private static int photoID = 0;
 
 	private static Map<Integer, TreeSet<MessagePhotoData>> messageBuffer = new HashMap<>();
@@ -21,24 +21,32 @@ public class PhotoDataHandler {
 		TreeSet<MessagePhotoData> messageSet = messageBuffer.get(Integer.valueOf(uuid));
 		if (messageSet == null) {
 			messageSet = new TreeSet<MessagePhotoData>(MessagePhotoData.COMPARATOR);
+			messageSet.add(message);
 			messageBuffer.put(Integer.valueOf(uuid), messageSet);
 		} else {
 			messageSet.add(message);
 		}
 	}
 
+	/**
+	 * Add a message to the message queue for processing
+	 */
 	public static void bufferMessage(MessagePhotoData message) {
 		messageQueue.add(message);
 	}
 
-	public static void processMessageQueue() {
-		for (MessagePhotoData message : messageQueue) {
-			addMessage(message.uuid, message);
+	/**
+	 * Iterate through all queued messages and buffer them for processing
+	 */
+	public static synchronized void processMessageQueue() {
+		while (!messageQueue.isEmpty()) {
+			MessagePhotoData msg = messageQueue.poll();
+			addMessage(msg.uuid, msg);
 		}
 	}
 
 	/**
-	 * Iterates through all buffered messages to check if we have received complete data yet
+	 * Iterate through all buffered messages to check if we have received complete data yet
 	 */
 	public static void processMessageBuffer() {
 		Set<Integer> uuids = messageBuffer.keySet();
@@ -46,7 +54,6 @@ public class PhotoDataHandler {
 
 		for (Integer uuid : uuids) {
 			TreeSet<MessagePhotoData> messages = messageBuffer.get(uuid);
-
 			int bytesReceived = 0;
 
 			// Iterate through all messages received for this uuid
@@ -55,7 +62,6 @@ public class PhotoDataHandler {
 
 				// If we have received all necessary data
 				if (bytesReceived == message.length) {
-					System.out.println("Full image recv!!!!");
 					completedUuids.add(uuid);					
 				}
 			}
@@ -66,7 +72,7 @@ public class PhotoDataHandler {
 			messageBuffer.remove(uuid);
 		}
 	}
-	
+
 	public static int getUniqueID() {
 		return photoID++;
 	}
