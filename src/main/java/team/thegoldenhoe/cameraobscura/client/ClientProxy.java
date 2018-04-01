@@ -1,5 +1,6 @@
 package team.thegoldenhoe.cameraobscura.client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
@@ -12,7 +13,10 @@ import team.thegoldenhoe.cameraobscura.common.CommonProxy;
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
-	public static boolean cancelHUDRendering = false;
+	/** If true, a photograph will be saved during the RenderTickEvent */
+	public static boolean photographPending = false;
+	/** Holds the setting for hideGUI so we can restore after changing it to take pics */
+	public static boolean hideGUIDefault = Minecraft.getMinecraft().gameSettings.hideGUI;
 
 	@Override
 	public void preInit() {

@@ -104,6 +104,7 @@ public class PhotoDataHandler {
 		try {
 			String dirName = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath();
 			File directory = new File(dirName, "photographs");
+			directory.mkdir();
 			File imageFile = Utils.getTimestampedPNGFileForDirectory(directory);
 			imageFile = imageFile.getCanonicalFile();
 			ImageIO.write(image, "png", imageFile);
