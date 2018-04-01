@@ -17,7 +17,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import team.thegoldenhoe.cameraobscura.CameraObscura;
-import team.thegoldenhoe.cameraobscura.common.BlockRegistry;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
 import javax.annotation.Nullable;
@@ -74,7 +73,7 @@ public class BlockFake extends BlockContainer implements ITileEntityProvider {
         if (tile instanceof TileFake) {
             TileProps master = ((TileFake) tile).getMaster();
             if (master != null) {
-                return BlockRegistry.blockProps.collisionRayTrace(blockState, world, master.getPos(), origin, direction);
+                return CameraObscura.blockProps.collisionRayTrace(blockState, world, master.getPos(), origin, direction);
             }
         }
         //System.out.printf("%d %d %d\n", tile.master[0], tile.master[1], tile.master[2] );
@@ -88,7 +87,7 @@ public class BlockFake extends BlockContainer implements ITileEntityProvider {
             TileProps master = ((TileFake) tile).getMaster();
             if (master != null) {
                 BlockPos masterPos = master.getPos();
-                BlockRegistry.blockProps.addCollisionBoxToList(world.getBlockState(masterPos), world, masterPos, entityBox, collidingBoxes, entityIn, p_185477_7_);
+                CameraObscura.blockProps.addCollisionBoxToList(world.getBlockState(masterPos), world, masterPos, entityBox, collidingBoxes, entityIn, p_185477_7_);
             }
         } else {
             //System.out.printf("%d %d %d\n", tile.master[0], tile.master[1], tile.master[2] );
@@ -103,7 +102,7 @@ public class BlockFake extends BlockContainer implements ITileEntityProvider {
             TileProps master = ((TileFake) tile).getMaster();
             if (master != null) {
                 BlockPos masterPos = master.getPos();
-                return BlockRegistry.blockProps.getCollisionBoundingBox(worldIn.getBlockState(masterPos), worldIn, masterPos);
+                return CameraObscura.blockProps.getCollisionBoundingBox(worldIn.getBlockState(masterPos), worldIn, masterPos);
             }
         }
         //System.out.printf("%d %d %d\n", tile.master[0], tile.master[1], tile.master[2] );
