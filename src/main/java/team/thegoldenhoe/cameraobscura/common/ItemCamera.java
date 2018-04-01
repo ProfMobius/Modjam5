@@ -16,6 +16,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ScreenShotHelper;
 import net.minecraft.world.World;
+import team.thegoldenhoe.cameraobscura.client.ClientProxy;
 import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
 import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoData;
 import team.thegoldenhoe.cameraobscura.common.network.PhotoDataHandler;
@@ -32,6 +33,7 @@ public class ItemCamera extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		if (world.isRemote) {
+			ClientProxy.cancelHUDRendering = true;
 			try {
 				Minecraft mc = Minecraft.getMinecraft();
 				BufferedImage screenshot = ScreenShotHelper.createScreenshot(mc.displayWidth, mc.displayHeight, mc.getFramebuffer());
@@ -53,6 +55,7 @@ public class ItemCamera extends Item {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			//ClientProxy.cancelHUDRendering = false;
 		}
 
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, player.getHeldItem(hand));

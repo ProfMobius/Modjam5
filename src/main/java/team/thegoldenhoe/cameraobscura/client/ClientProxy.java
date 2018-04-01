@@ -3,6 +3,7 @@ package team.thegoldenhoe.cameraobscura.client;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import team.thegoldenhoe.cameraobscura.Info;
@@ -11,6 +12,8 @@ import team.thegoldenhoe.cameraobscura.common.CommonProxy;
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
+	public static boolean cancelHUDRendering = false;
+
 	@Override
 	public void preInit() {
 
@@ -18,7 +21,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void init() {
-
+		MinecraftForge.EVENT_BUS.register(new ClientEvents());
 	}
 
 	/**
