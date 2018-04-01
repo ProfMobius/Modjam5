@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -18,10 +19,14 @@ public class PhotographHelper {
 	/**
 	 * Captures a screenshot (with GUI hidden) and saves it to the server's screenshots folder
 	 */
-	public static void capturePhotograph() {
+	public static void capturePhotograph(PhotoFilter... filters) {
 		try {
 			Minecraft mc = Minecraft.getMinecraft();
 			BufferedImage screenshot = ScreenShotHelper.createScreenshot(mc.displayWidth, mc.displayHeight, mc.getFramebuffer());
+			for (PhotoFilter filter : filters) {
+				screenshot = filter.getFilteredImage(screenshot);
+			}
+			
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			ImageIO.write(screenshot, "png", stream);
 			byte[] imageBytes = stream.toByteArray();
