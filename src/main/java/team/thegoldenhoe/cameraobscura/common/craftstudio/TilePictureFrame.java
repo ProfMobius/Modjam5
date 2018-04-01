@@ -8,7 +8,11 @@ public class TilePictureFrame extends TileProps {
     private int glTextureID = 0;
 
     public void setPicture(final String pictureLocation) {
-        if (this.pictureLocation.equals(pictureLocation)) {
+        setPicture(pictureLocation, false);
+    }
+
+    public void setPicture(final String pictureLocation, final boolean force) {
+        if (this.pictureLocation.equals(pictureLocation) && !force) {
             return;
         }
 

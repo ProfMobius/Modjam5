@@ -186,7 +186,13 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
 
         BufferedImage img = null;
 
-        if (picture.exists() && picture.isFile()) {
+        if ("MISSING".equals(pictureLocation)) {
+            try {
+                img = ImageIOCS.read(Minecraft.getMinecraft().getResourceManager().getResource(missing).getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (picture.exists() && picture.isFile()) {
             try {
                 img = ImageIOCS.read(new FileInputStream(picture));
             } catch (final IOException e) {
