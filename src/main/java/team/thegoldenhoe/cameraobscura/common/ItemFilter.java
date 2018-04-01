@@ -26,11 +26,16 @@ public class ItemFilter extends Item {
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-	    return "item.cameraobscura." + FilterType.VALUES[stack.getMetadata() % FilterType.VALUES.length].getName();
+	    return "item.cameraobscura.filter." + FilterType.VALUES[stack.getMetadata() % FilterType.VALUES.length].getName();
 	}
 	
 	public static enum FilterType implements IStringSerializable {
-		SEPIA(PhotoFilters.SEPIA);
+		SEPIA(PhotoFilters.SEPIA),
+		GLOOMY(PhotoFilters.BLACK_AND_WHITE),
+		HAPPY(PhotoFilters.BRIGHT_AND_HAPPY),
+		RETRO(PhotoFilters.VINTAGE),
+		HIGH_CONTRAST(PhotoFilters.HIGH_CONTRAST)
+		;
 	
 		private PhotoFilter filter;
 		

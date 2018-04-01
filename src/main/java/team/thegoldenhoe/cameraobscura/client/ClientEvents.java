@@ -49,7 +49,7 @@ public enum ClientEvents {
         //   will still be showing since the buffer hasn't been cleared yet
         if (ClientProxy.photographPending && Minecraft.getMinecraft().gameSettings.hideGUI
                 && event.phase == TickEvent.Phase.END) {
-            PhotographHelper.capturePhotograph(PhotoFilters.VINTAGE);
+            PhotographHelper.capturePhotograph(PhotoFilters.HIGH_CONTRAST);
             // Restore hide gui setting to whatever it was before
             Minecraft.getMinecraft().gameSettings.hideGUI = ClientProxy.hideGUIDefault;
             ClientProxy.photographPending = false;

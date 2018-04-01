@@ -1,5 +1,13 @@
 package team.thegoldenhoe.cameraobscura.client;
 
+import java.awt.image.BufferedImage;
+import java.nio.IntBuffer;
+import java.util.ArrayList;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL14;
+
 import com.mia.craftstudio.CSModel;
 import com.mia.craftstudio.CraftStudioLib;
 import com.mia.craftstudio.minecraft.CraftStudioRendererVBO;
@@ -7,6 +15,7 @@ import com.mia.craftstudio.minecraft.ModelMetadata;
 import com.mia.craftstudio.minecraft.client.CSClientModelWrapperVBO;
 import com.mia.craftstudio.minecraft.client.CSClientModelWrapperVariableVBO;
 import com.mia.craftstudio.utils.ImageIOCS;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -18,15 +27,10 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GL14;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.Info;
 import team.thegoldenhoe.cameraobscura.client.renderers.RendererProp;
@@ -35,10 +39,6 @@ import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileProps;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 import team.thegoldenhoe.cameraobscura.utils.SoundRegistry;
-
-import java.awt.image.BufferedImage;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy implements IResourceManagerReloadListener {

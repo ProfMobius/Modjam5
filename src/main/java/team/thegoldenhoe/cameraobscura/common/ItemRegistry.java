@@ -22,14 +22,14 @@ public class ItemRegistry {
 
 		camera = registerItem(registry, new ItemCamera(), "camera");
 		itemProps = registerItem(registry, new ItemProps(), "csitem");
-		filter = registerMultiItem(registry, new ItemFilter(), "filter", "sepia");
+		filter = registerMultiItem(registry, new ItemFilter(), "filter", "filter_sepia", "filter_gloomy", "filter_happy", "filter_retro", "filter_high_contrast");
 	}
 
 	private static <I extends Item> I registerMultiItem(IForgeRegistry<Item> registry, I item, String name, String... variantNames) {
 		I ret = registerItem(registry, item, name, variantNames[0]);
 
 		for (int i = 1; i < variantNames.length; i++) {
-			CameraObscura.proxy.setModelResourceLocation(item, i, name, variantNames[i]);
+			CameraObscura.proxy.setModelResourceLocation(item, i, variantNames[i], "inventory");
 		}
 
 		return ret;
@@ -41,17 +41,11 @@ public class ItemRegistry {
 		item.setCreativeTab(CreativeTabs.TOOLS);
 
 		registry.register(item);
-		CameraObscura.proxy.setModelResourceLocation(item, 0, name, variantName);
+		CameraObscura.proxy.setModelResourceLocation(item, 0, variantName, "inventory");
 		return item;
 	}
 
 	private static <I extends Item> I registerItem(IForgeRegistry<Item> registry, I item, String name) {
-		item.setUnlocalizedName(Info.MODID + "." + name);
-		item.setRegistryName(name);
-		item.setCreativeTab(CreativeTabs.TOOLS);
-
-		registry.register(item);
-		CameraObscura.proxy.setModelResourceLocation(item, 0, name, "inventory");
-		return item;
+		return registerItem(registry, item, name, "inventory");
 	}
 }
