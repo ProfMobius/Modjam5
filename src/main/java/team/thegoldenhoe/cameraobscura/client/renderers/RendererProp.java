@@ -33,5 +33,14 @@ public class RendererProp extends TileEntitySpecialRenderer<TileProps> {
         }
 
         GlStateManager.popMatrix();
+
+        String greenScreen = tile.tileParams.get("greenScreen");
+        if (tile != null && greenScreen != null) {
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(x, y, z); // move rendering to TE rendering Offset XYZ
+            CSClientModelWrapperVBO wrapper = (CSClientModelWrapperVBO) ModelHandler.getModelByID(Integer.valueOf(greenScreen)).wrapper;
+            wrapper.render(tile, partialTicks, renderPass, showOutline, (tile.rotation * 22.5F), Vector3.invY, halfBlock, neghalfBlock);
+            GlStateManager.popMatrix();
+        }
     }
 }
