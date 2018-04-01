@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class CSModelMetadata extends ModelMetadata {
-    public boolean showOutline = false;
+    public boolean showOutline = true;
     public String name;
     public int decocraftModelID;
     public int lightLevel = 0;

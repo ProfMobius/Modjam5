@@ -13,9 +13,12 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import org.apache.logging.log4j.Logger;
 import team.thegoldenhoe.cameraobscura.common.CommonEvents;
 import team.thegoldenhoe.cameraobscura.common.CommonProxy;
+import team.thegoldenhoe.cameraobscura.common.craftstudio.BlockFake;
+import team.thegoldenhoe.cameraobscura.common.craftstudio.BlockProps;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileTypeMap;
 import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
@@ -33,10 +36,16 @@ public class CameraObscura {
     @SidedProxy(clientSide = Info.CLIENT_PROXY, serverSide = Info.SERVER_PROXY)
     public static CommonProxy proxy;
 
+    public static Block blockProps;
+    public static Block blockFake;
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         proxy.preInit();
+
+        ForgeRegistries.BLOCKS.register(blockProps = new BlockProps().setRegistryName("blockProps"));
+        ForgeRegistries.BLOCKS.register(blockFake = new BlockFake().setRegistryName("blockFake"));
 
         TileTypeMap.register();
         ModelHandler.loadModels();

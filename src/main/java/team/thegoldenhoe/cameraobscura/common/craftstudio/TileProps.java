@@ -29,7 +29,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.CameraObscura;
-import team.thegoldenhoe.cameraobscura.common.BlockRegistry;
 import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
@@ -131,7 +130,7 @@ public class TileProps extends TileEntity implements IAnimatedTile {
         TileProps tile = this;
         if (compound.hasKey("BlockType") && !ModelHandler.getModelByID(compound.getInteger("BlockType")).tileType.getTileClass().equals(tile.getClass())) {
             tile.invalidate();
-            tile = ((TileProps) ((BlockProps) BlockRegistry.blockProps).createNewTileEntity(world, compound.getInteger("BlockType")));
+            tile = ((TileProps) ((BlockProps) CameraObscura.blockProps).createNewTileEntity(world, compound.getInteger("BlockType")));
             final Chunk chunk = world.getChunkFromBlockCoords(this.getPos()); //Forge add NPE protection
             if (chunk != null) chunk.addTileEntity(this.getPos(), tile);
             world.addTileEntity(tile);
@@ -312,7 +311,7 @@ public class TileProps extends TileEntity implements IAnimatedTile {
                     if (!(lx == 0 && ly == 0 && lz == 0)) {
                         final BlockPos trgBlockPos = new BlockPos(lx + pos.getX(), ly + pos.getY(), lz + pos.getZ());
                         final Block targetBlock = world.getBlockState(trgBlockPos).getBlock();
-                        if (targetBlock == BlockRegistry.blockFake) {
+                        if (targetBlock == CameraObscura.blockFake) {
                             final TileFake targetFake = (TileFake) (world.getTileEntity(trgBlockPos));
                             final TileProps targetMaster = targetFake.getMaster();
                             if (targetMaster != null) {
@@ -320,8 +319,8 @@ public class TileProps extends TileEntity implements IAnimatedTile {
                             }
                         }
 
-                        if (targetBlock != BlockRegistry.blockProps) {
-                            world.setBlockState(trgBlockPos, BlockRegistry.blockFake.getDefaultState().withProperty(BlockFake.FACING, EnumFacing.NORTH));
+                        if (targetBlock != CameraObscura.blockProps) {
+                            world.setBlockState(trgBlockPos, CameraObscura.blockFake.getDefaultState().withProperty(BlockFake.FACING, EnumFacing.NORTH));
                             final TileFake fakeTile = (TileFake) (world.getTileEntity(trgBlockPos));
                             fakeTile.setMasterTile(this);
                             this.addSlave(fakeTile);
@@ -349,8 +348,8 @@ public class TileProps extends TileEntity implements IAnimatedTile {
                     if (!((blockState.getMaterial() == Material.AIR)
                             || (targetBlock == Blocks.TALLGRASS)
                             || (targetBlock == Blocks.SNOW_LAYER)
-                            || (isSneaking && targetBlock == BlockRegistry.blockFake)
-                            || (isSneaking && targetBlock == BlockRegistry.blockProps)
+                            || (isSneaking && targetBlock == CameraObscura.blockFake)
+                            || (isSneaking && targetBlock == CameraObscura.blockProps)
                     ))
                         return false;
                 }
@@ -370,8 +369,8 @@ public class TileProps extends TileEntity implements IAnimatedTile {
                     if (!((blockState.getMaterial() == Material.AIR)
                             || (targetBlock == Blocks.TALLGRASS)
                             || (targetBlock == Blocks.SNOW_LAYER)
-                            || (isSneaking && targetBlock == BlockRegistry.blockFake)
-                            || (isSneaking && targetBlock == BlockRegistry.blockProps)
+                            || (isSneaking && targetBlock == CameraObscura.blockFake)
+                            || (isSneaking && targetBlock == CameraObscura.blockProps)
                     ))
                         return false;
                 }
@@ -386,7 +385,7 @@ public class TileProps extends TileEntity implements IAnimatedTile {
             throw new RuntimeException(String.format("Something went terribly wrong. Invalid TE detected after placement ! - %s", tileentity));
         }
         // Check that the world has the correct TE type created
-        TileProps tileProps = ((TileProps) ((BlockProps) BlockRegistry.blockProps).createNewTileEntity(world, type));
+        TileProps tileProps = ((TileProps) ((BlockProps) CameraObscura.blockProps).createNewTileEntity(world, type));
         if (!tileProps.getClass().equals(tileentity.getClass())) {
             tileentity.invalidate();
             final Chunk chunk = world.getChunkFromBlockCoords(finalPos); //Forge add NPE protection

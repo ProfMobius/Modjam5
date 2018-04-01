@@ -3,10 +3,8 @@ package team.thegoldenhoe.cameraobscura.common;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
@@ -100,7 +98,7 @@ public class ItemProps extends Item {
         final int orient = MathHelper.floor((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         final EnumFacing enumfacing = EnumFacing.getHorizontal(orient);
 
-        if (!world.setBlockState(finalPos, BlockRegistry.blockProps.getDefaultState().withProperty(BlockProps.FACING, enumfacing))) {
+        if (!world.setBlockState(finalPos, CameraObscura.blockProps.getDefaultState().withProperty(BlockProps.FACING, enumfacing))) {
             return EnumActionResult.FAIL;
         }
 
@@ -123,7 +121,7 @@ public class ItemProps extends Item {
         //world.notifyBlockUpdate(finalPos, world.getBlockState(finalPos), world.getBlockState(finalPos), 3);
         world.checkLight(finalPos);
 
-        final SoundType soundtype = BlockRegistry.blockProps.getSoundType();
+        final SoundType soundtype = CameraObscura.blockProps.getSoundType();
         world.playSound((EntityPlayer) null, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
 
         stack.setCount(stack.getCount() - 1);
@@ -131,23 +129,6 @@ public class ItemProps extends Item {
         player.stopActiveHand();
         return EnumActionResult.SUCCESS;
     }
-
-    @Override
-    public ItemStack onItemUseFinish(final ItemStack stack, final World worldIn, final EntityLivingBase entityLiving) {
-        final CSModelMetadata model = ModelHandler.getModelFromStack(stack);
-
-        if (model.isEdible() && entityLiving instanceof EntityPlayer) {
-            final Integer foodLevel = Integer.valueOf(model.tileParams.getOrDefault("foodLevel", "1"));
-            final Float foodSaturation = Float.valueOf(model.tileParams.getOrDefault("foodSaturation", "0.1f"));
-
-            final EntityPlayer entityplayer = (EntityPlayer) entityLiving;
-            entityplayer.getFoodStats().addStats(foodLevel, foodSaturation);
-            worldIn.playSound((EntityPlayer) null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-            stack.shrink(1);
-        }
-        return stack;
-    }
-
 
     @Override
     public void getSubItems(final CreativeTabs tab, final NonNullList<ItemStack> subItems) {
@@ -174,12 +155,6 @@ public class ItemProps extends Item {
     public String getUnlocalizedName(final ItemStack stack) {
         return "item.cameraobscura." + ModelHandler.getModelFromStack(stack).name.toLowerCase().replace(" ", "_").replace("'", "_");
     }
-
-    //	@SideOnly(Side.CLIENT)
-    //	@Override
-    //	public void registerIcons(IIconRegister registrar) {
-    //		this.itemIcon = registrar.registerIcon("cultivation:mobcreeper");
-    //	}
 
     @Override
     public CreativeTabs[] getCreativeTabs() {

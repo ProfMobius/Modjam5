@@ -15,8 +15,11 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -25,7 +28,10 @@ import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL14;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.Info;
+import team.thegoldenhoe.cameraobscura.client.renderers.RendererProp;
 import team.thegoldenhoe.cameraobscura.common.CommonProxy;
+import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
+import team.thegoldenhoe.cameraobscura.common.craftstudio.TileProps;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 import team.thegoldenhoe.cameraobscura.utils.SoundRegistry;
 
@@ -47,12 +53,14 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
 
     @Override
     public void preInit() {
-
+        ClientRegistry.bindTileEntitySpecialRenderer(TileProps.class, new RendererProp());
+        ForgeHooksClient.registerTESRItemStack(ItemRegistry.itemProps, 0, TileProps.class);
     }
 
     @Override
     public void init() {
-        MinecraftForge.EVENT_BUS.register(new ClientEvents());
+        MinecraftForge.EVENT_BUS.register(ClientEvents.INSTANCE);
+        FMLCommonHandler.instance().bus().register(ClientEvents.INSTANCE);
     }
 
     /**
