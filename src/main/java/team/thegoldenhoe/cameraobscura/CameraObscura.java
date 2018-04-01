@@ -1,20 +1,18 @@
 package team.thegoldenhoe.cameraobscura;
 
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ChunkCache;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import org.apache.logging.log4j.Logger;
+import team.thegoldenhoe.cameraobscura.common.COGuiHandler;
+import team.thegoldenhoe.cameraobscura.common.CameraCapabilities;
 import team.thegoldenhoe.cameraobscura.common.CommonEvents;
 import team.thegoldenhoe.cameraobscura.common.CommonProxy;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.BlockFake;
@@ -22,9 +20,6 @@ import team.thegoldenhoe.cameraobscura.common.craftstudio.BlockProps;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileTypeMap;
 import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Mod(modid = Info.MODID, name = Info.NAME, version = Info.VERSION)
 public class CameraObscura {
@@ -47,8 +42,12 @@ public class CameraObscura {
         ForgeRegistries.BLOCKS.register(blockProps = new BlockProps().setRegistryName("blockProps"));
         ForgeRegistries.BLOCKS.register(blockFake = new BlockFake().setRegistryName("blockFake"));
 
+        CameraCapabilities.register();
+        
         TileTypeMap.register();
         ModelHandler.loadModels();
+        
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new COGuiHandler());
     }
 
     @EventHandler

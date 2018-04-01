@@ -20,17 +20,17 @@ public class CommonEvents {
 
 	@SubscribeEvent
 	public void cancelEntityInteractionSpecific(EntityInteractSpecific event) {
-		cancelClick(event.getEntityPlayer(), event);
+		//cancelClick(event.getEntityPlayer(), event);
 	}
 
 	@SubscribeEvent
 	public void cancelEntityInteraction(EntityInteract event) {
-		cancelClick(event.getEntityPlayer(), event);
+		//cancelClick(event.getEntityPlayer(), event);
 	}
 
 	@SubscribeEvent
 	public void cancelRightClickBlock(RightClickBlock event) {
-		cancelClick(event.getEntityPlayer(), event);
+		//cancelClick(event.getEntityPlayer(), event);
 	}
 
 	private void cancelClick(EntityPlayer player, Event event) {
