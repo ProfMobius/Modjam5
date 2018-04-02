@@ -15,6 +15,7 @@ public class ItemFilter extends Item {
 	public ItemFilter() {
 		super();
 		setHasSubtypes(true);
+		setMaxStackSize(1);
 	}
 	
 	@Override

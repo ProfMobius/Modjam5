@@ -3,3 +3,7 @@ item.cameraobscura.filter.gloomy.name=Gloomy Filter
 item.cameraobscura.filter.high_contrast.name=High Contrast Filter
 item.cameraobscura.filter.retro.name=Retro Filter
 item.cameraobscura.filter.happy.name=Bright 'n' Happy Filter
+
+# Gui translations
+cameraobscura.gui.sdcard=SD Card
+cameraobscura.gui.filters=Filters
