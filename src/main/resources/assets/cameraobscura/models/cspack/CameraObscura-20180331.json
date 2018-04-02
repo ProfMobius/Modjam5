@@ -3,7 +3,8 @@
     "name": "Stuffed Creeper",
     "decocraftModelID": 0,
     "craftstudioAssetName": "0000_Stuffed Creeper",
-    "craftstudioAssetID": 549
+    "craftstudioAssetID": 549,
+    "creativeInv": false
   },
   {
     "name": "Picture frame",
@@ -19,7 +20,8 @@
     "name": "Green screen",
     "decocraftModelID": 2,
     "craftstudioAssetName": "GreenScreen",
-    "craftstudioAssetID": 2700
+    "craftstudioAssetID": 2700,
+    "creativeInv" : false
   },
   {
     "name": "Polaroid Camera",
@@ -45,7 +47,8 @@
     "name": "Polaroid GreenScreen",
     "decocraftModelID": 5,
     "craftstudioAssetName": "Polaroid GreenScreen",
-    "craftstudioAssetID": 2704
+    "craftstudioAssetID": 2704,
+    "creativeInv" : false
   },
   {
     "name": "Vintage Camera",

@@ -151,6 +151,10 @@ public class ItemProps extends Item {
         final ArrayList<CSModelMetadata> metaList = new ArrayList<CSModelMetadata>(ModelHandler.getAllModelMetadata());
         Collections.sort(metaList);
         for (final CSModelMetadata data : metaList) {
+            if (!data.creativeInv){
+                continue;
+            }
+
             if (tab == data.tab.get() || tab == CreativeTabs.SEARCH || tab == null) {
                 subItems.add(new ItemStack(ItemRegistry.itemProps, 1, data.decocraftModelID));
             }

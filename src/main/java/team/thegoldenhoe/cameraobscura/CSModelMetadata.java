@@ -33,6 +33,7 @@ public class CSModelMetadata extends ModelMetadata {
     public String sound;
     public String recipe;
     public int placedModel = -1;
+    public boolean creativeInv = true;
 
     public Map<Integer, JsonObject> variants = null;
 
