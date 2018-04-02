@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TilePictureFrame extends TileProps implements ITickable {
     private String pictureLocation = "";
     private int glTextureID = 0;
-    private AtomicBoolean dirty = new AtomicBoolean(false);
+    private AtomicBoolean dirty = new AtomicBoolean(true);
 
     public void setPicture(final String pictureLocation) {
         this.pictureLocation = pictureLocation;
@@ -46,6 +46,8 @@ public class TilePictureFrame extends TileProps implements ITickable {
                 setPicture("LOADING");
                 CONetworkHandler.NETWORK.sendToServer(new MessagePhotoRequest(world.provider.getDimension(), pos, pictureLocation));
             }
+        } else {
+            setPicture(pictureLocation);
         }
         return true;
     }
@@ -67,6 +69,13 @@ public class TilePictureFrame extends TileProps implements ITickable {
     @Override
     public void update() {
         if (dirty.get() && world.isRemote) {
+            if (ClientPhotoCache.INSTANCE.getImage(pictureLocation) == null) {
+                if (!"".equals(pictureLocation) && !"MISSING".equals(pictureLocation) && !"LOADING".equals(pictureLocation)) {
+                    setPicture("LOADING");
+                    CONetworkHandler.NETWORK.sendToServer(new MessagePhotoRequest(world.provider.getDimension(), pos, pictureLocation));
+                }
+            }
+
             glTextureID = CameraObscura.proxy.getPhotographGLId(glTextureID, pictureLocation);
             dirty.set(false);
         }
