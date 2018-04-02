@@ -11,6 +11,7 @@
     "decocraftModelID": 1,
     "craftstudioAssetName": "PictureFrame",
     "craftstudioAssetID": 1985,
+    "scale": 0.5,
     "tileType": "PictureFrame",
     "tileParams": {
       "greenScreen": "2"
@@ -21,7 +22,8 @@
     "decocraftModelID": 2,
     "craftstudioAssetName": "GreenScreen",
     "craftstudioAssetID": 2700,
-    "creativeInv" : false
+    "scale": 0.5,
+    "creativeInv": false
   },
   {
     "name": "Polaroid Camera",
@@ -48,7 +50,7 @@
     "decocraftModelID": 5,
     "craftstudioAssetName": "Polaroid GreenScreen",
     "craftstudioAssetID": 2704,
-    "creativeInv" : false
+    "creativeInv": false
   },
   {
     "name": "Vintage Camera",
