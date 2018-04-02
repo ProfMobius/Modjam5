@@ -76,7 +76,8 @@ public class TilePictureFrame extends TileProps implements ITickable {
                 }
             }
 
-            glTextureID = CameraObscura.proxy.getPhotographGLId(glTextureID, pictureLocation);
+            float aspectRatio = tileParams.containsKey("aspectRatio") ? Float.valueOf(tileParams.get("aspectRatio")) : 1.0f;
+            glTextureID = CameraObscura.proxy.uploadPictureToGPU(glTextureID, pictureLocation, aspectRatio);
             dirty.set(false);
         }
     }

@@ -174,7 +174,7 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
     }
 
     @Override
-    public int getPhotographGLId(final int oldID, final String pictureLocation) {
+    public int uploadPictureToGPU(final int oldID, final String pictureLocation, final float aspectRatio) {
         TextureUtil.deleteTexture(oldID);
         int glID = 0;
 
@@ -195,8 +195,14 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
         }
 
         if (img != null) {
+            final int width = img.getWidth();
+            final int height = img.getHeight();
+
+            final int croppedWidth = ((int) Math.floor(height * aspectRatio));
+            final int offset = (width - croppedWidth) / 2;
+
             glID = TextureUtil.glGenTextures();
-            TextureUtil.uploadTextureImage(glID, img);
+            TextureUtil.uploadTextureImage(glID, img.getSubimage(offset, 0, croppedWidth, height));
         }
 
         return glID;

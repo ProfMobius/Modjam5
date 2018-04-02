@@ -34,7 +34,7 @@ public class CommonProxy {
         SoundRegistry.registerAllSounds(ModelHandler.getAllModelMetadata());
     }
 
-    public int getPhotographGLId(final int oldID, final String pictureLocation) {
+    public int uploadPictureToGPU(final int oldID, final String pictureLocation, final float aspectRatio) {
         return 0;
     }
 
