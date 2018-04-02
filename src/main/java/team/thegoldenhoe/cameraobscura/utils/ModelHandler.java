@@ -24,7 +24,9 @@ import java.util.Set;
 
 public class ModelHandler {
 
-    private static Map<Integer, CSModelMetadata> modelData = new HashMap<Integer, CSModelMetadata>() {
+    public static ICSProject csproject;
+
+    public static Map<Integer, CSModelMetadata> modelData = new HashMap<Integer, CSModelMetadata>() {
         @Override
         public CSModelMetadata get(final Object key) {
             return super.containsKey(key) ? super.get(key) : super.get(0);
@@ -32,7 +34,7 @@ public class ModelHandler {
     };
 
     public static void loadModels() {
-        final ICSProject csproject = CSLibMod.getCSProjectAndLoad("cspack", null, new IPackReaderCallback() {
+        csproject = CSLibMod.getCSProjectAndLoad("cspack", null, new IPackReaderCallback() {
             private ProgressManager.ProgressBar progressBar = null;
 
             @Override

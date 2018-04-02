@@ -17,6 +17,7 @@ import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -28,6 +29,7 @@ import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL14;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.Info;
+import team.thegoldenhoe.cameraobscura.client.commands.CommandMakeResources;
 import team.thegoldenhoe.cameraobscura.client.renderers.RendererProp;
 import team.thegoldenhoe.cameraobscura.common.CommonProxy;
 import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
@@ -61,6 +63,8 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileProps.class, new RendererProp());
         ForgeHooksClient.registerTESRItemStack(ItemRegistry.itemProps, 0, TileProps.class);
+
+        ClientCommandHandler.instance.registerCommand(new CommandMakeResources());
     }
 
     @Override
@@ -195,14 +199,33 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
         }
 
         if (img != null) {
+            glID = TextureUtil.glGenTextures();
+
             final int width = img.getWidth();
             final int height = img.getHeight();
+            final float imgAspectRatio = (float) width / (float) height;
 
-            final int croppedWidth = ((int) Math.floor(height * aspectRatio));
-            final int offset = (width - croppedWidth) / 2;
+            if (imgAspectRatio > aspectRatio) {
+                final int croppedWidth = ((int) Math.floor(height * aspectRatio));
+                final int offset = (width - croppedWidth) / 2;
+                TextureUtil.uploadTextureImage(glID, img.getSubimage(offset, 0, croppedWidth, height));
+            } else {
+                final int croppedHeight = ((int) Math.floor(width / aspectRatio));
+                final int offset = (height - croppedHeight) / 2;
+                TextureUtil.uploadTextureImage(glID, img.getSubimage(0, offset, width, croppedHeight));
+            }
 
-            glID = TextureUtil.glGenTextures();
-            TextureUtil.uploadTextureImage(glID, img.getSubimage(offset, 0, croppedWidth, height));
+
+//            if (aspectRatio > 1.0f) {
+//                final int croppedHeight = ((int) Math.floor(width / aspectRatio));
+//                final int offset = (height - croppedHeight) / 2;
+//                TextureUtil.uploadTextureImage(glID, img.getSubimage(0, offset, width, croppedHeight));
+//            } else {
+//                final int croppedWidth = ((int) Math.floor(height * aspectRatio));
+//                final int offset = (width - croppedWidth) / 2;
+//                TextureUtil.uploadTextureImage(glID, img.getSubimage(offset, 0, croppedWidth, height));
+//            }
+//            TextureUtil.uploadTextureImage(glID, img);
         }
 
         return glID;
