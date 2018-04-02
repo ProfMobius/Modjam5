@@ -15,7 +15,7 @@ public class ItemSDCard extends Item {
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
         return CameraCapabilities.getProvider(CameraCapabilities.getSDCardCapability(), () -> {
-            ISDCardNBT ret = new ISDCardNBT.SDCardHandler() {
+            ICameraStorageNBT ret = new ICameraStorageNBT.SDCardHandler() {
 
             };
             if (stack.hasTagCompound()) {

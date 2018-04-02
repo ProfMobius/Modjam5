@@ -10,7 +10,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public interface ICameraNBT extends IItemHandler, INBTSerializable<NBTTagCompound> {
 	
-	ISDCardNBT getSDCard();
+	ICameraStorageNBT getSDCard();
 	Pair<IFilterNBT, IFilterNBT> getFilters();
 	
     @Override
@@ -43,7 +43,7 @@ public interface ICameraNBT extends IItemHandler, INBTSerializable<NBTTagCompoun
 		}
 
 		@Override
-		public ISDCardNBT getSDCard() {
+		public ICameraStorageNBT getSDCard() {
 			ItemStack sdCard = getStackInSlot(0);
 			
 			if (!sdCard.isEmpty()) {
@@ -55,6 +55,7 @@ public interface ICameraNBT extends IItemHandler, INBTSerializable<NBTTagCompoun
 
 		@Override
 		public Pair<IFilterNBT, IFilterNBT> getFilters() {
+			// TODO
 			return null;
 		}
 

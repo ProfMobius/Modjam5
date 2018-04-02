@@ -13,7 +13,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import team.thegoldenhoe.cameraobscura.common.ICameraNBT.CameraHandler;
-import team.thegoldenhoe.cameraobscura.common.ISDCardNBT.SDCardHandler;
+import team.thegoldenhoe.cameraobscura.common.ICameraStorageNBT.SDCardHandler;
 
 public class CameraCapabilities {
 
@@ -21,9 +21,9 @@ public class CameraCapabilities {
 	@Nonnull
 	private static Capability<ICameraNBT> cameraCapability;
 	
-	@CapabilityInject(ISDCardNBT.class)
+	@CapabilityInject(ICameraStorageNBT.class)
 	@Nonnull
-	private static Capability<ISDCardNBT> sdCardCapability;
+	private static Capability<ICameraStorageNBT> sdCardCapability;
 	
 	@Nonnull
 	public static Capability<ICameraNBT> getCameraCapability() {
@@ -31,7 +31,7 @@ public class CameraCapabilities {
 	}
 	
 	@Nonnull
-	public static Capability<ISDCardNBT> getSDCardCapability() {
+	public static Capability<ICameraStorageNBT> getSDCardCapability() {
 		return sdCardCapability;
 	}
 	
@@ -52,15 +52,15 @@ public class CameraCapabilities {
         }, CameraHandler::new);
         
         // SD Card capability
-        CapabilityManager.INSTANCE.register(ISDCardNBT.class, new Capability.IStorage<ISDCardNBT>() {
+        CapabilityManager.INSTANCE.register(ICameraStorageNBT.class, new Capability.IStorage<ICameraStorageNBT>() {
 
             @Override
-            public NBTBase writeNBT(Capability<ISDCardNBT> capability, ISDCardNBT instance, EnumFacing side) {
+            public NBTBase writeNBT(Capability<ICameraStorageNBT> capability, ICameraStorageNBT instance, EnumFacing side) {
                 return instance.serializeNBT();
             }
 
             @Override
-            public void readNBT(Capability<ISDCardNBT> capability, ISDCardNBT instance, EnumFacing side, NBTBase nbt) {
+            public void readNBT(Capability<ICameraStorageNBT> capability, ICameraStorageNBT instance, EnumFacing side, NBTBase nbt) {
                 instance.deserializeNBT((NBTTagCompound) nbt);
             }
             

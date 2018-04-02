@@ -17,10 +17,18 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.imageio.ImageIO;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.Utils;
+import team.thegoldenhoe.cameraobscura.common.CameraCapabilities;
+import team.thegoldenhoe.cameraobscura.common.ICameraNBT;
+import team.thegoldenhoe.cameraobscura.common.ICameraStorageNBT;
+import team.thegoldenhoe.cameraobscura.common.ItemProps;
+import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
 public class PhotoDataHandler {
 
@@ -86,7 +94,7 @@ public class PhotoDataHandler {
 			byte[] bytes = null;
 			ByteBuffer buffer = null;
 			UUID photographerUUID = null;
-			ItemStack camera = null;
+			ItemStack camera = ItemStack.EMPTY;
 
 			// Iterate through all messages received for this uuid
 			for (MessagePhotoData message : messages) {
@@ -105,33 +113,62 @@ public class PhotoDataHandler {
 				buffer.put(message.data);
 			}
 
-			saveImage(createImageFromBytes(bytes));
+			String savePath = saveImage(createImageFromBytes(bytes));
 			
 			// TODO: Check type of camera here, decrement film / storage space
 			// if digital, save to sd card if present
 			// if manual, save to photograph, decrement film level
-			postImageSaved(world, photographerUUID, camera);
+			if (savePath != null) {
+				postImageSaved(world, photographerUUID, camera, savePath);
+			} else {
+				System.err.println("Save path for image was null. This should never happen, but it did. Look at you, you special person!");
+			}
 			
 			messageBuffer.remove(uuid);
 		}
 	}
 	
-	private static void postImageSaved(World world, UUID photographerUUID, ItemStack camera) {
+	private static void postImageSaved(World world, UUID photographerUUID, ItemStack stack, String savePath) {
 		if (photographerUUID == null) {
 			throw new NullPointerException("Photographer UUID is null, which means we can't produce an item. Sorry :(");
 		}
 		
-		if (camera == null) {
+		if (stack.isEmpty()) {
 			throw new NullPointerException("Camera is null, which means we don't know how to produce the item properly. Sorry :(");
 		}
 		
-		//if ()
+		if (stack.getItem() != null && stack.getItem() instanceof ItemProps) {
+			ItemProps camera = (ItemProps)stack.getItem();
+
+			CSModelMetadata data = ModelHandler.getModelFromStack(stack);
+			CameraTypes type = data.getCameraType();
+			switch (type) {
+			case VINTAGE:
+				break;
+			case POLAROID:
+				break;
+			case DIGITAL:
+				ICameraNBT cap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
+				ItemStack sdCard = cap.getStackInSlot(0);
+				ICameraStorageNBT storage = cap.getSDCard();
+				if (storage.canSave()) {
+					storage.saveImage(savePath);
+					cap.markDirty();
+				} else {
+					System.err.println("Somehow between when the picture was taken and saved, the storage device became full. Whoops!");
+				}
+				break;
+			case NOT_A_CAMERA:
+				System.err.println("Not sure how we got here, but a non camera was trying to save an image. Whoops!");
+				break;
+			}
+		}
 	}
 
 	/**
 	 * Takes a BufferedImage and saves it to the photographs folder on the server
 	 */
-	private static void saveImage(BufferedImage image) {
+	private static String saveImage(BufferedImage image) {
 		try {
 			String dirName = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath();
 			File directory = new File(dirName, "photographs");
@@ -139,9 +176,11 @@ public class PhotoDataHandler {
 			File imageFile = Utils.getTimestampedPNGFileForDirectory(directory);
 			imageFile = imageFile.getCanonicalFile();
 			ImageIO.write(image, "png", imageFile);
+			return imageFile.getAbsolutePath();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	private static BufferedImage createImageFromBytes(byte[] bytes) {

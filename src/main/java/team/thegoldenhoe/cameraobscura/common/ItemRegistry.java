@@ -17,6 +17,7 @@ public class ItemRegistry {
 	public static Item filter;
 	public static Item sdCard;
 	public static Item photograph;
+	public static Item polaroidStack;
 
 	// cameras
 	public static Item cameraPolaroid;
@@ -32,6 +33,7 @@ public class ItemRegistry {
 		filter = registerMultiItem(registry, new ItemFilter(), "filter", "filter_sepia", "filter_gloomy", "filter_happy", "filter_retro", "filter_high_contrast");
 		sdCard = registerItem(registry, new ItemSDCard(), "sdcard");
 		photograph = registerItem(registry, new ItemPhotograph(), "photograph");
+		polaroidStack = registerItem(registry, new ItemPolaroidStack(), "polaroid_stack");
 		
 		cameraPolaroid = registerItem(registry, new ItemCamera(), "camera_polaroid");
 		cameraOldFashioned = registerItem(registry, new ItemCamera(), "camera_old_fashioned");

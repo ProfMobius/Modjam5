@@ -7,3 +7,10 @@ item.cameraobscura.filter.happy.name=Bright 'n' Happy Filter
 # Gui translations
 cameraobscura.gui.sdcard=SD Card
 cameraobscura.gui.filters=Filters
+
+# Chat messages
+cameraobscura.chat.missing_sd=Your SD card is missing!
+cameraobscura.chat.full_sd=Your SD card is full!
+cameraobscura.chat.missing_stacks=You have no polaroid stacks to save to!
+cameraobscura.chat.full_stacks=The polaroid stacks in your camera are full!
+cameraobscura.chat.missing_paper=You have no paper in your camera!
