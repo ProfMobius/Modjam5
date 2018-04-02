@@ -4,6 +4,7 @@ import com.mia.craftstudio.minecraft.CraftStudioModelWrapper;
 import com.mia.craftstudio.minecraft.ModelMetadata;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
+import team.thegoldenhoe.cameraobscura.common.craftstudio.TilePictureFrame;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 import team.thegoldenhoe.cameraobscura.utils.SoundRegistry;
 
@@ -34,7 +35,7 @@ public class CommonProxy {
         SoundRegistry.registerAllSounds(ModelHandler.getAllModelMetadata());
     }
 
-    public int uploadPictureToGPU(final int oldID, final String pictureLocation, final float aspectRatio) {
+    public int uploadPictureToGPU(final int oldID, final String pictureLocation, TilePictureFrame.Status status, final float aspectRatio) {
         return 0;
     }
 

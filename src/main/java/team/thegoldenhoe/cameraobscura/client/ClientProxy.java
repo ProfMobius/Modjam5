@@ -33,6 +33,7 @@ import team.thegoldenhoe.cameraobscura.client.commands.CommandMakeResources;
 import team.thegoldenhoe.cameraobscura.client.renderers.RendererProp;
 import team.thegoldenhoe.cameraobscura.common.CommonProxy;
 import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
+import team.thegoldenhoe.cameraobscura.common.craftstudio.TilePictureFrame;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileProps;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 import team.thegoldenhoe.cameraobscura.utils.SoundRegistry;
@@ -178,27 +179,29 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
     }
 
     @Override
-    public int uploadPictureToGPU(final int oldID, final String pictureLocation, final float aspectRatio) {
+    public int uploadPictureToGPU(final int oldID, final String pictureLocation, final TilePictureFrame.Status status, final float aspectRatio) {
         TextureUtil.deleteTexture(oldID);
         int glID = 0;
 
         BufferedImage img = ClientPhotoCache.INSTANCE.getImage(pictureLocation);
 
-        if ("MISSING".equals(pictureLocation)) {
+        if (status == TilePictureFrame.Status.MISSING) {
             try {
                 img = ImageIOCS.read(Minecraft.getMinecraft().getResourceManager().getResource(missing).getInputStream());
+                glID = TextureUtil.glGenTextures();
+                TextureUtil.uploadTextureImage(glID, img);
             } catch (final IOException e) {
                 e.printStackTrace();
             }
-        } else if ("LOADING".equals(pictureLocation)) {
+        } else if (status == TilePictureFrame.Status.LOADING) {
             try {
                 img = ImageIOCS.read(Minecraft.getMinecraft().getResourceManager().getResource(loading).getInputStream());
+                glID = TextureUtil.glGenTextures();
+                TextureUtil.uploadTextureImage(glID, img);
             } catch (final IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        if (img != null) {
+        } else if (img != null && status == TilePictureFrame.Status.AVAILABLE) {
             glID = TextureUtil.glGenTextures();
 
             final int width = img.getWidth();

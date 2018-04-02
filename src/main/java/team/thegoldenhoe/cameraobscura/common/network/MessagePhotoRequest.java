@@ -3,11 +3,11 @@ package team.thegoldenhoe.cameraobscura.common.network;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import org.apache.commons.io.IOUtils;
+import team.thegoldenhoe.cameraobscura.common.craftstudio.TilePictureFrame;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,8 +58,8 @@ public class MessagePhotoRequest implements IMessage {
 
             final File picture = PhotoDataHandler.getFile(message.location);
             if (picture == null) {
-                final MessageFrameStatusUpdate frameUpdateMsg = new MessageFrameStatusUpdate(message.dim, message.x, message.y, message.z, "MISSING");
-                CONetworkHandler.NETWORK.sendToAllAround(frameUpdateMsg, new NetworkRegistry.TargetPoint(message.dim, message.x, message.y, message.z, 5 * 16.0));
+                final MessageFrameStatusUpdate frameUpdateMsg = new MessageFrameStatusUpdate(message.dim, message.x, message.y, message.z, message.location, TilePictureFrame.Status.MISSING);
+                CONetworkHandler.NETWORK.sendToDimension(frameUpdateMsg, message.dim);
                 return null;
             }
 
@@ -90,8 +90,8 @@ public class MessagePhotoRequest implements IMessage {
                 e.printStackTrace();
             }
 
-            final MessageFrameStatusUpdate frameUpdateMsg = new MessageFrameStatusUpdate(message.dim, message.x, message.y, message.z, message.location);
-            CONetworkHandler.NETWORK.sendToAllAround(frameUpdateMsg, new NetworkRegistry.TargetPoint(message.dim, message.x, message.y, message.z, 5 * 16.0));
+            final MessageFrameStatusUpdate frameUpdateMsg = new MessageFrameStatusUpdate(message.dim, message.x, message.y, message.z, message.location, TilePictureFrame.Status.AVAILABLE);
+            CONetworkHandler.NETWORK.sendToDimension(frameUpdateMsg, message.dim);
             return null;
         }
     }

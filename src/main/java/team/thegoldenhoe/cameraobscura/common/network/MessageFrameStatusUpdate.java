@@ -20,17 +20,19 @@ public class MessageFrameStatusUpdate implements IMessage {
     private int y;
     private int z;
     private String location;
+    private TilePictureFrame.Status status;
 
     public MessageFrameStatusUpdate() {
         super();
     }
 
-    public MessageFrameStatusUpdate(final int dim, final int x, final int y, final int z, final String location) {
+    public MessageFrameStatusUpdate(final int dim, final int x, final int y, final int z, final String location, final TilePictureFrame.Status status) {
         this.dim = dim;
         this.x = x;
         this.y = y;
         this.z = z;
         this.location = location;
+        this.status = status;
     }
 
     @Override
@@ -40,6 +42,7 @@ public class MessageFrameStatusUpdate implements IMessage {
         y = buf.readInt();
         z = buf.readInt();
         location = ByteBufUtils.readUTF8String(buf);
+        status = TilePictureFrame.Status.values()[buf.readInt()];
     }
 
     @Override
@@ -49,6 +52,7 @@ public class MessageFrameStatusUpdate implements IMessage {
         buf.writeInt(y);
         buf.writeInt(z);
         ByteBufUtils.writeUTF8String(buf, location);
+        buf.writeInt(status.ordinal());
     }
 
     public static final class Handler implements IMessageHandler<MessageFrameStatusUpdate, IMessage> {
@@ -64,7 +68,7 @@ public class MessageFrameStatusUpdate implements IMessage {
             final TileEntity tileEntity = world.getTileEntity(new BlockPos(message.x, message.y, message.z));
             if (tileEntity instanceof TilePictureFrame) {
                 final TilePictureFrame frame = (TilePictureFrame) tileEntity;
-                frame.setPicture(message.location);
+                frame.setStatus(message.status);
             }
 
             return null;
