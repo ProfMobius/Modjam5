@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ScreenShotHelper;
-import team.thegoldenhoe.cameraobscura.common.ItemCamera;
+import team.thegoldenhoe.cameraobscura.common.ItemProps;
 import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
 import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoDataToServer;
 import team.thegoldenhoe.cameraobscura.common.network.PhotoDataHandler;
@@ -40,9 +40,9 @@ public class PhotographHelper {
 				byte[] subImageBytes = new byte[buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining()];
 				buff.get(subImageBytes, 0, buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining());
 				ItemStack stack = mc.player.getHeldItemMainhand();
-				if (stack.isEmpty() || !(stack.getItem() instanceof ItemCamera)) {
+				if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
 					stack = mc.player.getHeldItemOffhand();
-					if (stack.isEmpty() || !(stack.getItem() instanceof ItemCamera)) {
+					if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
 						System.err.println("CAMERA FAIL!");
 						return;
 					}

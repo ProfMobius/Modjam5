@@ -44,10 +44,17 @@ public interface ICameraNBT extends IItemHandler, INBTSerializable<NBTTagCompoun
 
 		@Override
 		public ICameraStorageNBT getStorageDevice() {
-			ItemStack sdCard = getStackInSlot(0);
+			ItemStack storageStack = getStackInSlot(0);
 			
-			if (!sdCard.isEmpty()) {
-				return sdCard.getCapability(CameraCapabilities.getSDCardCapability(), null);
+			if (!storageStack.isEmpty()) {
+				if (storageStack.getItem() instanceof ItemSDCard) {
+					return storageStack.getCapability(CameraCapabilities.getSDCardStorageCapability(), null);	
+				} else if (storageStack.getItem() instanceof ItemPolaroidStack) {
+					System.out.println("Polaroid stack");
+					return storageStack.getCapability(CameraCapabilities.getPolaroidStackCapability(), null);
+				} else if (storageStack.getItem() instanceof ItemVintagePaper) {
+					return storageStack.getCapability(CameraCapabilities.getVintageStorageCapability(), null);
+				}
 			}
 			
 			return null;

@@ -4,6 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import team.thegoldenhoe.cameraobscura.common.ICameraStorageNBT.SDCardStorage;
 
 public class ItemSDCard extends Item {
 
@@ -14,8 +15,8 @@ public class ItemSDCard extends Item {
 	
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-        return CameraCapabilities.getProvider(CameraCapabilities.getSDCardCapability(), () -> {
-            ICameraStorageNBT ret = new ICameraStorageNBT.SDCardHandler() {
+        return CameraCapabilities.getProvider(CameraCapabilities.getSDCardStorageCapability(), () -> {
+        	SDCardStorage ret = new SDCardStorage() {
 
             };
             if (stack.hasTagCompound()) {

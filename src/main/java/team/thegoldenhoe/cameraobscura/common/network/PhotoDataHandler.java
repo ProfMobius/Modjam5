@@ -106,7 +106,7 @@ public class PhotoDataHandler {
 					photographerUUID = UUID.fromString(message.playerUUID);
 				}
 				
-				if (camera == null) {
+				if (camera.isEmpty()) {
 					camera = message.camera;
 				}
 				
@@ -146,13 +146,25 @@ public class PhotoDataHandler {
 			case VINTAGE:
 				break;
 			case POLAROID:
+				ICameraNBT cameraCap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
+				ItemStack storageStack = cameraCap.getStackInSlot(0);
+				ICameraStorageNBT polaroidStorage = cameraCap.getStorageDevice();
+				if (polaroidStorage.canSave()) {
+					System.out.println("Num currently saved PRE(server): " + polaroidStorage.getSavedImagePaths().size());
+					System.out.println("Saving on the server " + polaroidStorage);
+					polaroidStorage.saveImage(savePath);
+					System.out.println("Num currently saved POST(server): " + polaroidStorage.getSavedImagePaths().size());
+					cameraCap.markDirty();
+				} else {
+					System.err.println("Somehow between when the picture was taken and saved, the storage device became full. Whoops!");
+				}
 				break;
 			case DIGITAL:
 				ICameraNBT cap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
 				ItemStack sdCard = cap.getStackInSlot(0);
-				ICameraStorageNBT storage = cap.getStorageDevice();
-				if (storage.canSave()) {
-					storage.saveImage(savePath);
+				ICameraStorageNBT digitalStorage = cap.getStorageDevice();
+				if (digitalStorage.canSave()) {
+					digitalStorage.saveImage(savePath);
 					cap.markDirty();
 				} else {
 					System.err.println("Somehow between when the picture was taken and saved, the storage device became full. Whoops!");

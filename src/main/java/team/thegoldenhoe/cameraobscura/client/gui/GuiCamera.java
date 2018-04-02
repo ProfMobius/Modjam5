@@ -2,21 +2,24 @@ package team.thegoldenhoe.cameraobscura.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
 import team.thegoldenhoe.cameraobscura.client.ClientUtils;
+import team.thegoldenhoe.cameraobscura.common.ICameraContainer;
 
 public class GuiCamera extends GuiContainer {
 
-	public GuiCamera(Container inventorySlots) {
-		super(inventorySlots);
+	private ICameraContainer container;
+
+	public GuiCamera(ICameraContainer inventorySlots) {
+		super((Container) inventorySlots);
+		this.container = inventorySlots;
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableLighting();
-		ClientUtils.bindTextureGui("camera");
+		ClientUtils.bindTextureGui(this.container.getContainerBackground());
 		drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 	}
 
@@ -34,8 +37,7 @@ public class GuiCamera extends GuiContainer {
 	 */
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		this.drawString(this.fontRenderer, I18n.format("cameraobscura.gui.sdcard"), 28, 40, 0xffffff);
-		this.drawString(this.fontRenderer, I18n.format("cameraobscura.gui.filters"), 97, 40, 0xffffff);
+
 	}
 
 }

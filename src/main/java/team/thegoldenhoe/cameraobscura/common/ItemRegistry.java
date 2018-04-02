@@ -12,32 +12,25 @@ import team.thegoldenhoe.cameraobscura.Info;
 @Mod.EventBusSubscriber(modid = Info.MODID)
 public class ItemRegistry {
 
-	public static Item camera;
+	//public static Item camera;
 	public static Item itemProps;
 	public static Item filter;
 	public static Item sdCard;
 	public static Item photograph;
 	public static Item polaroidStack;
-
-	// cameras
-	public static Item cameraPolaroid;
-	public static Item cameraOldFashioned;
-	public static Item cameraDigital;
+	public static Item vintagePaper;
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
 
-		camera = registerItem(registry, new ItemCamera(), "camera");
+		//camera = registerItem(registry, new ItemCamera(), "camera");
 		itemProps = registerItem(registry, new ItemProps(), "csitem");
 		filter = registerMultiItem(registry, new ItemFilter(), "filter", "filter_sepia", "filter_gloomy", "filter_happy", "filter_retro", "filter_high_contrast");
 		sdCard = registerItem(registry, new ItemSDCard(), "sdcard");
 		photograph = registerItem(registry, new ItemPhotograph(), "photograph");
 		polaroidStack = registerItem(registry, new ItemPolaroidStack(), "polaroid_stack");
-		
-		cameraPolaroid = registerItem(registry, new ItemCamera(), "camera_polaroid");
-		cameraOldFashioned = registerItem(registry, new ItemCamera(), "camera_old_fashioned");
-		cameraDigital = registerItem(registry, new ItemCamera(), "camera_digital");
+		vintagePaper = registerItem(registry, new ItemVintagePaper(), "vintage_paper");
 	}
 
 	private static <I extends Item> I registerMultiItem(IForgeRegistry<Item> registry, I item, String name, String... variantNames) {

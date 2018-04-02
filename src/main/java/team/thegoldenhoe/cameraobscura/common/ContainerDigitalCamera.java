@@ -12,12 +12,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerCamera extends Container {
+public class ContainerDigitalCamera extends Container implements ICameraContainer {
 
 	protected final IItemHandler itemHandler;
 	private IInventory playerInventory;
 
-	public ContainerCamera(InventoryPlayer inventory, IItemHandler itemHandler, EnumHand hand) {
+	public ContainerDigitalCamera(InventoryPlayer inventory, IItemHandler itemHandler, EnumHand hand) {
 		this.itemHandler = itemHandler;
 		this.playerInventory = inventory;
 
@@ -113,5 +113,10 @@ public class ContainerCamera extends Container {
 		}
 
 		return itemstack;
+	}
+
+	@Override
+	public String getContainerBackground() {
+		return "camera_digital";
 	}
 }

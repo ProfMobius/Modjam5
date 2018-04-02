@@ -40,8 +40,8 @@ public class CommonEvents {
 		if (player != null) {
 			ItemStack heldMain = player.getHeldItemMainhand();
 			ItemStack heldOff = player.getHeldItemOffhand();
-			if ((!heldMain.isEmpty() && heldMain.getItem() == ItemRegistry.camera) ||
-				(!heldOff.isEmpty() && heldOff.getItem() == ItemRegistry.camera)) {
+			if ((!heldMain.isEmpty() && heldMain.getItem() == ItemRegistry.itemProps) ||
+				(!heldOff.isEmpty() && heldOff.getItem() == ItemRegistry.itemProps)) {
 				event.setCanceled(true);
 			}
 		}

@@ -3,10 +3,8 @@ item.cameraobscura.filter.gloomy.name=Gloomy Filter
 item.cameraobscura.filter.high_contrast.name=High Contrast Filter
 item.cameraobscura.filter.retro.name=Retro Filter
 item.cameraobscura.filter.happy.name=Bright 'n' Happy Filter
-
-# Gui translations
-cameraobscura.gui.sdcard=SD Card
-cameraobscura.gui.filters=Filters
+item.cameraobscura.vintage_paper.name=Empty Vintage Photo Paper
+item.cameraobscura.polaroid_stack.name=Polaroid Stacks
 
 # Chat messages
 cameraobscura.chat.missing_sd=Your SD card is missing!
