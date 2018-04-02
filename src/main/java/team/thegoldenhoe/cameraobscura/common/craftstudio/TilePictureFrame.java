@@ -1,48 +1,31 @@
 package team.thegoldenhoe.cameraobscura.common.craftstudio;
 
-import com.mia.craftstudio.utils.ImageIOCS;
-import net.minecraft.client.renderer.texture.TextureUtil;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.DimensionManager;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import team.thegoldenhoe.cameraobscura.CameraObscura;
 
 public class TilePictureFrame extends TileProps {
     private String pictureLocation = "";
     private int glTextureID = 0;
 
     public void setPicture(final String pictureLocation) {
-        if (pictureLocation == this.pictureLocation) {
-            return;
-        }
-
         this.pictureLocation = pictureLocation;
-
-        TextureUtil.deleteTexture(glTextureID);
-        glTextureID = 0;
-
-        final String dirName = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath();
-        final File directory = new File(dirName, "photographs");
-        final File picture = new File(directory, pictureLocation);
-
-        if (!(picture.exists() && picture.isFile())) {
-            return;
-        }
-
-        try {
-            final BufferedImage img = ImageIOCS.read(new FileInputStream(picture));
-            glTextureID = TextureUtil.glGenTextures();
-            TextureUtil.uploadTextureImage(glTextureID, img);
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
+        glTextureID = CameraObscura.proxy.getPhotographGLId(glTextureID, pictureLocation);
     }
 
     public int getGlTextureID() {
         return glTextureID;
+    }
+
+    @Override
+    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+        setPicture("2018-04-01_23.29.21.png");
+        return true;
     }
 
     @Override

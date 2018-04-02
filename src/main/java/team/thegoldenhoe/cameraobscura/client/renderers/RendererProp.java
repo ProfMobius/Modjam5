@@ -39,8 +39,6 @@ public class RendererProp extends TileEntitySpecialRenderer<TileProps> {
         final String greenScreen = tile.tileParams.get("greenScreen");
         if (tile instanceof TilePictureFrame && greenScreen != null) {
             final TilePictureFrame tileFrame = (TilePictureFrame) tile;
-            tileFrame.setPicture("2018-04-01_23.29.21.png");
-
             GlStateManager.pushMatrix();
             GlStateManager.translate(x, y, z); // move rendering to TE rendering Offset XYZ
             final CSClientModelWrapperVBO wrapper = (CSClientModelWrapperVBO) ModelHandler.getModelByID(Integer.valueOf(greenScreen)).wrapper;
