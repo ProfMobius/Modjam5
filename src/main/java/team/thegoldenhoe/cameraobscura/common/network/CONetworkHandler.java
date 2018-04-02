@@ -10,5 +10,6 @@ public class CONetworkHandler {
 
 	public static void init() {
 		NETWORK.registerMessage(MessagePhotoData.Handler.class, MessagePhotoData.class, 0, Side.SERVER);
+		NETWORK.registerMessage(MessagePhotoRequest.Handler.class, MessagePhotoRequest.class, 1, Side.SERVER);
 	}
 }

@@ -8,6 +8,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import team.thegoldenhoe.cameraobscura.CameraObscura;
+import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
+import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoRequest;
 
 public class TilePictureFrame extends TileProps {
     private String pictureLocation = "";
@@ -25,6 +27,9 @@ public class TilePictureFrame extends TileProps {
     @Override
     public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
         setPicture("2018-04-01_23.29.21.png");
+        if (world.isRemote) {
+            CONetworkHandler.NETWORK.sendToServer(new MessagePhotoRequest(world.provider.getDimension(), pos, "2018-04-01_23.29.21.png"));
+        }
         return true;
     }
 
