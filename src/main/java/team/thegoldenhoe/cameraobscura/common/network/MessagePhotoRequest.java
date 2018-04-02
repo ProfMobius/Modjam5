@@ -45,7 +45,7 @@ public class MessagePhotoRequest implements IMessage {
 
         @Override
         public IMessage onMessage(final MessagePhotoRequest message, final MessageContext ctx) {
-            System.out.println(message.filename);
+            System.out.println(String.format("Requested : %s", message.filename));
             return null;
         }
     }
