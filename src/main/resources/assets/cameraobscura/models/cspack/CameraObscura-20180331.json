@@ -56,5 +56,15 @@
     "tileParams": {
       "cameraType": "VINTAGE"
     }
+  },
+  {
+    "name": "Digital Camera",
+    "decocraftModelID": 7,
+    "craftstudioAssetName": "Digital Camera",
+    "craftstudioAssetID": 2716,
+    "placeable": false,
+    "tileParams": {
+      "cameraType": "DIGITAL"
+    }
   }
 ]
