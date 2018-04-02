@@ -7,8 +7,13 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import org.apache.commons.io.IOUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Arrays;
 
 public class MessagePhotoRequest implements IMessage {
     private int dim, x, y, z;
@@ -58,6 +63,32 @@ public class MessagePhotoRequest implements IMessage {
                 return null;
             }
 
+            try {
+                byte[] bytes = IOUtils.toByteArray(new FileInputStream(picture));
+                int length = bytes.length;
+                int index = 0;
+                int maxPacketSize = 30000;
+                while (true) {
+                    int remainingData = length - index;
+                    boolean isLast = remainingData <= maxPacketSize;
+                    int packetSize = Math.min(maxPacketSize, remainingData);
+                    byte[] outData = Arrays.copyOfRange(bytes, index, index + packetSize);
+                    index += packetSize;
+
+                    final MessagePhotoDataToClient msg = new MessagePhotoDataToClient(message.location, outData, isLast, length);
+                    CONetworkHandler.NETWORK.sendToDimension(msg, message.dim);
+
+                    if (isLast) {
+                        break;
+                    }
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             final MessageFrameStatusUpdate frameUpdateMsg = new MessageFrameStatusUpdate(message.dim, message.x, message.y, message.z, message.location);
             CONetworkHandler.NETWORK.sendToAllAround(frameUpdateMsg, new NetworkRegistry.TargetPoint(message.dim, message.x, message.y, message.z, 5 * 16.0));

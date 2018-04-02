@@ -36,7 +36,7 @@ public class TilePictureFrame extends TileProps implements ITickable {
 
     @Override
     public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-        final String pictureLocation = "2018-04-01_23.29.21.png-";
+        final String pictureLocation = "2018-04-01_23.29.21.png";
 
         if (world.isRemote) {
             final BufferedImage image = ClientPhotoCache.INSTANCE.getImage(pictureLocation);
