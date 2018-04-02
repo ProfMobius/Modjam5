@@ -18,7 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.relauncher.Side;
@@ -36,8 +35,6 @@ import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 import team.thegoldenhoe.cameraobscura.utils.SoundRegistry;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -180,14 +177,7 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
         TextureUtil.deleteTexture(oldID);
         int glID = 0;
 
-        final File currentSaveRootDirectory = DimensionManager.getCurrentSaveRootDirectory();
-
-
-        final String dirName = currentSaveRootDirectory.getAbsolutePath();
-        final File directory = new File(dirName, "photographs");
-        final File picture = new File(directory, pictureLocation);
-
-        BufferedImage img = null;
+        BufferedImage img = ClientPhotoCache.INSTANCE.getImage(pictureLocation);
 
         if ("MISSING".equals(pictureLocation)) {
             try {
@@ -195,20 +185,13 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
             } catch (final IOException e) {
                 e.printStackTrace();
             }
-        } else if (picture.exists() && picture.isFile()) {
-            try {
-                img = ImageIOCS.read(new FileInputStream(picture));
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
-        } else {
+        } else if ("LOADING".equals(pictureLocation)) {
             try {
                 img = ImageIOCS.read(Minecraft.getMinecraft().getResourceManager().getResource(loading).getInputStream());
             } catch (final IOException e) {
                 e.printStackTrace();
             }
         }
-
 
         if (img != null) {
             glID = TextureUtil.glGenTextures();

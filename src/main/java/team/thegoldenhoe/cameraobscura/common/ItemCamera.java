@@ -64,7 +64,7 @@ public class ItemCamera extends ItemProps {
 					if (sdCard.isEmpty()) {
 						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.missing_sd")), false);
 					} else {
-						ICameraStorageNBT storage = cap.getSDCard();
+						ICameraStorageNBT storage = cap.getStorageDevice();
 						if (storage.canSave()) {
 							takePicture();
 						} else {

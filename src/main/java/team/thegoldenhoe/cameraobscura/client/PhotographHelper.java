@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ScreenShotHelper;
 import team.thegoldenhoe.cameraobscura.common.ItemCamera;
 import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
-import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoData;
+import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoDataToServer;
 import team.thegoldenhoe.cameraobscura.common.network.PhotoDataHandler;
 
 public class PhotographHelper {
@@ -47,7 +47,7 @@ public class PhotographHelper {
 						return;
 					}
 				}
-				MessagePhotoData msg = new MessagePhotoData(uuid, "test", subImageBytes, order, imageBytes.length, mc.player.getUniqueID(), stack);
+				MessagePhotoDataToServer msg = new MessagePhotoDataToServer(uuid, "test", subImageBytes, order, imageBytes.length, mc.player.getUniqueID(), stack);
 				CONetworkHandler.NETWORK.sendToServer(msg);
 				order++;
 			}

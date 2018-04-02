@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class MessagePhotoData implements IMessage {
+public class MessagePhotoDataToServer implements IMessage {
 
 	/** photo name */
 	public String name;
@@ -33,11 +33,11 @@ public class MessagePhotoData implements IMessage {
 	/** Camera used to take the picture */
 	public ItemStack camera;
 
-	public MessagePhotoData() {
+	public MessagePhotoDataToServer() {
 		super();
 	}
 
-	public MessagePhotoData(int uuid, String name, byte[] data, short order, int length, UUID playerUUID, ItemStack camera) {
+	public MessagePhotoDataToServer(int uuid, String name, byte[] data, short order, int length, UUID playerUUID, ItemStack camera) {
 		this.name = name;
 		this.data = data;
 		this.uuid = uuid;
@@ -70,18 +70,18 @@ public class MessagePhotoData implements IMessage {
 		buf.writeBytes(this.data);
 	}
 
-	public static final class Handler implements IMessageHandler<MessagePhotoData, IMessage> {
+	public static final class Handler implements IMessageHandler<MessagePhotoDataToServer, IMessage> {
 
 		@Override
-		public IMessage onMessage(MessagePhotoData message, MessageContext ctx) {
+		public IMessage onMessage(MessagePhotoDataToServer message, MessageContext ctx) {
 			PhotoDataHandler.bufferMessage(message);
 			System.out.println("Num bytes recv:" + message.data.length);
 			return null;
 		}}
 
-	public static final Comparator<MessagePhotoData> COMPARATOR = new Comparator<MessagePhotoData>() {
+	public static final Comparator<MessagePhotoDataToServer> COMPARATOR = new Comparator<MessagePhotoDataToServer>() {
 		@Override
-		public int compare(MessagePhotoData m1, MessagePhotoData m2) {
+		public int compare(MessagePhotoDataToServer m1, MessagePhotoDataToServer m2) {
 			return m1.order - m2.order;
 		}
 	};
