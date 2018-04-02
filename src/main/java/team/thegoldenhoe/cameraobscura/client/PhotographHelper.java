@@ -4,12 +4,13 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ScreenShotHelper;
+import team.thegoldenhoe.cameraobscura.common.ItemCamera;
 import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
 import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoData;
 import team.thegoldenhoe.cameraobscura.common.network.PhotoDataHandler;
@@ -38,7 +39,15 @@ public class PhotographHelper {
 			while (buff.hasRemaining()) {
 				byte[] subImageBytes = new byte[buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining()];
 				buff.get(subImageBytes, 0, buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining());
-				MessagePhotoData msg = new MessagePhotoData(uuid, "test", subImageBytes, order, imageBytes.length);
+				ItemStack stack = mc.player.getHeldItemMainhand();
+				if (stack.isEmpty() || !(stack.getItem() instanceof ItemCamera)) {
+					stack = mc.player.getHeldItemOffhand();
+					if (stack.isEmpty() || !(stack.getItem() instanceof ItemCamera)) {
+						System.err.println("CAMERA FAIL!");
+						return;
+					}
+				}
+				MessagePhotoData msg = new MessagePhotoData(uuid, "test", subImageBytes, order, imageBytes.length, mc.player.getUniqueID(), stack);
 				CONetworkHandler.NETWORK.sendToServer(msg);
 				order++;
 			}

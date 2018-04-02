@@ -12,10 +12,13 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.imageio.ImageIO;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import team.thegoldenhoe.cameraobscura.Utils;
 
@@ -58,7 +61,7 @@ public class PhotoDataHandler {
 	/**
 	 * Iterate through all buffered messages to check if we have received complete data yet
 	 */
-	public static void processMessageBuffer() {
+	public static void processMessageBuffer(World world) {
 		Set<Integer> uuids = messageBuffer.keySet();
 		List<Integer> completedUuids = new LinkedList<Integer>();
 
@@ -82,6 +85,8 @@ public class PhotoDataHandler {
 			TreeSet<MessagePhotoData> messages = messageBuffer.get(uuid);
 			byte[] bytes = null;
 			ByteBuffer buffer = null;
+			UUID photographerUUID = null;
+			ItemStack camera = null;
 
 			// Iterate through all messages received for this uuid
 			for (MessagePhotoData message : messages) {
@@ -89,12 +94,38 @@ public class PhotoDataHandler {
 					bytes = new byte[message.length];
 					buffer = ByteBuffer.wrap(bytes);
 				}
+				if (photographerUUID == null) {
+					photographerUUID = UUID.fromString(message.playerUUID);
+				}
+				
+				if (camera == null) {
+					camera = message.camera;
+				}
+				
 				buffer.put(message.data);
 			}
 
 			saveImage(createImageFromBytes(bytes));
+			
+			// TODO: Check type of camera here, decrement film / storage space
+			// if digital, save to sd card if present
+			// if manual, save to photograph, decrement film level
+			postImageSaved(world, photographerUUID, camera);
+			
 			messageBuffer.remove(uuid);
 		}
+	}
+	
+	private static void postImageSaved(World world, UUID photographerUUID, ItemStack camera) {
+		if (photographerUUID == null) {
+			throw new NullPointerException("Photographer UUID is null, which means we can't produce an item. Sorry :(");
+		}
+		
+		if (camera == null) {
+			throw new NullPointerException("Camera is null, which means we don't know how to produce the item properly. Sorry :(");
+		}
+		
+		//if ()
 	}
 
 	/**

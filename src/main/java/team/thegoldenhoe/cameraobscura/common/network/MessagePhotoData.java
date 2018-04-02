@@ -1,8 +1,10 @@
 package team.thegoldenhoe.cameraobscura.common.network;
 
 import java.util.Comparator;
+import java.util.UUID;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -24,17 +26,25 @@ public class MessagePhotoData implements IMessage {
 
 	/** number of bytes total that messages with this uuid should send */
 	public int length;
+	
+	/** uuid of the player that took the photo */
+	public String playerUUID;
+	
+	/** Camera used to take the picture */
+	public ItemStack camera;
 
 	public MessagePhotoData() {
 		super();
 	}
 
-	public MessagePhotoData(int uuid, String name, byte[] data, short order, int length) {
+	public MessagePhotoData(int uuid, String name, byte[] data, short order, int length, UUID playerUUID, ItemStack camera) {
 		this.name = name;
 		this.data = data;
 		this.uuid = uuid;
 		this.order = order;
 		this.length = length;
+		this.playerUUID = playerUUID.toString();
+		this.camera = camera;
 	}
 
 	@Override
@@ -43,6 +53,8 @@ public class MessagePhotoData implements IMessage {
 		this.order = buf.readShort();
 		this.length = buf.readInt();
 		this.name = ByteBufUtils.readUTF8String(buf);
+		this.playerUUID = ByteBufUtils.readUTF8String(buf);
+		this.camera = ByteBufUtils.readItemStack(buf);
 		this.data = new byte[buf.readableBytes()];
 		buf.readBytes(this.data);
 	}
@@ -53,6 +65,8 @@ public class MessagePhotoData implements IMessage {
 		buf.writeShort(this.order);
 		buf.writeInt(this.length);
 		ByteBufUtils.writeUTF8String(buf, this.name);
+		ByteBufUtils.writeUTF8String(buf, this.playerUUID);
+		ByteBufUtils.writeItemStack(buf, this.camera);
 		buf.writeBytes(this.data);
 	}
 
