@@ -3,6 +3,7 @@ package team.thegoldenhoe.cameraobscura.common;
 import com.mia.craftstudio.minecraft.CraftStudioModelWrapper;
 import com.mia.craftstudio.minecraft.ModelMetadata;
 import net.minecraft.item.Item;
+import net.minecraft.world.World;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 import team.thegoldenhoe.cameraobscura.utils.SoundRegistry;
 
@@ -35,5 +36,9 @@ public class CommonProxy {
 
     public int getPhotographGLId(final int oldID, final String pictureLocation) {
         return 0;
+    }
+
+    public World getClientWorld() {
+        return null;
     }
 }

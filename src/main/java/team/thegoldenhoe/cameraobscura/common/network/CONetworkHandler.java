@@ -12,5 +12,6 @@ public class CONetworkHandler {
 		NETWORK.registerMessage(MessagePhotoDataToServer.Handler.class, MessagePhotoDataToServer.class, 0, Side.SERVER);
 		NETWORK.registerMessage(MessagePhotoRequest.Handler.class, MessagePhotoRequest.class, 1, Side.SERVER);
 		NETWORK.registerMessage(MessagePhotoDataToClient.Handler.class, MessagePhotoDataToClient.class, 2, Side.CLIENT);
+		NETWORK.registerMessage(MessageFrameStatusUpdate.Handler.class, MessageFrameStatusUpdate.class, 3, Side.CLIENT);
 	}
 }
