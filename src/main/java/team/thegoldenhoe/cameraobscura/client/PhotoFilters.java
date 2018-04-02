@@ -92,6 +92,15 @@ public class PhotoFilters {
 			return src;
 		}
 	};
+	
+	public static final PhotoFilter HIGH_CONTRAST = new PhotoFilter() {
+		@Override
+		public BufferedImage getFilteredImage(BufferedImage src) {
+			RescaleOp op = new RescaleOp(2.4f, 55, null);
+			op.filter(src, src);
+			return src;
+		}
+	};
 
 	public static final PhotoFilter SOBEL = new PhotoFilter() {
 		@Override
