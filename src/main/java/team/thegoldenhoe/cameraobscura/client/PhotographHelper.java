@@ -4,14 +4,13 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ScreenShotHelper;
 import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
-import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoData;
+import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoDataToServer;
 import team.thegoldenhoe.cameraobscura.common.network.PhotoDataHandler;
 
 public class PhotographHelper {
@@ -38,7 +37,7 @@ public class PhotographHelper {
 			while (buff.hasRemaining()) {
 				byte[] subImageBytes = new byte[buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining()];
 				buff.get(subImageBytes, 0, buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining());
-				MessagePhotoData msg = new MessagePhotoData(uuid, "test", subImageBytes, order, imageBytes.length);
+				MessagePhotoDataToServer msg = new MessagePhotoDataToServer(uuid, "test", subImageBytes, order, imageBytes.length);
 				CONetworkHandler.NETWORK.sendToServer(msg);
 				order++;
 			}

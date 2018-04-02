@@ -23,14 +23,14 @@ public class PhotoDataHandler {
 
 	private static int photoID = 0;
 
-	private static Map<Integer, TreeSet<MessagePhotoData>> messageBuffer = new HashMap<>();
+	private static Map<Integer, TreeSet<MessagePhotoDataToServer>> messageBuffer = new HashMap<>();
 
-	private static Queue<MessagePhotoData> messageQueue = new ConcurrentLinkedQueue<>();
+	private static Queue<MessagePhotoDataToServer> messageQueue = new ConcurrentLinkedQueue<>();
 
-	public static void addMessage(int uuid, MessagePhotoData message) {
-		TreeSet<MessagePhotoData> messageSet = messageBuffer.get(Integer.valueOf(uuid));
+	public static void addMessage(int uuid, MessagePhotoDataToServer message) {
+		TreeSet<MessagePhotoDataToServer> messageSet = messageBuffer.get(Integer.valueOf(uuid));
 		if (messageSet == null) {
-			messageSet = new TreeSet<MessagePhotoData>(MessagePhotoData.COMPARATOR);
+			messageSet = new TreeSet<MessagePhotoDataToServer>(MessagePhotoDataToServer.COMPARATOR);
 			messageSet.add(message);
 			messageBuffer.put(Integer.valueOf(uuid), messageSet);
 		} else {
@@ -41,7 +41,7 @@ public class PhotoDataHandler {
 	/**
 	 * Add a message to the message queue for processing
 	 */
-	public static void bufferMessage(MessagePhotoData message) {
+	public static void bufferMessage(MessagePhotoDataToServer message) {
 		messageQueue.add(message);
 	}
 
@@ -50,7 +50,7 @@ public class PhotoDataHandler {
 	 */
 	public static synchronized void processMessageQueue() {
 		while (!messageQueue.isEmpty()) {
-			MessagePhotoData msg = messageQueue.poll();
+			MessagePhotoDataToServer msg = messageQueue.poll();
 			addMessage(msg.uuid, msg);
 		}
 	}
@@ -63,11 +63,11 @@ public class PhotoDataHandler {
 		List<Integer> completedUuids = new LinkedList<Integer>();
 
 		for (Integer uuid : uuids) {
-			TreeSet<MessagePhotoData> messages = messageBuffer.get(uuid);
+			TreeSet<MessagePhotoDataToServer> messages = messageBuffer.get(uuid);
 			int bytesReceived = 0;
 
 			// Iterate through all messages received for this uuid
-			for (MessagePhotoData message : messages) {
+			for (MessagePhotoDataToServer message : messages) {
 				bytesReceived += message.data.length;
 
 				// If we have received all necessary data
@@ -79,12 +79,12 @@ public class PhotoDataHandler {
 
 		// Clear out completed entries from the map
 		for (Integer uuid : completedUuids) {
-			TreeSet<MessagePhotoData> messages = messageBuffer.get(uuid);
+			TreeSet<MessagePhotoDataToServer> messages = messageBuffer.get(uuid);
 			byte[] bytes = null;
 			ByteBuffer buffer = null;
 
 			// Iterate through all messages received for this uuid
-			for (MessagePhotoData message : messages) {
+			for (MessagePhotoDataToServer message : messages) {
 				if (bytes == null) {
 					bytes = new byte[message.length];
 					buffer = ByteBuffer.wrap(bytes);

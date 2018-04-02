@@ -9,7 +9,8 @@ public class CONetworkHandler {
 	public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(Info.MODID);
 
 	public static void init() {
-		NETWORK.registerMessage(MessagePhotoData.Handler.class, MessagePhotoData.class, 0, Side.SERVER);
+		NETWORK.registerMessage(MessagePhotoDataToServer.Handler.class, MessagePhotoDataToServer.class, 0, Side.SERVER);
 		NETWORK.registerMessage(MessagePhotoRequest.Handler.class, MessagePhotoRequest.class, 1, Side.SERVER);
+		NETWORK.registerMessage(MessagePhotoDataToClient.Handler.class, MessagePhotoDataToClient.class, 2, Side.CLIENT);
 	}
 }

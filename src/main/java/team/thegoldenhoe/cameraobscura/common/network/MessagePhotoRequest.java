@@ -45,6 +45,8 @@ public class MessagePhotoRequest implements IMessage {
 
         @Override
         public IMessage onMessage(final MessagePhotoRequest message, final MessageContext ctx) {
+            // TODO : Check if we have the picture on disk and if we do, send it back to the client splitted in multiple packets
+
             System.out.println(String.format("Requested : %s", message.filename));
             return null;
         }
