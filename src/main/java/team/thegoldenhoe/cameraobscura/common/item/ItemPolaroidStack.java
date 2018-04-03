@@ -40,7 +40,9 @@ public class ItemPolaroidStack extends Item {
 			numPrintsRemaining = storage.getMaxSaves() - paths.size();
 			tooltip.add(TextFormatting.AQUA.toString() + TextFormatting.BOLD + "Prints Remaining: " + numPrintsRemaining);
 			tooltip.add(TextFormatting.DARK_PURPLE.toString() + TextFormatting.ITALIC + "Usable in polaroid camera");
-			tooltip.add(TextFormatting.ITALIC + "Contains Photo");
+			if (!storage.canSave()) {
+				tooltip.add(TextFormatting.ITALIC + "Contains Photo");	
+			}
 		}
 	}
 

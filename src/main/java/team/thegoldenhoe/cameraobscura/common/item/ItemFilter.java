@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
+import team.thegoldenhoe.cameraobscura.TabProps;
 import team.thegoldenhoe.cameraobscura.client.PhotoFilter;
 import team.thegoldenhoe.cameraobscura.client.PhotoFilters;
 
@@ -20,6 +21,7 @@ public class ItemFilter extends Item {
 	
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		if (tab != TabProps.Main.get()) return;
 		for (FilterType filter : FilterType.VALUES) {
 			subItems.add(new ItemStack(this, 1, filter.getMeta()));
 		}

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "cameraobscura:filter",
+    "data": 4
+  },
+  "pattern": [
+    " X ",
+    "XYX",
+    " X "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:stained_glass_pane",
+      "data": 15
+    },
+    "Y": {
+      "item": "minecraft:stained_glass_pane",
+      "data": 9
+    }
+  }
+}
