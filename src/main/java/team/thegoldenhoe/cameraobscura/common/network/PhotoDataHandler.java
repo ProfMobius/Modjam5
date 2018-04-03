@@ -142,58 +142,19 @@ public class PhotoDataHandler {
 			} else {
 				stack = player.getHeldItemOffhand();
 			}
-			ItemProps camera = (ItemProps)stack.getItem();
-
 			CSModelMetadata data = ModelHandler.getModelFromStack(stack);
 			CameraTypes type = data.getCameraType();
-			switch (type) {
-			case VINTAGE:
-				break;
-			case POLAROID:
+			if (type != CameraTypes.NOT_A_CAMERA) {
 				ICameraNBT cameraCap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
-				ItemStack storageStack = cameraCap.getStackInSlot(0);
-				ICameraStorageNBT polaroidStorage = cameraCap.getStorageDevice();
-				if (polaroidStorage.canSave()) {
-					System.out.println("Num currently saved PRE(server): " + polaroidStorage.getSavedImagePaths().size());
-					System.out.println("Saving on the server " + polaroidStorage);
-					polaroidStorage.saveImage(savePath);
-					System.out.println("Num currently saved POST(server): " + polaroidStorage.getSavedImagePaths().size());
+				ICameraStorageNBT storage = cameraCap.getStorageDevice();
+				if (storage.canSave()) {
+					storage.saveImage(savePath);
 					cameraCap.markDirty();
-					System.out.println(cameraCap.getStackInSlot(0).getTagCompound());
-					System.out.println(FMLCommonHandler.instance().getEffectiveSide());
-					//System.out.println(storageStack);
 				} else {
 					System.err.println("Somehow between when the picture was taken and saved, the storage device became full. Whoops!");
 				}
-				
-//				EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
-//				if (player != null) {
-//					//player.inventoryContainer.detectAndSendChanges();
-//					ItemStack n = new ItemStack(ItemRegistry.polaroidStack);
-//					NBTTagCompound nbt2 = new NBTTagCompound();
-//					nbt2.setString("Path", savePath);
-//					n.setTagCompound(nbt2);
-//					// This adds the proper pathed up item to inventory
-//					player.addItemStackToInventory(storageStack.copy());
-//				} else {
-//					System.out.println("Player is null");
-//				}
-				
-				break;
-			case DIGITAL:
-				ICameraNBT cap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
-				ItemStack sdCard = cap.getStackInSlot(0);
-				ICameraStorageNBT digitalStorage = cap.getStorageDevice();
-				if (digitalStorage.canSave()) {
-					digitalStorage.saveImage(savePath);
-					cap.markDirty();
-				} else {
-					System.err.println("Somehow between when the picture was taken and saved, the storage device became full. Whoops!");
-				}
-				break;
-			case NOT_A_CAMERA:
+			} else {
 				System.err.println("Not sure how we got here, but a non camera was trying to save an image. Whoops!");
-				break;
 			}
 		}
 	}

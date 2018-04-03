@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "cameraobscura:items/photograph_bw"
+        "layer0": "cameraobscura:items/polaroid_stack"
     }
 }

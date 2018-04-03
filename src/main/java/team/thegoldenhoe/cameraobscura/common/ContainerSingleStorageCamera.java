@@ -12,14 +12,16 @@ import net.minecraft.util.EnumHand;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerPolaroidCamera extends Container implements ICameraContainer {
+public class ContainerSingleStorageCamera extends Container implements ICameraContainer {
 
 	protected final IItemHandler itemHandler;
 	private IInventory playerInventory;
+	private final String bgName;
 
-	public ContainerPolaroidCamera(InventoryPlayer inventory, IItemHandler itemHandler, EnumHand hand) {
+	public ContainerSingleStorageCamera(InventoryPlayer inventory, IItemHandler itemHandler, EnumHand hand, String bgName) {
 		this.itemHandler = itemHandler;
 		this.playerInventory = inventory;
+		this.bgName = bgName;
 
 		// Stacks slot
 		this.addSlotToContainer(new SlotItemHandler(itemHandler, 0, 80, 53) {
@@ -96,6 +98,6 @@ public class ContainerPolaroidCamera extends Container implements ICameraContain
 
 	@Override
 	public String getContainerBackground() {
-		return "camera_polaroid";
+		return this.bgName;
 	}
 }

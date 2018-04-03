@@ -12,18 +12,22 @@ public class ItemSDCard extends Item {
 		super();
 		setMaxStackSize(1);
 	}
-	
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-        return CameraCapabilities.getProvider(CameraCapabilities.getSDCardStorageCapability(), () -> {
-        	SDCardStorage ret = new SDCardStorage() {
 
-            };
-            if (stack.hasTagCompound()) {
-                ret.deserializeNBT(stack.getTagCompound());
-            }
-            return ret;
-        });
-    }
+	@Override
+	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+		return CameraCapabilities.getProvider(CameraCapabilities.getSDCardStorageCapability(), () -> {
+			SDCardStorage ret = new SDCardStorage() {
+				@Override
+				public void saveImage(String path) {
+					super.saveImage(path);
+					stack.setTagCompound(serializeNBT());
+				}
+			};
+			if (stack.hasTagCompound()) {
+				ret.deserializeNBT(stack.getTagCompound());
+			}
+			return ret;
+		});
+	}
 
 }

@@ -16,19 +16,20 @@ public class COGuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		if (id == CameraTypes.DIGITAL.getGuiID()) {
+		CameraTypes cameraType = CameraTypes.getCameraTypeByGuiID(id);
+		if (cameraType == CameraTypes.DIGITAL) {
 			EnumHand hand = EnumHand.values()[x];
 			ItemStack held = player.getHeldItem(hand);
 
 			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
 				return new ContainerDigitalCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand);
 			}
-		} else if (id == CameraTypes.POLAROID.getGuiID()) {
+		} else if (cameraType == CameraTypes.POLAROID || cameraType == CameraTypes.VINTAGE) {
 			EnumHand hand = EnumHand.values()[x];
 			ItemStack held = player.getHeldItem(hand);
 
 			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
-				return new ContainerPolaroidCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand);
+				return new ContainerSingleStorageCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand, cameraType.getImagePath());
 			}
 		}
 
@@ -37,19 +38,20 @@ public class COGuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		if (id == CameraTypes.DIGITAL.getGuiID()) {
+		CameraTypes cameraType = CameraTypes.getCameraTypeByGuiID(id);
+		if (cameraType == CameraTypes.DIGITAL) {
 			EnumHand hand = EnumHand.values()[x];
 			ItemStack held = player.getHeldItem(hand);
 
 			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
 				return new GuiCamera(new ContainerDigitalCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand));
 			}
-		} else if (id == CameraTypes.POLAROID.getGuiID()) {
+		} else if (cameraType == CameraTypes.VINTAGE || cameraType == CameraTypes.POLAROID) {
 			EnumHand hand = EnumHand.values()[x];
 			ItemStack held = player.getHeldItem(hand);
 
 			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
-				return new GuiCamera(new ContainerPolaroidCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand));
+				return new GuiCamera(new ContainerSingleStorageCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand, cameraType.getImagePath()));
 			}
 		}
 		return null;

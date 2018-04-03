@@ -18,8 +18,6 @@ import team.thegoldenhoe.cameraobscura.common.ICameraStorageNBT.PolaroidStackSto
 
 public class ItemPolaroidStack extends Item {
 
-	public static final int MAX_ENTRIES = 6;
-
 	public ItemPolaroidStack() {
 		setMaxStackSize(1);
 	}
@@ -35,40 +33,19 @@ public class ItemPolaroidStack extends Item {
 		}
 
 		ICameraStorageNBT.PolaroidStackStorage storage = stack.getCapability(CameraCapabilities.getPolaroidStackCapability(), null);
-//		NBTTagList paths = storage.serializeNBT().getTagList("Paths", 10);
-//		
-//		if (paths == null) {
-//			System.out.println("No tag compound");
-//		} else {
-//			System.out.println("paths");
-//		}
-		
-		//NBTTagList paths = stack.getTagCompound().getTagList("Paths", 10);
-		tooltip.add("Num paths: " + storage.getSavedImagePaths().size());
-//		if (stack.getTagCompound() != null)
-//			tooltip.add(stack.getTagCompound().getString("Path"));
-//		else {
-//			stack.setTagCompound(new NBTTagCompound());
-//			stack.getTagCompound().setString("Path", "test");
-//		}
 	}
 
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-		System.out.println("Init caps" + nbt);
 		return CameraCapabilities.getProvider(CameraCapabilities.getPolaroidStackCapability(), () -> {
 			PolaroidStackStorage ret = new PolaroidStackStorage() {
 				@Override
 				public void saveImage(String path) {
-					System.out.println("Saving polaroid - item" + stack);
 					super.saveImage(path);
-					NBTTagCompound nbt2 = serializeNBT();
-					System.out.println(nbt2);
-					stack.setTagCompound(nbt2);
+					stack.setTagCompound(serializeNBT());
 				}
 			};
 			if (stack.hasTagCompound()) {
-				System.out.println("Found some polaroid NBT on load");
 				ret.deserializeNBT(stack.getTagCompound());
 			}
 			return ret;
