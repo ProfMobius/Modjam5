@@ -87,22 +87,22 @@ public class ContainerDigitalCamera extends Container implements ICameraContaine
 
 			if (index < 3) {
 				if (!this.mergeItemStack(itemstack1, 3, this.inventorySlots.size(), true)) {
-					return null;
+					return ItemStack.EMPTY;
 				}
 			} else if (this.getSlot(2).isItemValid(itemstack1) && !this.getSlot(2).getHasStack()) {
 				if (!this.mergeItemStack(itemstack1, 2, 3, false)) {
-					return null;
+					return ItemStack.EMPTY;
 				}
 			} else if (this.getSlot(1).isItemValid(itemstack1) && !this.getSlot(1).getHasStack()) {
 				if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
-					return null;
+					return ItemStack.EMPTY;
 				}
 			} else if (this.getSlot(0).isItemValid(itemstack1)) {
 				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-					return null;
+					return ItemStack.EMPTY;
 				}
 			} else if (index <= 3 || !this.mergeItemStack(itemstack1, 3, 2, false)) {
-				return null;
+				return ItemStack.EMPTY;
 			}
 
 			if (itemstack1.isEmpty()) {

@@ -45,7 +45,12 @@ public class ItemPolaroidStack extends Item {
 		
 		//NBTTagList paths = stack.getTagCompound().getTagList("Paths", 10);
 		tooltip.add("Num paths: " + storage.getSavedImagePaths().size());
-		//tooltip.add(stack.getTagCompound().getString("Path"));
+//		if (stack.getTagCompound() != null)
+//			tooltip.add(stack.getTagCompound().getString("Path"));
+//		else {
+//			stack.setTagCompound(new NBTTagCompound());
+//			stack.getTagCompound().setString("Path", "test");
+//		}
 	}
 
 	@Override

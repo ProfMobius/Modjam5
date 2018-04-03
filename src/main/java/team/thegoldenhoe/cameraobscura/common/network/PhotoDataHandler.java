@@ -156,20 +156,20 @@ public class PhotoDataHandler {
 					polaroidStorage.saveImage(savePath);
 					System.out.println("Num currently saved POST(server): " + polaroidStorage.getSavedImagePaths().size());
 					cameraCap.markDirty();
+					System.out.println(cameraCap.getStackInSlot(0));
 				} else {
 					System.err.println("Somehow between when the picture was taken and saved, the storage device became full. Whoops!");
 				}
 				
 				EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
-				//System.out.println(world.getLoadedEntityList().stream().filter(s -> s instanceof EntityPlayer).count());
-				//System.out.println(world);
 				if (player != null) {
-					System.out.println("Player is not null");
+					//player.inventoryContainer.detectAndSendChanges();
 					ItemStack n = new ItemStack(ItemRegistry.polaroidStack);
 					NBTTagCompound nbt2 = new NBTTagCompound();
 					nbt2.setString("Path", savePath);
 					n.setTagCompound(nbt2);
-					player.addItemStackToInventory(n);
+					// This adds the proper pathed up item to inventory
+					player.addItemStackToInventory(storageStack.copy());
 				} else {
 					System.out.println("Player is null");
 				}

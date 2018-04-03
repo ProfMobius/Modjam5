@@ -64,13 +64,25 @@ public class ContainerPolaroidCamera extends Container implements ICameraContain
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (this.getSlot(0).isItemValid(itemstack1)) {
-				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-					return null;
-				}
-			} else {
-				return null;
-			}
+			if (index < this.playerInventory.getSizeInventory()) {
+                if (!this.mergeItemStack(itemstack1, this.playerInventory.getSizeInventory(), this.inventorySlots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+			} else if (this.getSlot(0).isItemValid(itemstack1)) {
+                if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+                    return ItemStack.EMPTY;
+                } else if (this.playerInventory.getSizeInventory() <= 1 || !this.mergeItemStack(itemstack1, 1, this.playerInventory.getSizeInventory(), false)) {
+                    return ItemStack.EMPTY;
+                }
+            }
+//			if (this.getSlot(0).isItemValid(itemstack1)) {
+//				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+//					System.out.println("Couldn't transfer stack in slot");
+//					return ItemStack.EMPTY;
+//				}
+//			} else {
+//				return ItemStack.EMPTY;
+//			}
 
 			if (itemstack1.isEmpty()) {
 				slot.putStack(ItemStack.EMPTY);

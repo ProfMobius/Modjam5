@@ -91,11 +91,13 @@ public class CameraCapabilities {
 
             @Override
             public NBTBase writeNBT(Capability<PolaroidStackStorage> capability, PolaroidStackStorage instance, EnumFacing side) {
+            	System.out.println("Writing to polaroid nbt");
                 return instance.serializeNBT();
             }
 
             @Override
             public void readNBT(Capability<PolaroidStackStorage> capability, PolaroidStackStorage instance, EnumFacing side, NBTBase nbt) {
+            	System.out.println("Reading from polaroid nbt");
                 instance.deserializeNBT((NBTTagCompound) nbt);
             }
             

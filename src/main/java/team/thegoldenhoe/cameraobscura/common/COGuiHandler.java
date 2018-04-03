@@ -20,14 +20,14 @@ public class COGuiHandler implements IGuiHandler {
 			EnumHand hand = EnumHand.values()[x];
 			ItemStack held = player.getHeldItem(hand);
 
-			if (held != null && held.getItem() instanceof ItemProps) {
+			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
 				return new ContainerDigitalCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand);
 			}
 		} else if (id == CameraTypes.POLAROID.getGuiID()) {
 			EnumHand hand = EnumHand.values()[x];
 			ItemStack held = player.getHeldItem(hand);
 
-			if (held != null && held.getItem() instanceof ItemProps) {
+			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
 				return new ContainerPolaroidCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand);
 			}
 		}
@@ -41,14 +41,14 @@ public class COGuiHandler implements IGuiHandler {
 			EnumHand hand = EnumHand.values()[x];
 			ItemStack held = player.getHeldItem(hand);
 
-			if (held != null && held.getItem() instanceof ItemProps) {
+			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
 				return new GuiCamera(new ContainerDigitalCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand));
 			}
 		} else if (id == CameraTypes.POLAROID.getGuiID()) {
 			EnumHand hand = EnumHand.values()[x];
 			ItemStack held = player.getHeldItem(hand);
 
-			if (held != null && held.getItem() instanceof ItemProps) {
+			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
 				return new GuiCamera(new ContainerPolaroidCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand));
 			}
 		}

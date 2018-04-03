@@ -66,7 +66,7 @@ public class ItemProps extends Item {
 		ICameraStorageNBT stor = cam.getStorageDevice();
 		ItemStack polaroidStack = cam.getStackInSlot(0);
 		tooltip.add("" + stor.getSavedImagePaths().size());
-		tooltip.add("" + polaroidStack.serializeNBT());
+		//tooltip.add("" + polaroidStack.serializeNBT());
 	}
 
 	/**
@@ -166,8 +166,6 @@ public class ItemProps extends Item {
 				@Override
 				public void markDirty() {
 					NBTTagCompound nbtTmp = serializeNBT();
-					nbtTmp.setBoolean("test", true);
-					System.out.println("Camera mark dirty:" + nbtTmp);
 					stack.setTagCompound(nbtTmp);
 				}
 			};
@@ -176,6 +174,7 @@ public class ItemProps extends Item {
 			System.out.println(stack.getTagCompound());
 			
 			if (stack.hasTagCompound()) {
+				System.out.println("deser props");
 				ret.deserializeNBT(stack.getTagCompound());
 			}
 			return ret;
