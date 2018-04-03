@@ -34,6 +34,8 @@ public class CSModelMetadata extends ModelMetadata {
     public String recipe;
     public int placedModel = -1;
     public boolean creativeInv = true;
+    public int rotInventory = 8;
+    public int rotHeld = 8;
 
     public Map<Integer, JsonObject> variants = null;
 
@@ -82,6 +84,8 @@ public class CSModelMetadata extends ModelMetadata {
         this.itemScale = existingMeta.itemScale;
         this.itemOffset = existingMeta.itemOffset != null ? new Vector3(existingMeta.itemOffset) : null;
         this.showOutline = existingMeta.showOutline;
+        this.rotInventory = existingMeta.rotInventory;
+        this.rotHeld = existingMeta.rotHeld;
 
         if (changes != null) {
             final Gson gson = new GsonBuilder().create();

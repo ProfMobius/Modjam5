@@ -26,123 +26,129 @@ import javax.vecmath.Matrix4f;
 import java.util.List;
 
 public class RenderPropInv implements IBakedModel {
-	protected static final List<BakedQuad> dummyList = ImmutableList.of();// Collections.emptyList();
-	protected static final ItemOverrideList overrides = new ItemOverrideList(Lists.<ItemOverride>newArrayList()) {
-		@Override
-		public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity)
-		{
-			((RenderPropInv)originalModel).modelID = stack.getItemDamage();
-			return originalModel;
-		}
-	};
-	protected int modelID = 0;
-	protected boolean disableRender = false;
+    protected static final List<BakedQuad> dummyList = ImmutableList.of();// Collections.emptyList();
+    protected static final ItemOverrideList overrides = new ItemOverrideList(Lists.<ItemOverride>newArrayList()) {
+        @Override
+        public IBakedModel handleItemState(final IBakedModel originalModel, final ItemStack stack, final World world, final EntityLivingBase entity) {
+            ((RenderPropInv) originalModel).modelID = stack.getItemDamage();
+            return originalModel;
+        }
+    };
+    protected int modelID = 0;
+    protected boolean disableRender = false;
+    protected TransformType lastTransformType;
 
-	@Override
-	public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-		//TODO : We do our special rendering here (call for the special renderer ?)
-		if(side == null && !disableRender) {
-			GL11.glPushMatrix();
-			CSModelMetadata modelData = ModelHandler.getModelByID(modelID);
-			GL11.glTranslatef(1.0F, 1.0F, 1.0F);
-			GL11.glTranslatef(modelData.itemOffset.x, modelData.itemOffset.y, modelData.itemOffset.z);
-			GL11.glScalef(modelData.itemScale, modelData.itemScale, modelData.itemScale);
-			((CSClientModelWrapperVBO) modelData.wrapper).render(null, 0f, 2, false, 8 * 22.5f, Vector3.invY, Vector3.Zero, Vector3.negHalfXZ);
-			GL11.glPopMatrix();
-		}
-		return dummyList;
-	}
+    @Override
+    public List<BakedQuad> getQuads(@Nullable final IBlockState state, @Nullable final EnumFacing side, final long rand) {
+        //TODO : We do our special rendering here (call for the special renderer ?)
+        if (side == null && !disableRender) {
+            GL11.glPushMatrix();
+            final CSModelMetadata modelData = ModelHandler.getModelByID(modelID);
+            GL11.glTranslatef(1.0F, 1.0F, 1.0F);
+            GL11.glTranslatef(modelData.itemOffset.x, modelData.itemOffset.y, modelData.itemOffset.z);
+            GL11.glScalef(modelData.itemScale, modelData.itemScale, modelData.itemScale);
 
-	@Override
-	public boolean isAmbientOcclusion() {
-		return true;
-	}
+            final int modelRotIndex = lastTransformType == TransformType.GUI ? modelData.rotInventory : modelData.rotHeld;
 
-	@Override
-	public boolean isGui3d() {
-		return true;
-	}
+            ((CSClientModelWrapperVBO) modelData.wrapper).render(null, 0f, 2, false, modelRotIndex * 22.5f, Vector3.invY, Vector3.Zero, Vector3.negHalfXZ);
+            GL11.glPopMatrix();
+        }
+        return dummyList;
+    }
 
-	@Override
-	public boolean isBuiltInRenderer() {
-		return false;
-	}
+    @Override
+    public boolean isAmbientOcclusion() {
+        return true;
+    }
 
-	@Override
-	public TextureAtlasSprite getParticleTexture() {
-		return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(Blocks.SOUL_SAND.getDefaultState());
-	}
+    @Override
+    public boolean isGui3d() {
+        return true;
+    }
 
-	@Override
-	public ItemCameraTransforms getItemCameraTransforms() {
-		return ItemCameraTransforms.DEFAULT;
-	}
+    @Override
+    public boolean isBuiltInRenderer() {
+        return false;
+    }
 
-	@Override
-	public ItemOverrideList getOverrides() {
-		return overrides;
-	}
+    @Override
+    public TextureAtlasSprite getParticleTexture() {
+        return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(Blocks.SOUL_SAND.getDefaultState());
+    }
 
-	private static final Matrix4f matrixGround;
-	private static final Matrix4f matrixThird;
-	private static final Matrix4f matrixFirst;
-	private static final Matrix4f matrixGui;
+    @Override
+    public ItemCameraTransforms getItemCameraTransforms() {
+        return ItemCameraTransforms.DEFAULT;
+    }
 
-	static {
-		matrixGround = convertMatrix(new org.lwjgl.util.vector.Matrix4f(ModelRotation.X0_Y0.getMatrix4d()));
-		org.lwjgl.util.vector.Matrix4f transformMatrix = new org.lwjgl.util.vector.Matrix4f();
-		transformMatrix.scale(new Vector3f(0.25f, 0.25f, 0.25f));
-		matrixGround.mul(TRSRTransformation.toVecmath(transformMatrix));
+    @Override
+    public ItemOverrideList getOverrides() {
+        return overrides;
+    }
 
-		matrixThird = convertMatrix(new org.lwjgl.util.vector.Matrix4f(ModelRotation.X0_Y0.getMatrix4d()));
-		transformMatrix = new org.lwjgl.util.vector.Matrix4f();
-		transformMatrix.rotate(75f * (float)Math.PI/180, new Vector3f(1f, 0f, 0f));
-		transformMatrix.rotate(-45f * (float)Math.PI/180, new Vector3f(0f, 1f, 0f));
-		transformMatrix.scale(new Vector3f(0.35f, 0.35f, 0.35f));
-		transformMatrix.translate(new Vector3f(-0.25f, 0f, -0.25f));
-		matrixThird.mul(TRSRTransformation.toVecmath(transformMatrix));
+    private static final Matrix4f matrixGround;
+    private static final Matrix4f matrixThird;
+    private static final Matrix4f matrixFirst;
+    private static final Matrix4f matrixGui;
 
-		matrixFirst = convertMatrix(new org.lwjgl.util.vector.Matrix4f(ModelRotation.X0_Y0.getMatrix4d()));
-		transformMatrix = new org.lwjgl.util.vector.Matrix4f();
-		transformMatrix.rotate(-45f * (float)Math.PI/180, new Vector3f(0f, 1f, 0f));
-		transformMatrix.scale(new Vector3f(0.4f, 0.4f, 0.4f));
-		matrixFirst.mul(TRSRTransformation.toVecmath(transformMatrix));
+    static {
+        matrixGround = convertMatrix(new org.lwjgl.util.vector.Matrix4f(ModelRotation.X0_Y0.getMatrix4d()));
+        org.lwjgl.util.vector.Matrix4f transformMatrix = new org.lwjgl.util.vector.Matrix4f();
+        transformMatrix.scale(new Vector3f(0.25f, 0.25f, 0.25f));
+        matrixGround.mul(TRSRTransformation.toVecmath(transformMatrix));
 
-		matrixGui = convertMatrix(new org.lwjgl.util.vector.Matrix4f(ModelRotation.X0_Y0.getMatrix4d()));
-		transformMatrix = new org.lwjgl.util.vector.Matrix4f();
-		transformMatrix.rotate(30f * (float)Math.PI/180, new Vector3f(1f, 0f, 0f));
-		transformMatrix.rotate(-45f * (float)Math.PI/180, new Vector3f(0f, 1f, 0f));
-		transformMatrix.scale(new Vector3f(0.625f, 0.625f, 0.625f));
-		matrixGui.mul(TRSRTransformation.toVecmath(transformMatrix));
-	}
+        matrixThird = convertMatrix(new org.lwjgl.util.vector.Matrix4f(ModelRotation.X0_Y0.getMatrix4d()));
+        transformMatrix = new org.lwjgl.util.vector.Matrix4f();
+        transformMatrix.rotate(75f * (float) Math.PI / 180, new Vector3f(1f, 0f, 0f));
+        transformMatrix.rotate(-45f * (float) Math.PI / 180, new Vector3f(0f, 1f, 0f));
+        transformMatrix.scale(new Vector3f(0.35f, 0.35f, 0.35f));
+        transformMatrix.translate(new Vector3f(-0.25f, 0f, -0.25f));
+        matrixThird.mul(TRSRTransformation.toVecmath(transformMatrix));
 
-	// Adapted from net.minecraftforge.client.ForgeHooksClient.getMatrix(ModelRotation)
-	protected static Matrix4f convertMatrix(org.lwjgl.util.vector.Matrix4f inMatrix) {
-		Matrix4f ret = new Matrix4f(TRSRTransformation.toVecmath(inMatrix)), tmp = new Matrix4f();
-		tmp.setIdentity();
-		tmp.m03 = tmp.m13 = tmp.m23 = .5f;
-		ret.mul(tmp, ret);
-		tmp.invert();
-		ret.mul(tmp);
-		return ret;
-	}
+        matrixFirst = convertMatrix(new org.lwjgl.util.vector.Matrix4f(ModelRotation.X0_Y0.getMatrix4d()));
+        transformMatrix = new org.lwjgl.util.vector.Matrix4f();
+        transformMatrix.rotate(-45f * (float) Math.PI / 180, new Vector3f(0f, 1f, 0f));
+        transformMatrix.scale(new Vector3f(0.4f, 0.4f, 0.4f));
+        matrixFirst.mul(TRSRTransformation.toVecmath(transformMatrix));
 
-	@Override
-	public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
-		if (cameraTransformType == TransformType.GROUND) {
-			return Pair.of(this, matrixGround);
-		} else if (cameraTransformType == TransformType.THIRD_PERSON_RIGHT_HAND) {
-			return Pair.of(this, matrixThird);
-		} else if (cameraTransformType == TransformType.FIRST_PERSON_RIGHT_HAND) {
-			return Pair.of(this, matrixFirst);
-		} else if (cameraTransformType == TransformType.THIRD_PERSON_LEFT_HAND) {
-			return Pair.of(this, matrixThird);
-		} else if (cameraTransformType == TransformType.FIRST_PERSON_LEFT_HAND) {
-			return Pair.of(this, matrixFirst);
-		} else if (cameraTransformType == TransformType.GUI) {
-			return Pair.of(this, matrixGui);
-		} else {
-			return Pair.of(this, null);
-		}
-	}
+        matrixGui = convertMatrix(new org.lwjgl.util.vector.Matrix4f(ModelRotation.X0_Y0.getMatrix4d()));
+        transformMatrix = new org.lwjgl.util.vector.Matrix4f();
+        transformMatrix.rotate(30f * (float) Math.PI / 180, new Vector3f(1f, 0f, 0f));
+        transformMatrix.rotate(-45f * (float) Math.PI / 180, new Vector3f(0f, 1f, 0f));
+        transformMatrix.scale(new Vector3f(0.625f, 0.625f, 0.625f));
+        matrixGui.mul(TRSRTransformation.toVecmath(transformMatrix));
+    }
+
+    // Adapted from net.minecraftforge.client.ForgeHooksClient.getMatrix(ModelRotation)
+    protected static Matrix4f convertMatrix(final org.lwjgl.util.vector.Matrix4f inMatrix) {
+        final Matrix4f ret = new Matrix4f(TRSRTransformation.toVecmath(inMatrix));
+        final Matrix4f tmp = new Matrix4f();
+        tmp.setIdentity();
+        tmp.m03 = tmp.m13 = tmp.m23 = .5f;
+        ret.mul(tmp, ret);
+        tmp.invert();
+        ret.mul(tmp);
+        return ret;
+    }
+
+    @Override
+    public Pair<? extends IBakedModel, Matrix4f> handlePerspective(final TransformType cameraTransformType) {
+        lastTransformType = cameraTransformType;
+
+        if (cameraTransformType == TransformType.GROUND) {
+            return Pair.of(this, matrixGround);
+        } else if (cameraTransformType == TransformType.THIRD_PERSON_RIGHT_HAND) {
+            return Pair.of(this, matrixThird);
+        } else if (cameraTransformType == TransformType.FIRST_PERSON_RIGHT_HAND) {
+            return Pair.of(this, matrixFirst);
+        } else if (cameraTransformType == TransformType.THIRD_PERSON_LEFT_HAND) {
+            return Pair.of(this, matrixThird);
+        } else if (cameraTransformType == TransformType.FIRST_PERSON_LEFT_HAND) {
+            return Pair.of(this, matrixFirst);
+        } else if (cameraTransformType == TransformType.GUI) {
+            return Pair.of(this, matrixGui);
+        } else {
+            return Pair.of(this, null);
+        }
+    }
 }

@@ -33,6 +33,7 @@
     "placeable": false,
     "craftstudioAssetName": "0003_Polaroid Camera",
     "craftstudioAssetID": 2701,
+    "rotHeld": 14,
     "tileParams": {
       "cameraType": "POLAROID"
     }
@@ -62,6 +63,7 @@
     "placeable": false,
     "craftstudioAssetName": "0006_Vintage_Camera",
     "craftstudioAssetID": 2707,
+    "rotHeld": 14,
     "tileParams": {
       "cameraType": "VINTAGE"
     }
@@ -72,6 +74,7 @@
     "placeable": false,
     "craftstudioAssetName": "0007_Digital Camera",
     "craftstudioAssetID": 2716,
+    "rotHeld": 14,
     "tileParams": {
       "cameraType": "DIGITAL"
     }
@@ -490,13 +493,13 @@
   {
     "name": "Hanging Frame 1",
     "decocraftModelID": 41,
-    "tileType": "PictureFrame",    
+    "tileType": "PictureFrame",
     "craftstudioAssetName": "0041_Hanging Frame 1",
     "craftstudioAssetID": 2758,
     "tileParams": {
       "greenScreen": "42",
       "aspectRatio": "2.1"
-    }    
+    }
   },
   {
     "name": "Hanging Frame 1 GS",
