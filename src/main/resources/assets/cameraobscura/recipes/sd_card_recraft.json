@@ -1,0 +1,11 @@
+{
+  "result": {
+    "item": "cameraobscura:sdcard"
+  },
+  "ingredients": [
+    {
+      "item": "cameraobscura:sdcard"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}
