@@ -1,0 +1,5 @@
+{
+	"polaroid": { "category": "master", "sounds": [ "cameraobscura:polaroid" ] },
+	"digital": { "category": "master", "sounds": [ "cameraobscura:digital" ] },
+	"vintage": { "category": "master", "sounds": [ "cameraobscura:vintage" ] }
+}

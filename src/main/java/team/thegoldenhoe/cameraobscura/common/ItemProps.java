@@ -10,6 +10,7 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -41,6 +42,7 @@ import team.thegoldenhoe.cameraobscura.common.craftstudio.BlockProps;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileProps;
 import team.thegoldenhoe.cameraobscura.common.network.CameraTypes;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
+import team.thegoldenhoe.cameraobscura.utils.SoundRegistry;
 
 public class ItemProps extends Item {
 
@@ -98,6 +100,7 @@ public class ItemProps extends Item {
 						ICameraStorageNBT storage = vintageCap.getStorageDevice();
 						if (storage != null && storage.canSave()) {
 							takePicture();
+							playSound("vintage");
 						} else {
 							player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_paper")), false);
 						}
@@ -112,6 +115,7 @@ public class ItemProps extends Item {
 						ICameraStorageNBT storage = polaroidCap.getStorageDevice();
 						if (storage != null && storage.canSave()) {
 							takePicture();
+							playSound("polaroid");
 						} else {
 							player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_stacks")), false);
 						}
@@ -126,6 +130,7 @@ public class ItemProps extends Item {
 						ICameraStorageNBT storage = cap.getStorageDevice();
 						if (storage.canSave()) {
 							takePicture();
+							playSound("digital");
 						} else {
 							player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_sd")), false);
 						}
@@ -135,8 +140,13 @@ public class ItemProps extends Item {
 					System.err.println("Not sure how we got here, but a non camera was trying to save an image. Whoops!");
 					return;
 				}
-			}			
+			}
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	private void playSound(String name) {
+		Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getRecord(SoundRegistry.get(name), 1.0F, 5.0F));
 	}
 
 	private void takePicture() {

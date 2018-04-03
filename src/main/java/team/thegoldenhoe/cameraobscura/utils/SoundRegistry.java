@@ -37,5 +37,9 @@ public class SoundRegistry {
                 register(decoModelMetadata.sound);
             }
         }
+        
+        register("polaroid");
+        register("digital");
+        register("vintage");
     }
 }
