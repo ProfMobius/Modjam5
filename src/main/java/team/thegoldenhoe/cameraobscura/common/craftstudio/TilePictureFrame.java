@@ -9,12 +9,15 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.CameraObscura;
 import team.thegoldenhoe.cameraobscura.client.ClientPhotoCache;
+import team.thegoldenhoe.cameraobscura.common.item.ItemBrush;
 import team.thegoldenhoe.cameraobscura.common.item.ItemPolaroidSingle;
 import team.thegoldenhoe.cameraobscura.common.item.ItemVintagePaper;
 import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
 import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoRequest;
+import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
 import java.awt.image.BufferedImage;
 
@@ -52,10 +55,23 @@ public class TilePictureFrame extends TileProps implements ITickable {
 
     @Override
     public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-        //final String pictureLocation = "2018-04-01_23.29.21.png-";
         String pictureLocation = "";
 
         ItemStack held = player.getHeldItem(hand);
+        if (!held.isEmpty() && (held.getItem() instanceof ItemBrush)) {
+            final CSModelMetadata modelData = ModelHandler.getModelByID(type);
+            final int nextModelIndex = modelData.tileParams.containsKey("nextModel") ? Integer.valueOf(modelData.tileParams.get("nextModel")) : -1;
+
+            if (nextModelIndex < 0) {
+                return true;
+            }
+
+            switchModel(nextModelIndex);
+
+            return true;
+        }
+
+
         if (!held.isEmpty() && (held.getItem() instanceof ItemPolaroidSingle || held.getItem() instanceof ItemVintagePaper)) {
             if (held.getTagCompound() != null) {
                 if (held.getTagCompound().hasKey("Photo")) {
@@ -82,6 +98,40 @@ public class TilePictureFrame extends TileProps implements ITickable {
             setPicture(pictureLocation);
         }
         return true;
+    }
+
+    private void switchModel(final int newModelID) {
+        final CSModelMetadata targetData = ModelHandler.getModelByID(newModelID);
+        final CSModelMetadata currentData = ModelHandler.getModelByID(type);
+
+        if (!TileProps.canReplace(targetData.wrapper, world, pos.getX(), pos.getY(), pos.getZ(), false, rotation, currentData.wrapper.getExtendPlacementBlock(rotation))) {
+            return;
+        }
+
+        removeSlaves();
+        world.setBlockToAir(pos);
+        world.setBlockState(pos, CameraObscura.blockProps.getDefaultState().withProperty(BlockProps.FACING, EnumFacing.NORTH));
+
+        final TileProps tileProps = TileProps.checkAndGetTileEntity(world, pos, newModelID);
+
+        tileProps.type = newModelID;
+        tileProps.rotation = rotation;
+        tileProps.tileParams = targetData.tileParams;
+
+        if (tileProps instanceof TilePictureFrame){
+            TilePictureFrame tileFrame = (TilePictureFrame) tileProps;
+            tileFrame.prevStatus = status;
+            tileFrame.prevLocation = prevLocation;
+            tileFrame.status = status;
+            tileFrame.pictureLocation = pictureLocation;
+        }
+
+        tileProps.init();
+        tileProps.blockPlaced(world.getBlockState(pos), world, pos);
+        tileProps.createSlaves();
+
+        tileProps.markDirty();
+        world.checkLight(pos);
     }
 
     @Override
