@@ -1,6 +1,5 @@
 package team.thegoldenhoe.cameraobscura.common;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -20,8 +19,6 @@ import team.thegoldenhoe.cameraobscura.common.ICameraStorageNBT.VintageStorage;
 
 public class ItemVintagePaper extends Item {
 
-	public static final int MAX_ENTRIES = 1;
-
 	public ItemVintagePaper() {
 		setMaxStackSize(1);
 	}
@@ -36,8 +33,7 @@ public class ItemVintagePaper extends Item {
 		}
 
 		if (stack.getTagCompound().hasKey("Photo")) {
-			String path = stack.getTagCompound().getString("Photo");
-			tooltip.add(TextFormatting.ITALIC + path.substring(path.lastIndexOf('\\') + 1).trim());
+			tooltip.add(TextFormatting.ITALIC + "Contains photo");
 		}
 	}
 
@@ -45,12 +41,12 @@ public class ItemVintagePaper extends Item {
 	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
 		return CameraCapabilities.getProvider(CameraCapabilities.getVintageStorageCapability(), () -> {
 			VintageStorage ret = new VintageStorage() {
-				
+
 				@Override
 				public void saveImage(String path, EntityPlayer player) {
 					super.saveImage(path, player);
 					stack.setTagCompound(serializeNBT());
-					
+
 					if (!player.world.isRemote) {
 						stack.getTagCompound().setString("Photo", path);
 					}

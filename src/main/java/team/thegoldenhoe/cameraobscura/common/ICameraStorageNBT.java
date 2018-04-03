@@ -23,7 +23,6 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 
 	@Override
 	default NBTTagCompound serializeNBT() {
-		System.out.println("SERIALIZING NBT IN STORAGE DEVICE");
 		NBTTagCompound ret = new NBTTagCompound();
 		NBTTagList paths = new NBTTagList();
 		ArrayList<String> pathsList = getSavedImagePaths();
@@ -35,13 +34,11 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 			paths.appendTag(pathNBT);
 		}
 		ret.setTag("Paths", paths);
-		System.out.println("NBT path count:" + paths.tagCount());
 		return ret;
 	}
 
 	@Override
 	default void deserializeNBT(NBTTagCompound nbt) {
-		System.out.println("DESERIALIZING NBT IN STORAGE DEVICE");
 		NBTTagList paths = nbt.getTagList("Paths", 10);
 		ArrayList<String> ret = new ArrayList<String>(getMaxSaves());
 		for (int i = 0; i < paths.tagCount(); i++) {
@@ -53,6 +50,7 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 
 	public static class SDCardStorage implements ICameraStorageNBT {
 		private ArrayList<String> paths;
+		public static final int MAX_SAVES = 32;
 
 		public SDCardStorage() {
 			paths = new ArrayList<String>(getMaxSaves());
@@ -70,7 +68,7 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 
 		@Override
 		public int getMaxSaves() {
-			return 32;
+			return MAX_SAVES;
 		}
 
 		@Override
@@ -86,6 +84,7 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 
 	public static class PolaroidStackStorage implements ICameraStorageNBT {
 		private ArrayList<String> paths;
+		public static final int MAX_SAVES = 6;
 
 		public PolaroidStackStorage() {
 			paths = new ArrayList<String>(getMaxSaves());
@@ -103,7 +102,7 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 
 		@Override
 		public int getMaxSaves() {
-			return 6;
+			return MAX_SAVES;
 		}
 
 		@Override

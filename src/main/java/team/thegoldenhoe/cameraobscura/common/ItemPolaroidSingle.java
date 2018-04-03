@@ -30,7 +30,7 @@ public class ItemPolaroidSingle extends Item {
 
 		if (stack.getTagCompound().hasKey("Photo")) {
 			String path = stack.getTagCompound().getString("Photo");
-			tooltip.add(TextFormatting.ITALIC + path.substring(path.lastIndexOf('\\') + 1).trim());
+			tooltip.add(TextFormatting.ITALIC + "Contains Photo");
 		}
 	}
 

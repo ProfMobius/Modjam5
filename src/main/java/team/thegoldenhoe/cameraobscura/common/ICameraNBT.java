@@ -12,18 +12,6 @@ public interface ICameraNBT extends IItemHandler, INBTSerializable<NBTTagCompoun
 	
 	ICameraStorageNBT getStorageDevice();
 	Pair<IFilterNBT, IFilterNBT> getFilters();
-	
-//    @Override
-//    default NBTTagCompound serializeNBT() {
-//        NBTTagCompound ret = new NBTTagCompound();
-//        System.out.println("serializing camera");
-//        return ret;
-//    }
-//    
-//    @Override
-//    default void deserializeNBT(NBTTagCompound nbt) {
-//    	System.out.println("deserializing camera");
-//    }
     
     default void markDirty() {}
     
@@ -40,7 +28,6 @@ public interface ICameraNBT extends IItemHandler, INBTSerializable<NBTTagCompoun
 		@Override
 		protected void onContentsChanged(int slot) {
 			super.onContentsChanged(slot);
-			System.out.println("Contents changed");
 			markDirty();
 		}
 
@@ -55,11 +42,7 @@ public interface ICameraNBT extends IItemHandler, INBTSerializable<NBTTagCompoun
 					return storageStack.getCapability(CameraCapabilities.getPolaroidStackCapability(), null);
 				} else if (storageStack.getItem() instanceof ItemVintagePaper) {
 					return storageStack.getCapability(CameraCapabilities.getVintageStorageCapability(), null);
-				} else {
-					System.out.println("Storage stack is some unknown type: " + storageStack.getItem().getClass());
 				}
-			} else {
-				System.out.println("Storage stack is empty!");
 			}
 			
 			return null;

@@ -27,8 +27,7 @@ public class ItemPolaroidStack extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
-		// lil hacky here to print 6 but it's modjam so w/e
-		int numPrintsRemaining = 6;
+		int numPrintsRemaining = PolaroidStackStorage.MAX_SAVES;
 		if (stack.getTagCompound() == null) {
 			tooltip.add("Empty");
 		}
@@ -39,10 +38,7 @@ public class ItemPolaroidStack extends Item {
 			numPrintsRemaining = storage.getMaxSaves() - paths.size();
 			tooltip.add(TextFormatting.AQUA.toString() + TextFormatting.BOLD + "Prints Remaining: " + numPrintsRemaining);
 			tooltip.add(TextFormatting.DARK_PURPLE.toString() + TextFormatting.ITALIC + "Usable in polaroid camera");
-
-			for (String path : storage.getSavedImagePaths()) {
-				tooltip.add(TextFormatting.ITALIC + path.substring(path.lastIndexOf('\\') + 1).trim());
-			}	
+			tooltip.add(TextFormatting.ITALIC + "Contains Photo");
 		}
 	}
 
