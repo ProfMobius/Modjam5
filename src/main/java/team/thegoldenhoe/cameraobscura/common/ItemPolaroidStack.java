@@ -28,7 +28,7 @@ public class ItemPolaroidStack extends Item {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
 		if (stack.getTagCompound() == null) {
-			return;
+			//return;
 		} else {
 			NBTTagList paths = stack.getTagCompound().getTagList("Paths", 10);
 			System.out.println("Found some nbt on the item:" + paths.tagCount());
@@ -39,6 +39,8 @@ public class ItemPolaroidStack extends Item {
 		
 		if (paths == null) {
 			System.out.println("No tag compound");
+		} else {
+			System.out.println("paths");
 		}
 		
 		//NBTTagList paths = stack.getTagCompound().getTagList("Paths", 10);
@@ -47,14 +49,16 @@ public class ItemPolaroidStack extends Item {
 
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-		System.out.println("Init caps");
+		System.out.println("Init caps" + nbt);
 		return CameraCapabilities.getProvider(CameraCapabilities.getPolaroidStackCapability(), () -> {
 			PolaroidStackStorage ret = new PolaroidStackStorage() {
 				@Override
 				public void saveImage(String path) {
-					System.out.println("Saving polaroid - item");
+					System.out.println("Saving polaroid - item" + stack);
 					super.saveImage(path);
-					stack.setTagCompound(serializeNBT());
+					NBTTagCompound nbt2 = serializeNBT();
+					System.out.println(nbt2);
+					stack.setTagCompound(nbt2);
 				}
 			};
 			if (stack.hasTagCompound()) {

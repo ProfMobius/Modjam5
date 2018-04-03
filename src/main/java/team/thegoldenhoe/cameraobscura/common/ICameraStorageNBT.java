@@ -1,7 +1,6 @@
 package team.thegoldenhoe.cameraobscura.common;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -85,7 +84,7 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 
 	public static class PolaroidStackStorage implements ICameraStorageNBT {
 		private ArrayList<String> paths;
-		
+
 		public PolaroidStackStorage() {
 			paths = new ArrayList<String>(getMaxSaves());
 		}
@@ -118,14 +117,14 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 			return paths.size() < getMaxSaves();
 		}
 	}
-	
+
 	public static class VintageStorage implements ICameraStorageNBT {
 		private ArrayList<String> paths;
 
 		public VintageStorage() {
 			paths = new ArrayList<String>(getMaxSaves());
 		}
-		
+
 		@Override
 		public ArrayList<String> getSavedImagePaths() {
 			return paths;

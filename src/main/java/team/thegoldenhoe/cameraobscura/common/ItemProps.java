@@ -60,8 +60,13 @@ public class ItemProps extends Item {
 		} else {
 			NBTTagList paths = stack.getTagCompound().getTagList("Paths", 10);
 			System.out.println(stack.getTagCompound());
-			System.out.println("Found some nbt on the item:" + paths.tagCount());
+//			System.out.println("Found some nbt on the item:" + paths.tagCount());
 		}
+		ICameraNBT cam = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
+		ICameraStorageNBT stor = cam.getStorageDevice();
+		ItemStack polaroidStack = cam.getStackInSlot(0);
+		tooltip.add("" + stor.getSavedImagePaths().size());
+		tooltip.add("" + polaroidStack.serializeNBT());
 	}
 
 	/**
@@ -103,7 +108,6 @@ public class ItemProps extends Item {
 	 */
 	protected void takePicOrOpenGui(World world, EntityPlayer player, EnumHand hand, CameraTypes type) {
 		if (hand == EnumHand.OFF_HAND) {
-			System.out.println("hm");
 			player.openGui(CameraObscura.instance, type.getGuiID(), world, hand.ordinal(), 0, 0);	
 		} else {
 			if (world.isRemote) {
@@ -161,9 +165,16 @@ public class ItemProps extends Item {
 			ICameraNBT ret = new ICameraNBT.CameraHandler() {
 				@Override
 				public void markDirty() {
-					stack.setTagCompound(serializeNBT());
+					NBTTagCompound nbtTmp = serializeNBT();
+					nbtTmp.setBoolean("test", true);
+					System.out.println("Camera mark dirty:" + nbtTmp);
+					stack.setTagCompound(nbtTmp);
 				}
 			};
+			
+			System.out.println("stack in init cap: " + stack);
+			System.out.println(stack.getTagCompound());
+			
 			if (stack.hasTagCompound()) {
 				ret.deserializeNBT(stack.getTagCompound());
 			}
