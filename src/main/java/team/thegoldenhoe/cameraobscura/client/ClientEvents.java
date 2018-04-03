@@ -1,6 +1,7 @@
 package team.thegoldenhoe.cameraobscura.client;
 
 import com.mia.craftstudio.minecraft.client.CSClientModelWrapperVBO;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,7 +50,7 @@ public enum ClientEvents {
         //   will still be showing since the buffer hasn't been cleared yet
         if (ClientProxy.photographPending && Minecraft.getMinecraft().gameSettings.hideGUI
                 && event.phase == TickEvent.Phase.END) {
-            PhotographHelper.capturePhotograph(PhotoFilters.HIGH_CONTRAST);
+            PhotographHelper.capturePhotograph();
             // Restore hide gui setting to whatever it was before
             Minecraft.getMinecraft().gameSettings.hideGUI = ClientProxy.hideGUIDefault;
             ClientProxy.photographPending = false;

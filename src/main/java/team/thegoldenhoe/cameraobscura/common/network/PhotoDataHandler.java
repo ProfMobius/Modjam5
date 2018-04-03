@@ -106,6 +106,19 @@ public class PhotoDataHandler {
 				
 				buffer.put(message.data);
 			}
+			
+			if (photographerUUID == null) {
+				messageBuffer.remove(uuid);
+				throw new NullPointerException("Photographer UUID is null, which means we can't produce an item. Sorry :(");
+			}
+
+			EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
+			ItemStack stack = player.getHeldItemMainhand();
+			
+			if (stack.isEmpty()) {
+				messageBuffer.remove(uuid);
+				throw new NullPointerException("Camera is null, which means we don't know how to produce the item properly. Sorry :(");
+			}
 
 			String savePath = saveImage(createImageFromBytes(bytes));
 			
@@ -113,7 +126,7 @@ public class PhotoDataHandler {
 			// if digital, save to sd card if present
 			// if manual, save to photograph, decrement film level
 			if (savePath != null) {
-				postImageSaved(world, photographerUUID, savePath);
+				postImageSaved(player, stack, world, photographerUUID, savePath);
 			} else {
 				System.err.println("Save path for image was null. This should never happen, but it did. Look at you, you special person!");
 			}
@@ -122,18 +135,7 @@ public class PhotoDataHandler {
 		}
 	}
 	
-	private static void postImageSaved(World world, UUID photographerUUID, String savePath) {
-		if (photographerUUID == null) {
-			throw new NullPointerException("Photographer UUID is null, which means we can't produce an item. Sorry :(");
-		}
-		
-		EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
-		ItemStack stack = player.getHeldItemMainhand();
-		
-		if (stack.isEmpty()) {
-			throw new NullPointerException("Camera is null, which means we don't know how to produce the item properly. Sorry :(");
-		}
-		
+	private static void postImageSaved(EntityPlayer player, ItemStack stack, World world, UUID photographerUUID, String savePath) {
 		if (stack.getItem() != null && stack.getItem() instanceof ItemProps) {
 			if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ItemProps) {
 				stack = player.getHeldItemMainhand();

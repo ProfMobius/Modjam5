@@ -69,7 +69,7 @@ public class MessagePhotoDataToServer implements IMessage {
 		@Override
 		public IMessage onMessage(MessagePhotoDataToServer message, MessageContext ctx) {
 			PhotoDataHandler.bufferMessage(message);
-			System.out.println("Num bytes recv:" + message.data.length);
+			//System.out.println("Num bytes recv:" + message.data.length);
 			return null;
 		}}
 

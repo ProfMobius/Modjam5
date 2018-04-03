@@ -157,11 +157,7 @@ public class ItemProps extends Item {
 				}
 			};
 
-			System.out.println("stack in init cap: " + stack);
-			System.out.println(stack.getTagCompound());
-
 			if (stack.hasTagCompound()) {
-				System.out.println("deser props" + ret.serializeNBT());
 				ret.deserializeNBT(stack.getTagCompound());
 			}
 			return ret;
