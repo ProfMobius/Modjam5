@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=south": { "model": "cameraobscura:blockfake"},
+        "facing=west":  { "model": "cameraobscura:blockfake"},
+        "facing=north": { "model": "cameraobscura:blockfake"},
+        "facing=east":  { "model": "cameraobscura:blockfake" }
+    }
+}
