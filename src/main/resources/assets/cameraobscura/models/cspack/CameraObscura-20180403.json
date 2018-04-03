@@ -15,7 +15,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "9"
     }
   },
   {
@@ -42,6 +43,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0004_Polaroid Frame",
     "craftstudioAssetID": 2703,
+    "creativeInv": false,
     "tileParams": {
       "greenScreen": "5",
       "aspectRatio": "1.0"
@@ -51,7 +53,8 @@
     "name": "PolaroidGreenScreen",
     "decocraftModelID": 5,
     "craftstudioAssetName": "0005_PolaroidGreenScreen",
-    "craftstudioAssetID": 2755
+    "craftstudioAssetID": 2755,
+    "creativeInv": false
   },
   {
     "name": "Vintage Camera",
@@ -82,7 +85,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "10"
     }
   },
   {
@@ -94,7 +98,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "11"
     }
   },
   {
@@ -106,7 +111,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "12"
     }
   },
   {
@@ -118,7 +124,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "13"
     }
   },
   {
@@ -130,7 +137,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "14"
     }
   },
   {
@@ -142,7 +150,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "15"
     }
   },
   {
@@ -154,7 +163,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "16"
     }
   },
   {
@@ -166,7 +176,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "17"
     }
   },
   {
@@ -178,7 +189,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "18"
     }
   },
   {
@@ -190,7 +202,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "19"
     }
   },
   {
@@ -202,7 +215,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "20"
     }
   },
   {
@@ -214,7 +228,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "21"
     }
   },
   {
@@ -226,7 +241,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "22"
     }
   },
   {
@@ -238,7 +254,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "23"
     }
   },
   {
@@ -250,7 +267,8 @@
     "scale": 0.5,
     "tileParams": {
       "greenScreen": "2",
-      "aspectRatio": "1.0"
+      "aspectRatio": "1.0",
+      "nextModel": "1"
     }
   },
   {
@@ -262,7 +280,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "26"
     }
   },
   {
@@ -282,7 +301,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "27"
     }
   },
   {
@@ -294,7 +314,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "28"
     }
   },
   {
@@ -306,7 +327,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "29"
     }
   },
   {
@@ -318,7 +340,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "30"
     }
   },
   {
@@ -330,7 +353,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "31"
     }
   },
   {
@@ -342,7 +366,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "32"
     }
   },
   {
@@ -354,7 +379,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "33"
     }
   },
   {
@@ -366,7 +392,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "34"
     }
   },
   {
@@ -378,7 +405,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "35"
     }
   },
   {
@@ -390,7 +418,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "36"
     }
   },
   {
@@ -402,7 +431,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "37"
     }
   },
   {
@@ -414,7 +444,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "38"
     }
   },
   {
@@ -426,7 +457,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "39"
     }
   },
   {
@@ -438,7 +470,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "40"
     }
   },
   {
@@ -450,7 +483,8 @@
     "scale": 0.7,
     "tileParams": {
       "greenScreen": "25",
-      "aspectRatio": "1.7"
+      "aspectRatio": "1.7",
+      "nextModel": "24"
     }
   },
   {
@@ -468,6 +502,7 @@
     "name": "Hanging Frame 1 GS",
     "decocraftModelID": 42,
     "craftstudioAssetName": "0042_Hanging Frame 1 GS",
-    "craftstudioAssetID": 2759
+    "craftstudioAssetID": 2759,
+    "creativeInv": false
   }
 ]

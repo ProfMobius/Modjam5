@@ -31,7 +31,7 @@ public class ItemRegistry {
 		itemProps = registerItem(registry, new ItemProps(), "csitem", false);
 		filter = registerMultiItem(registry, new ItemFilter(), "filter", filterNames);
 		sdCard = registerItem(registry, new ItemSDCard(), "sdcard", "sdcard", true);
-		brush = registerItem(registry, new ItemBrush(), "brush", "brush", false);
+		brush = registerItem(registry, new ItemBrush(), "brush", "brush", true);
 		polaroidStack = registerItem(registry, new ItemPolaroidStack(), "polaroid_stack", "polaroid_stack", true);
 		polaroidSingle = registerItem(registry, new ItemPolaroidSingle(), "polaroid_photo", "polaroid_photo", false);
 		vintagePhoto = registerItem(registry, new ItemVintagePaper(), "vintage_photo", "vintage_photo", true);
