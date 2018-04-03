@@ -23,6 +23,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -114,6 +115,7 @@ public class ItemProps extends Item {
 					ICameraStorageNBT storage = vintageCap.getStorageDevice();
 					if (storage != null && storage.canSave()) {
 						takePicture();
+						world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, player.getPosition().getX() + (double)player.world.rand.nextFloat(), player.getPosition().getY() + (double)player.world.rand.nextFloat() + 1, player.getPosition().getZ() + (double)player.world.rand.nextFloat(), 0.0D, 0.0D, 0.0D);
 						playSound("vintage");
 					} else {
 						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_paper")), false);
@@ -128,6 +130,7 @@ public class ItemProps extends Item {
 				} else {
 					ICameraStorageNBT storage = polaroidCap.getStorageDevice();
 					if (storage != null && storage.canSave()) {
+						world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, player.getPosition().getX() + (double)player.world.rand.nextFloat(), player.getPosition().getY() + (double)player.world.rand.nextFloat() + 1, player.getPosition().getZ() + (double)player.world.rand.nextFloat(), 0.0D, 0.0D, 0.0D);
 						takePicture();
 						playSound("polaroid");
 					} else {
@@ -144,6 +147,7 @@ public class ItemProps extends Item {
 					ICameraStorageNBT storage = cap.getStorageDevice();
 					if (storage.canSave()) {
 						takePicture();
+						world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, player.getPosition().getX() + (double)player.world.rand.nextFloat(), player.getPosition().getY() + (double)player.world.rand.nextFloat() + 1, player.getPosition().getZ() + (double)player.world.rand.nextFloat(), 0.0D, 0.0D, 0.0D);
 						playSound("digital");
 					} else {
 						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_sd")), false);
