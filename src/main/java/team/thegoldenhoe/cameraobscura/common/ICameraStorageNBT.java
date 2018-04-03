@@ -93,9 +93,6 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 
 		@Override
 		public ArrayList<String> getSavedImagePaths() {
-			for (String path : paths) {
-				System.out.println("Path: " + path);
-			}
 			return paths;
 		}
 

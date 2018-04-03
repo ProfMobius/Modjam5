@@ -110,7 +110,7 @@ public class ItemProps extends Item {
 						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.missing_stacks")), false);
 					} else {
 						ICameraStorageNBT storage = polaroidCap.getStorageDevice();
-						if (storage.canSave()) {
+						if (storage != null && storage.canSave()) {
 							takePicture();
 						} else {
 							player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_stacks")), false);

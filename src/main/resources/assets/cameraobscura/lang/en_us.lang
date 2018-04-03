@@ -3,13 +3,14 @@ item.cameraobscura.filter.gloomy.name=Gloomy Filter
 item.cameraobscura.filter.high_contrast.name=High Contrast Filter
 item.cameraobscura.filter.retro.name=Retro Filter
 item.cameraobscura.filter.happy.name=Bright 'n' Happy Filter
-item.cameraobscura.polaroid_stack.name=Polaroid Stacks
+item.cameraobscura.polaroid_stack.name=Polaroid Stack
 item.cameraobscura.polaroid_camera.name=Polaroid Camera
 item.cameraobscura.polaroid_photo.name=Polaroid Photo
 item.cameraobscura.vintage_camera.name=Ye Olde Camera
 item.cameraobscura.digital_camera.name=Digital Camera
 item.cameraobscura.vintage_photo.name=Vintage Photograph
 item.cameraobscura.sdcard.name=SD Card
+item.cameraobscura.brush.name=Frame Brush
 
 # Chat messages
 cameraobscura.chat.missing_sd=Your SD card is missing!
