@@ -21,9 +21,9 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.client.renderers.RenderPropInv;
-import team.thegoldenhoe.cameraobscura.common.ItemProps;
-import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileProps;
+import team.thegoldenhoe.cameraobscura.common.item.ItemProps;
+import team.thegoldenhoe.cameraobscura.common.item.ItemRegistry;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
 

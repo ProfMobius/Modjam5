@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.common;
+package team.thegoldenhoe.cameraobscura.common.item;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +38,10 @@ import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.CameraObscura;
 import team.thegoldenhoe.cameraobscura.TabProps;
 import team.thegoldenhoe.cameraobscura.client.ClientProxy;
+import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
+import team.thegoldenhoe.cameraobscura.common.capability.ICameraNBT;
+import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT;
+import team.thegoldenhoe.cameraobscura.common.capability.ICameraNBT.CameraHandler;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.BlockProps;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileProps;
 import team.thegoldenhoe.cameraobscura.common.network.CameraTypes;
@@ -65,7 +69,7 @@ public class ItemProps extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		final ItemStack stack = player.getHeldItem(hand);
-
+		System.out.println("right click");
 		if (stack.getCount() == 0) {
 			return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 		}
@@ -73,9 +77,10 @@ public class ItemProps extends Item {
 		CSModelMetadata data = ModelHandler.getModelFromStack(stack);
 		if (!data.placeable) {
 			takePicOrOpenGui(world, player, hand, data.getCameraType());
+			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 		}
 
-		return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(hand));
+		return new ActionResult<ItemStack>(EnumActionResult.FAIL, player.getHeldItem(hand));
 	}
 
 	/**
@@ -177,7 +182,7 @@ public class ItemProps extends Item {
 	@Override
 	public EnumActionResult onItemUse(final EntityPlayer player, final World world, final BlockPos pos, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
 		final ItemStack stack = player.getHeldItem(hand);
-
+		System.out.println("onItemUse");
 		if (stack.getCount() == 0) {
 			return EnumActionResult.FAIL;
 		}

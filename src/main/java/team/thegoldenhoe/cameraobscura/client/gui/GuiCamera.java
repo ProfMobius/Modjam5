@@ -4,7 +4,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import team.thegoldenhoe.cameraobscura.client.ClientUtils;
-import team.thegoldenhoe.cameraobscura.common.ICameraContainer;
+import team.thegoldenhoe.cameraobscura.common.container.ICameraContainer;
 
 public class GuiCamera extends GuiContainer {
 

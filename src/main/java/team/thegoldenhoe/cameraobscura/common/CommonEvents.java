@@ -10,7 +10,10 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import team.thegoldenhoe.cameraobscura.CSModelMetadata;
+import team.thegoldenhoe.cameraobscura.common.item.ItemRegistry;
 import team.thegoldenhoe.cameraobscura.common.network.PhotoDataHandler;
+import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
 public class CommonEvents {
 
@@ -18,7 +21,6 @@ public class CommonEvents {
 	public void tickServerWorld(WorldTickEvent event) {
 		if (event.side == Side.SERVER && !(event.world instanceof WorldServerMulti)) {
 			PhotoDataHandler.processMessageQueue();
-			//System.out.println(event.world);
 			PhotoDataHandler.processMessageBuffer(event.world);	
 		}
 	}
@@ -42,9 +44,29 @@ public class CommonEvents {
 		if (player != null) {
 			ItemStack heldMain = player.getHeldItemMainhand();
 			ItemStack heldOff = player.getHeldItemOffhand();
-			if ((!heldMain.isEmpty() && heldMain.getItem() == ItemRegistry.itemProps) ||
-				(!heldOff.isEmpty() && heldOff.getItem() == ItemRegistry.itemProps)) {
-				event.setCanceled(true);
+			
+			if (!heldMain.isEmpty()) {
+				if (heldMain.getItem() == ItemRegistry.itemProps) {
+					CSModelMetadata data = ModelHandler.getModelFromStack(heldMain);
+					if (data.placeable) {
+						// If placeable, we want to place, so let's exit
+						return;
+					} else {
+						event.setCanceled(true);
+					}
+				}
+			} else if (!heldOff.isEmpty()) {
+				if (heldOff.getItem() == ItemRegistry.itemProps) {
+					CSModelMetadata data = ModelHandler.getModelFromStack(heldMain);
+					if (data.placeable) {
+						// If placeable, we want to place, so let's exit
+						return;
+					} else {
+						event.setCanceled(true);
+					}
+				} else {
+					return;
+				}
 			}
 		}
 	}

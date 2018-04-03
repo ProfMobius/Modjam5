@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.common;
+package team.thegoldenhoe.cameraobscura.common.capability;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.INBTSerializable;
+import team.thegoldenhoe.cameraobscura.common.item.ItemRegistry;
 
 public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 

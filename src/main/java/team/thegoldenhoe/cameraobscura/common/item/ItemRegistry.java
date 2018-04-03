@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.common;
+package team.thegoldenhoe.cameraobscura.common.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -12,6 +12,10 @@ import team.thegoldenhoe.cameraobscura.Info;
 @Mod.EventBusSubscriber(modid = Info.MODID)
 public class ItemRegistry {
 
+	private static final String[] filterNames = new String[] {
+		"filter_sepia", "filter_gloomy", "filter_happy", "filter_retro", "filter_high_contrast", "filter_low_sobel", "filter_high_sobel"
+	};
+	
 	public static Item itemProps;
 	public static Item filter;
 	public static Item sdCard;
@@ -25,7 +29,7 @@ public class ItemRegistry {
 		IForgeRegistry<Item> registry = event.getRegistry();
 
 		itemProps = registerItem(registry, new ItemProps(), "csitem");
-		filter = registerMultiItem(registry, new ItemFilter(), "filter", "filter_sepia", "filter_gloomy", "filter_happy", "filter_retro", "filter_high_contrast");
+		filter = registerMultiItem(registry, new ItemFilter(), "filter", filterNames);
 		sdCard = registerItem(registry, new ItemSDCard(), "sdcard", "sdcard");
 		brush = registerItem(registry, new ItemBrush(), "brush", "brush");
 		polaroidStack = registerItem(registry, new ItemPolaroidStack(), "polaroid_stack", "polaroid_stack");

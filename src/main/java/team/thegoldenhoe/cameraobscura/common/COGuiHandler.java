@@ -6,6 +6,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import team.thegoldenhoe.cameraobscura.client.gui.GuiCamera;
+import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
+import team.thegoldenhoe.cameraobscura.common.container.ContainerDigitalCamera;
+import team.thegoldenhoe.cameraobscura.common.container.ContainerSingleSlotCamera;
+import team.thegoldenhoe.cameraobscura.common.item.ItemProps;
 import team.thegoldenhoe.cameraobscura.common.network.CameraTypes;
 
 public class COGuiHandler implements IGuiHandler {

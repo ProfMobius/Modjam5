@@ -33,7 +33,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
-import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
+import team.thegoldenhoe.cameraobscura.common.item.ItemRegistry;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 import team.thegoldenhoe.cameraobscura.utils.SoundRegistry;
 

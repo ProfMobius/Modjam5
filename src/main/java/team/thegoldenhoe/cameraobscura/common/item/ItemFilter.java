@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.common;
+package team.thegoldenhoe.cameraobscura.common.item;
 
 import java.util.Locale;
 
@@ -35,7 +35,9 @@ public class ItemFilter extends Item {
 		GLOOMY(PhotoFilters.BLACK_AND_WHITE),
 		HAPPY(PhotoFilters.BRIGHT_AND_HAPPY),
 		RETRO(PhotoFilters.VINTAGE),
-		HIGH_CONTRAST(PhotoFilters.HIGH_CONTRAST)
+		HIGH_CONTRAST(PhotoFilters.HIGH_CONTRAST),
+		LOW_SOBEL(PhotoFilters.LOW_SOBEL),
+		HIGH_SOBEL(PhotoFilters.HIGH_SOBEL),
 		;
 	
 		private PhotoFilter filter;

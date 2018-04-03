@@ -32,9 +32,9 @@ import team.thegoldenhoe.cameraobscura.Info;
 import team.thegoldenhoe.cameraobscura.client.commands.CommandMakeResources;
 import team.thegoldenhoe.cameraobscura.client.renderers.RendererProp;
 import team.thegoldenhoe.cameraobscura.common.CommonProxy;
-import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TilePictureFrame;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileProps;
+import team.thegoldenhoe.cameraobscura.common.item.ItemRegistry;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 import team.thegoldenhoe.cameraobscura.utils.SoundRegistry;
 

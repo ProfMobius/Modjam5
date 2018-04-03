@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.common;
+package team.thegoldenhoe.cameraobscura.common.container;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.EnumHand;

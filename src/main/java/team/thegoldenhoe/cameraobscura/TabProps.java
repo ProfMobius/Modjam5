@@ -4,7 +4,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
+import team.thegoldenhoe.cameraobscura.common.item.ItemRegistry;
 
 public enum TabProps {
     Main(0),;

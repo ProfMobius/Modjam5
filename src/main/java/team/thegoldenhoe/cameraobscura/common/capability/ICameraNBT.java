@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.common;
+package team.thegoldenhoe.cameraobscura.common.capability;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -8,7 +8,11 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import team.thegoldenhoe.cameraobscura.client.PhotoFilter;
-import team.thegoldenhoe.cameraobscura.common.ItemFilter.FilterType;
+import team.thegoldenhoe.cameraobscura.common.item.ItemFilter;
+import team.thegoldenhoe.cameraobscura.common.item.ItemPolaroidStack;
+import team.thegoldenhoe.cameraobscura.common.item.ItemSDCard;
+import team.thegoldenhoe.cameraobscura.common.item.ItemVintagePaper;
+import team.thegoldenhoe.cameraobscura.common.item.ItemFilter.FilterType;
 
 public interface ICameraNBT extends IItemHandler, INBTSerializable<NBTTagCompound> {
 	

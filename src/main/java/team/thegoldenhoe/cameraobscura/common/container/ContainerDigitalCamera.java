@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.common;
+package team.thegoldenhoe.cameraobscura.common.container;
 
 import javax.annotation.Nullable;
 
@@ -11,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import team.thegoldenhoe.cameraobscura.common.item.ItemFilter;
+import team.thegoldenhoe.cameraobscura.common.item.ItemSDCard;
 
 public class ContainerDigitalCamera extends Container implements ICameraContainer {
 

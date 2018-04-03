@@ -92,7 +92,7 @@ public class PhotoFilters {
 			return src;
 		}
 	};
-	
+
 	public static final PhotoFilter HIGH_CONTRAST = new PhotoFilter() {
 		@Override
 		public BufferedImage getFilteredImage(BufferedImage src) {
@@ -102,37 +102,46 @@ public class PhotoFilters {
 		}
 	};
 
-	public static final PhotoFilter SOBEL = new PhotoFilter() {
+	public static final PhotoFilter LOW_SOBEL = new PhotoFilter() {
 		@Override
 		public BufferedImage getFilteredImage(BufferedImage src) {
-			int threshold = 30;
-
-			int w = src.getWidth();
-			int h = src.getHeight();
-
-			BufferedImage out = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_BINARY);
-
-			int blackRgb = Color.BLACK.getRGB();
-			int whiteRgb = Color.WHITE.getRGB();
-
-			for (int y = 0; y < h; y++) {
-				for (int x = 0; x < w; x++) {
-					int rgb = src.getRGB(x, y);
-					int r = (rgb >> 16) & 0xff;
-					int g = (rgb >> 8) & 0xff;
-					int b = (rgb) & 0xff;
-					int gray = (int) (0.2126 * r + 0.7152 * g + 0.0722 * b);
-					if (gray >= threshold) {
-						out.setRGB(x, y, whiteRgb);
-					} else {
-						out.setRGB(x, y, blackRgb);
-					}
-				}
-			}
-
-			return out;
+			return getSobel(src, 30);
 		}
 	};
+
+	public static final PhotoFilter HIGH_SOBEL = new PhotoFilter() {
+		@Override
+		public BufferedImage getFilteredImage(BufferedImage src) {
+			return getSobel(src, 60);
+		}
+	};
+
+	private static BufferedImage getSobel(BufferedImage src, int threshold) {
+		int w = src.getWidth();
+		int h = src.getHeight();
+
+		BufferedImage out = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_BINARY);
+
+		int blackRgb = Color.BLACK.getRGB();
+		int whiteRgb = Color.WHITE.getRGB();
+
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				int rgb = src.getRGB(x, y);
+				int r = (rgb >> 16) & 0xff;
+				int g = (rgb >> 8) & 0xff;
+				int b = (rgb) & 0xff;
+				int gray = (int) (0.2126 * r + 0.7152 * g + 0.0722 * b);
+				if (gray >= threshold) {
+					out.setRGB(x, y, whiteRgb);
+				} else {
+					out.setRGB(x, y, blackRgb);
+				}
+			}
+		}
+
+		return out;
+	}
 
 	public static final PhotoFilter VINTAGE = new PhotoFilter() {
 		@Override
@@ -184,15 +193,15 @@ public class PhotoFilters {
 				if (blue < 0)
 					blue = 0;
 
-//				float[] hsb = Color.RGBtoHSB(red, green, blue, null);
-//				float hue = hsb[0];
-//				float saturation = hsb[1];
-//				float brightness = hsb[2];
-//
-//				brightness = 1 - brightness + 0.2f;
-//				
-//				int rgb = Color.HSBtoRGB(hue, saturation, brightness);
-				
+				//				float[] hsb = Color.RGBtoHSB(red, green, blue, null);
+				//				float hue = hsb[0];
+				//				float saturation = hsb[1];
+				//				float brightness = hsb[2];
+				//
+				//				brightness = 1 - brightness + 0.2f;
+				//				
+				//				int rgb = Color.HSBtoRGB(hue, saturation, brightness);
+
 				int rgb = red;
 				rgb = (rgb << 8) + green;
 				rgb = (rgb << 8) + blue;

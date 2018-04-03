@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.common;
+package team.thegoldenhoe.cameraobscura.common.item;
 
 import java.util.List;
 
@@ -15,7 +15,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import team.thegoldenhoe.cameraobscura.common.ICameraStorageNBT.VintageStorage;
+import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
+import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT;
+import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT.VintageStorage;
 
 public class ItemVintagePaper extends Item {
 
