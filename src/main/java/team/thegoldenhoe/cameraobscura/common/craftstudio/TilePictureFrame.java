@@ -1,7 +1,5 @@
 package team.thegoldenhoe.cameraobscura.common.craftstudio;
 
-import java.awt.image.BufferedImage;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -17,6 +15,8 @@ import team.thegoldenhoe.cameraobscura.common.item.ItemPolaroidSingle;
 import team.thegoldenhoe.cameraobscura.common.item.ItemVintagePaper;
 import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
 import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoRequest;
+
+import java.awt.image.BufferedImage;
 
 public class TilePictureFrame extends TileProps implements ITickable {
     public enum Status {
@@ -53,17 +53,21 @@ public class TilePictureFrame extends TileProps implements ITickable {
     @Override
     public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
         //final String pictureLocation = "2018-04-01_23.29.21.png-";
-    	String pictureLocation = "";
-    	
-    	ItemStack held = player.getHeldItem(hand);
-    	if (!held.isEmpty() && (held.getItem() instanceof ItemPolaroidSingle || held.getItem() instanceof ItemVintagePaper)) {
-    		if (held.getTagCompound() != null) {
-    			if (held.getTagCompound().hasKey("Photo")) {
-    				pictureLocation = held.getTagCompound().getString("Photo");
-    				pictureLocation = pictureLocation.substring(pictureLocation.lastIndexOf('\\') + 1);
-    			}
-    		}
-    	}
+        String pictureLocation = "";
+
+        ItemStack held = player.getHeldItem(hand);
+        if (!held.isEmpty() && (held.getItem() instanceof ItemPolaroidSingle || held.getItem() instanceof ItemVintagePaper)) {
+            if (held.getTagCompound() != null) {
+                if (held.getTagCompound().hasKey("Photo")) {
+                    pictureLocation = held.getTagCompound().getString("Photo");
+                    if (pictureLocation.startsWith("/")) {
+                        pictureLocation = pictureLocation.substring(pictureLocation.lastIndexOf('/') + 1);
+                    } else {
+                        pictureLocation = pictureLocation.substring(pictureLocation.lastIndexOf('\\') + 1);
+                    }
+                }
+            }
+        }
 
         if (world.isRemote) {
             final BufferedImage image = ClientPhotoCache.INSTANCE.getImage(pictureLocation);
