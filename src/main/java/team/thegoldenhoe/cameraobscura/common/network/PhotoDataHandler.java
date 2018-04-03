@@ -22,13 +22,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.Utils;
 import team.thegoldenhoe.cameraobscura.common.CameraCapabilities;
 import team.thegoldenhoe.cameraobscura.common.ICameraNBT;
 import team.thegoldenhoe.cameraobscura.common.ICameraStorageNBT;
 import team.thegoldenhoe.cameraobscura.common.ItemProps;
-import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
 public class PhotoDataHandler {
@@ -95,7 +95,6 @@ public class PhotoDataHandler {
 			byte[] bytes = null;
 			ByteBuffer buffer = null;
 			UUID photographerUUID = null;
-			ItemStack camera = ItemStack.EMPTY;
 
 			// Iterate through all messages received for this uuid
 			for (MessagePhotoDataToServer message : messages) {
@@ -107,10 +106,6 @@ public class PhotoDataHandler {
 					photographerUUID = UUID.fromString(message.playerUUID);
 				}
 				
-				if (camera.isEmpty()) {
-					camera = message.camera;
-				}
-				
 				buffer.put(message.data);
 			}
 
@@ -120,7 +115,7 @@ public class PhotoDataHandler {
 			// if digital, save to sd card if present
 			// if manual, save to photograph, decrement film level
 			if (savePath != null) {
-				postImageSaved(world, photographerUUID, camera, savePath);
+				postImageSaved(world, photographerUUID, savePath);
 			} else {
 				System.err.println("Save path for image was null. This should never happen, but it did. Look at you, you special person!");
 			}
@@ -129,16 +124,24 @@ public class PhotoDataHandler {
 		}
 	}
 	
-	private static void postImageSaved(World world, UUID photographerUUID, ItemStack stack, String savePath) {
+	private static void postImageSaved(World world, UUID photographerUUID, String savePath) {
 		if (photographerUUID == null) {
 			throw new NullPointerException("Photographer UUID is null, which means we can't produce an item. Sorry :(");
 		}
+		
+		EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
+		ItemStack stack = player.getHeldItemMainhand();
 		
 		if (stack.isEmpty()) {
 			throw new NullPointerException("Camera is null, which means we don't know how to produce the item properly. Sorry :(");
 		}
 		
 		if (stack.getItem() != null && stack.getItem() instanceof ItemProps) {
+			if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ItemProps) {
+				stack = player.getHeldItemMainhand();
+			} else {
+				stack = player.getHeldItemOffhand();
+			}
 			ItemProps camera = (ItemProps)stack.getItem();
 
 			CSModelMetadata data = ModelHandler.getModelFromStack(stack);
@@ -156,23 +159,25 @@ public class PhotoDataHandler {
 					polaroidStorage.saveImage(savePath);
 					System.out.println("Num currently saved POST(server): " + polaroidStorage.getSavedImagePaths().size());
 					cameraCap.markDirty();
-					System.out.println(cameraCap.getStackInSlot(0));
+					System.out.println(cameraCap.getStackInSlot(0).getTagCompound());
+					System.out.println(FMLCommonHandler.instance().getEffectiveSide());
+					//System.out.println(storageStack);
 				} else {
 					System.err.println("Somehow between when the picture was taken and saved, the storage device became full. Whoops!");
 				}
 				
-				EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
-				if (player != null) {
-					//player.inventoryContainer.detectAndSendChanges();
-					ItemStack n = new ItemStack(ItemRegistry.polaroidStack);
-					NBTTagCompound nbt2 = new NBTTagCompound();
-					nbt2.setString("Path", savePath);
-					n.setTagCompound(nbt2);
-					// This adds the proper pathed up item to inventory
-					player.addItemStackToInventory(storageStack.copy());
-				} else {
-					System.out.println("Player is null");
-				}
+//				EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
+//				if (player != null) {
+//					//player.inventoryContainer.detectAndSendChanges();
+//					ItemStack n = new ItemStack(ItemRegistry.polaroidStack);
+//					NBTTagCompound nbt2 = new NBTTagCompound();
+//					nbt2.setString("Path", savePath);
+//					n.setTagCompound(nbt2);
+//					// This adds the proper pathed up item to inventory
+//					player.addItemStackToInventory(storageStack.copy());
+//				} else {
+//					System.out.println("Player is null");
+//				}
 				
 				break;
 			case DIGITAL:

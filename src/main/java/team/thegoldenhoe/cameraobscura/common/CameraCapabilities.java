@@ -131,7 +131,7 @@ public class CameraCapabilities {
 //                instance.deserializeNBT((NBTTagCompound) nbt);
 //            }
 //            
-//        }, SDCardHandler::new);        
+//        }, SDCardHandler::new);
 	}
 	
     public static <C> ICapabilityProvider getProvider(final Capability<C> cap, final Supplier<C> factory) {

@@ -56,16 +56,16 @@ public class ItemProps extends Item {
 	public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
 		if (stack.getTagCompound() == null) {
 			System.out.println("null props");
-			return;
+			//return;
 		} else {
 			NBTTagList paths = stack.getTagCompound().getTagList("Paths", 10);
 			System.out.println(stack.getTagCompound());
 //			System.out.println("Found some nbt on the item:" + paths.tagCount());
 		}
-		ICameraNBT cam = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
-		ICameraStorageNBT stor = cam.getStorageDevice();
-		ItemStack polaroidStack = cam.getStackInSlot(0);
-		tooltip.add("" + stor.getSavedImagePaths().size());
+//		ICameraNBT cam = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
+//		ICameraStorageNBT stor = cam.getStorageDevice();
+//		ItemStack polaroidStack = cam.getStackInSlot(0);
+//		tooltip.add("" + stor.getSavedImagePaths().size());
 		//tooltip.add("" + polaroidStack.serializeNBT());
 	}
 
@@ -174,7 +174,7 @@ public class ItemProps extends Item {
 			System.out.println(stack.getTagCompound());
 			
 			if (stack.hasTagCompound()) {
-				System.out.println("deser props");
+				System.out.println("deser props" + ret.serializeNBT());
 				ret.deserializeNBT(stack.getTagCompound());
 			}
 			return ret;

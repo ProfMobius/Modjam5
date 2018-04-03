@@ -47,7 +47,7 @@ public class PhotographHelper {
 						return;
 					}
 				}
-				MessagePhotoDataToServer msg = new MessagePhotoDataToServer(uuid, "test", subImageBytes, order, imageBytes.length, mc.player.getUniqueID(), stack);
+				MessagePhotoDataToServer msg = new MessagePhotoDataToServer(uuid, "test", subImageBytes, order, imageBytes.length, mc.player.getUniqueID());
 				CONetworkHandler.NETWORK.sendToServer(msg);
 				order++;
 			}

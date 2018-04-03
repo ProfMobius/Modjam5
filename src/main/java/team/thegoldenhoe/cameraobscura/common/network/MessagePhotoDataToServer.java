@@ -29,22 +29,18 @@ public class MessagePhotoDataToServer implements IMessage {
 	
 	/** uuid of the player that took the photo */
 	public String playerUUID;
-	
-	/** Camera used to take the picture */
-	public ItemStack camera;
 
 	public MessagePhotoDataToServer() {
 		super();
 	}
 
-	public MessagePhotoDataToServer(int uuid, String name, byte[] data, short order, int length, UUID playerUUID, ItemStack camera) {
+	public MessagePhotoDataToServer(int uuid, String name, byte[] data, short order, int length, UUID playerUUID) {
 		this.name = name;
 		this.data = data;
 		this.uuid = uuid;
 		this.order = order;
 		this.length = length;
 		this.playerUUID = playerUUID.toString();
-		this.camera = camera;
 	}
 
 	@Override
@@ -54,7 +50,6 @@ public class MessagePhotoDataToServer implements IMessage {
 		this.length = buf.readInt();
 		this.name = ByteBufUtils.readUTF8String(buf);
 		this.playerUUID = ByteBufUtils.readUTF8String(buf);
-		this.camera = ByteBufUtils.readItemStack(buf);
 		this.data = new byte[buf.readableBytes()];
 		buf.readBytes(this.data);
 	}
@@ -66,7 +61,6 @@ public class MessagePhotoDataToServer implements IMessage {
 		buf.writeInt(this.length);
 		ByteBufUtils.writeUTF8String(buf, this.name);
 		ByteBufUtils.writeUTF8String(buf, this.playerUUID);
-		ByteBufUtils.writeItemStack(buf, this.camera);
 		buf.writeBytes(this.data);
 	}
 
