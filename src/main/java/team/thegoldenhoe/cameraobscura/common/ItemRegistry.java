@@ -16,9 +16,9 @@ public class ItemRegistry {
 	public static Item filter;
 	public static Item sdCard;
 	public static Item brush;
-	public static Item photograph;
 	public static Item polaroidStack;
-	public static Item vintagePaper;
+	public static Item vintagePhoto;
+	public static Item polaroidSingle;
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
@@ -26,11 +26,11 @@ public class ItemRegistry {
 
 		itemProps = registerItem(registry, new ItemProps(), "csitem");
 		filter = registerMultiItem(registry, new ItemFilter(), "filter", "filter_sepia", "filter_gloomy", "filter_happy", "filter_retro", "filter_high_contrast");
-		sdCard = registerItem(registry, new ItemSDCard(), "sdcard");
-		brush = registerItem(registry, new ItemBrush(), "brush");
-		photograph = registerItem(registry, new ItemPhotograph(), "photograph");
-		polaroidStack = registerItem(registry, new ItemPolaroidStack(), "polaroid_stack");
-		vintagePaper = registerItem(registry, new ItemVintagePaper(), "vintage_paper");
+		sdCard = registerItem(registry, new ItemSDCard(), "sdcard", "sdcard");
+		brush = registerItem(registry, new ItemBrush(), "brush", "brush");
+		polaroidStack = registerItem(registry, new ItemPolaroidStack(), "polaroid_stack", "polaroid_stack");
+		polaroidSingle = registerItem(registry, new ItemPolaroidSingle(), "polaroid_photo", "polaroid_photo");
+		vintagePhoto = registerItem(registry, new ItemVintagePaper(), "vintage_photo", "vintage_photo");
 	}
 
 	private static <I extends Item> I registerMultiItem(IForgeRegistry<Item> registry, I item, String name, String... variantNames) {
