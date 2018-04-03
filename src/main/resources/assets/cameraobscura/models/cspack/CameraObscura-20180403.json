@@ -12,7 +12,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0001_PictureFrame",
     "craftstudioAssetID": 1985,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -25,15 +25,15 @@
     "creativeInv": false,
     "craftstudioAssetName": "0002_GreenScreen",
     "craftstudioAssetID": 2700,
-    "scale": 0.5
+    "scale": 0.6
   },
   {
     "name": "Polaroid Camera",
     "decocraftModelID": 3,
     "placeable": false,
+    "rotHeld": 14,
     "craftstudioAssetName": "0003_Polaroid Camera",
     "craftstudioAssetID": 2701,
-    "rotHeld": 14,
     "tileParams": {
       "cameraType": "POLAROID"
     }
@@ -44,7 +44,6 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0004_Polaroid Frame",
     "craftstudioAssetID": 2703,
-    "creativeInv": false,
     "tileParams": {
       "greenScreen": "5",
       "aspectRatio": "1.0"
@@ -53,17 +52,17 @@
   {
     "name": "PolaroidGreenScreen",
     "decocraftModelID": 5,
+    "creativeInv": false,
     "craftstudioAssetName": "0005_PolaroidGreenScreen",
-    "craftstudioAssetID": 2755,
-    "creativeInv": false
+    "craftstudioAssetID": 2755
   },
   {
     "name": "Vintage Camera",
     "decocraftModelID": 6,
     "placeable": false,
+    "rotHeld": 14,
     "craftstudioAssetName": "0006_Vintage_Camera",
     "craftstudioAssetID": 2707,
-    "rotHeld": 14,
     "tileParams": {
       "cameraType": "VINTAGE"
     }
@@ -72,9 +71,9 @@
     "name": "Digital Camera",
     "decocraftModelID": 7,
     "placeable": false,
+    "rotHeld": 14,
     "craftstudioAssetName": "0007_Digital Camera",
     "craftstudioAssetID": 2716,
-    "rotHeld": 14,
     "tileParams": {
       "cameraType": "DIGITAL"
     }
@@ -85,7 +84,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0009_PictureFrameSilver",
     "craftstudioAssetID": 2732,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -98,7 +97,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0010_PictureFrameBlack",
     "craftstudioAssetID": 2733,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -111,7 +110,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0011_PictureFrameGray",
     "craftstudioAssetID": 2731,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -124,7 +123,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0012_PictureFramePurple",
     "craftstudioAssetID": 2730,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -137,7 +136,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0013_PictureFramePink",
     "craftstudioAssetID": 2729,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -150,7 +149,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0014_PictureFrameRed",
     "craftstudioAssetID": 2728,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -163,7 +162,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0015_PictureFrameOrange",
     "craftstudioAssetID": 2727,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -176,7 +175,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0016_PictureFrameLime",
     "craftstudioAssetID": 2726,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -189,7 +188,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0017_PictureFrameGreen",
     "craftstudioAssetID": 2725,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -202,7 +201,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0018_PictureFrameMagenta",
     "craftstudioAssetID": 2724,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -215,7 +214,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0019_PictureFrameCyan",
     "craftstudioAssetID": 2723,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -228,7 +227,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0020_PictureFrameLightBlue",
     "craftstudioAssetID": 2722,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -241,7 +240,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0021_PictureFrameBlue",
     "craftstudioAssetID": 2721,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -254,7 +253,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0022_PictureFrameYellow",
     "craftstudioAssetID": 2720,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -267,7 +266,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0023_PictureFrameWhite",
     "craftstudioAssetID": 2718,
-    "scale": 0.5,
+    "scale": 0.6,
     "tileParams": {
       "greenScreen": "2",
       "aspectRatio": "1.0",
@@ -496,6 +495,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0041_Hanging Frame 1",
     "craftstudioAssetID": 2758,
+    "scale": 0.33,
     "tileParams": {
       "greenScreen": "42",
       "aspectRatio": "2.1"
@@ -504,8 +504,29 @@
   {
     "name": "Hanging Frame 1 GS",
     "decocraftModelID": 42,
+    "creativeInv": false,
+    "scale": 0.33,
     "craftstudioAssetName": "0042_Hanging Frame 1 GS",
-    "craftstudioAssetID": 2759,
-    "creativeInv": false
+    "craftstudioAssetID": 2759
+  },
+  {
+    "name": "Hanging Frame 2",
+    "decocraftModelID": 43,
+    "tileType": "PictureFrame",
+    "scale": 0.33,
+    "craftstudioAssetName": "0043_Hanging Frame 2",
+    "craftstudioAssetID": 2764,
+    "tileParams": {
+      "greenScreen": "44",
+      "aspectRatio": "0.8"
+    }
+  },
+  {
+    "name": "Hanging Frame 2 GS",
+    "decocraftModelID": 44,
+    "creativeInv": false,
+    "scale": 0.33,
+    "craftstudioAssetName": "0043_Hanging Frame 2 GS",
+    "craftstudioAssetID": 2766
   }
 ]
