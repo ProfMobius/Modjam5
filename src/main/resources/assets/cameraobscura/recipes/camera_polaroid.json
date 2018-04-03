@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "cameraobscura:csitem",
+    "data": 3
+  },
+  "pattern": [
+    "XXY",
+    "YZX",
+    "AAA"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+  	"A": {
+      "item": "minecraft:wool",
+      "data": 0
+  	},
+    "X": {
+      "item": "minecraft:wool",
+      "data": 8
+    },
+    "Y": {
+      "item": "minecraft:glass_pane"
+    },
+    "Z": {
+      "item": "#REDSTONEDUST"
+    }
+  }
+}

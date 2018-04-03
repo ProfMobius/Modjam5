@@ -60,6 +60,9 @@ cameraobscura.chat.full_stacks=The polaroid stacks in your camera are full!
 cameraobscura.chat.missing_paper=You have no paper in your camera!
 cameraobscura.chat.full_paper=Your photo paper already has a photo on it!
 
+# Tab name
+itemGroup.cameraobscura.Main=Camera Obscura
+
 cameraobscura.Main=CameraObscura
 
 item.cameraobscura.stuffed_creeper.name=Stuffed Creeper

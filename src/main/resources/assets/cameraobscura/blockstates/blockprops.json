@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=south": { "model": "cameraobscura:blockprops" },
+        "facing=west":  { "model": "cameraobscura:blockprops" },
+        "facing=north": { "model": "cameraobscura:blockprops" },
+        "facing=east":  { "model": "cameraobscura:blockprops" }
+    }
+}
