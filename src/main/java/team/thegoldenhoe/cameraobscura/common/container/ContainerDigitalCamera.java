@@ -11,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
+import team.thegoldenhoe.cameraobscura.common.capability.ICameraNBT;
 import team.thegoldenhoe.cameraobscura.common.item.ItemFilter;
 import team.thegoldenhoe.cameraobscura.common.item.ItemSDCard;
 
@@ -83,41 +85,29 @@ public class ContainerDigitalCamera extends Container implements ICameraContaine
     {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = (Slot)this.inventorySlots.get(index);
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+            
+            // TODO - shift click
+            
+            if (itemstack1.isEmpty())
+            {
+                slot.putStack(ItemStack.EMPTY);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
 
-        if (slot != null && slot.getHasStack()) {
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
-			
-//			if (index == 0) {
-//				
-//			}
+            if (itemstack1.getCount() == itemstack.getCount())
+            {
+                return ItemStack.EMPTY;
+            }
 
-			if (index < this.playerInventory.getSizeInventory()) {
-				if (!this.mergeItemStack(itemstack1, this.playerInventory.getSizeInventory(), this.inventorySlots.size(), true)) {
-					return ItemStack.EMPTY;
-				}
-			} else if (this.getSlot(0).isItemValid(itemstack1)) {
-				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-					return ItemStack.EMPTY;
-				} else if (this.playerInventory.getSizeInventory() <= 1 || !this.mergeItemStack(itemstack1, 1, this.playerInventory.getSizeInventory(), false)) {
-					return ItemStack.EMPTY;
-				}
-			}
-			//			if (this.getSlot(0).isItemValid(itemstack1)) {
-			//				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-			//					System.out.println("Couldn't transfer stack in slot");
-			//					return ItemStack.EMPTY;
-			//				}
-			//			} else {
-			//				return ItemStack.EMPTY;
-			//			}
-
-			if (itemstack1.isEmpty()) {
-				slot.putStack(ItemStack.EMPTY);
-			} else {
-				slot.onSlotChanged();
-			}
-		}
+            slot.onTake(playerIn, itemstack1);
+        }
 
         return itemstack;
     }
