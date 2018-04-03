@@ -29,7 +29,7 @@ public class COGuiHandler implements IGuiHandler {
 			ItemStack held = player.getHeldItem(hand);
 
 			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
-				return new ContainerSingleStorageCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand, cameraType.getImagePath());
+				return new ContainerSingleSlotCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand, cameraType.getImagePath(), cameraType);
 			}
 		}
 
@@ -51,7 +51,7 @@ public class COGuiHandler implements IGuiHandler {
 			ItemStack held = player.getHeldItem(hand);
 
 			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
-				return new GuiCamera(new ContainerSingleStorageCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand, cameraType.getImagePath()));
+				return new GuiCamera(new ContainerSingleSlotCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand, cameraType.getImagePath(), cameraType));
 			}
 		}
 		return null;

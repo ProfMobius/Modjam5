@@ -1,9 +1,5 @@
 package team.thegoldenhoe.cameraobscura.common.network;
 
-import net.minecraftforge.common.DimensionManager;
-import team.thegoldenhoe.cameraobscura.Utils;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -23,10 +19,8 @@ import javax.imageio.ImageIO;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.Utils;
 import team.thegoldenhoe.cameraobscura.common.CameraCapabilities;
@@ -152,7 +146,13 @@ public class PhotoDataHandler {
 				ICameraNBT cameraCap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
 				ICameraStorageNBT storage = cameraCap.getStorageDevice();
 				if (storage.canSave()) {
-					storage.saveImage(savePath);
+					storage.saveImage(savePath, player);
+
+					if (type == CameraTypes.VINTAGE) {
+						// Remove the photo from the camera
+						cameraCap.extractItem(0, 1, false);
+					}
+					
 					cameraCap.markDirty();
 				} else {
 					System.err.println("Somehow between when the picture was taken and saved, the storage device became full. Whoops!");

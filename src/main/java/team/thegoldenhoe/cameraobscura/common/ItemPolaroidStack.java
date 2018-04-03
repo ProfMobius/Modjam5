@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -40,8 +41,8 @@ public class ItemPolaroidStack extends Item {
 		return CameraCapabilities.getProvider(CameraCapabilities.getPolaroidStackCapability(), () -> {
 			PolaroidStackStorage ret = new PolaroidStackStorage() {
 				@Override
-				public void saveImage(String path) {
-					super.saveImage(path);
+				public void saveImage(String path, EntityPlayer player) {
+					super.saveImage(path, player);
 					stack.setTagCompound(serializeNBT());
 				}
 			};

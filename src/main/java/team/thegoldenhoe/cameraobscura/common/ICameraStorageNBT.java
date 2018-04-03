@@ -2,6 +2,8 @@ package team.thegoldenhoe.cameraobscura.common;
 
 import java.util.ArrayList;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -15,7 +17,7 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 	/** Returns the max number of images that can be saved on this storage item */
 	int getMaxSaves();
 	/** Save an image to this item */
-	void saveImage(String path);
+	void saveImage(String path, EntityPlayer player);
 	/** Returns true if this storage item is not full */
 	boolean canSave();
 
@@ -72,7 +74,7 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 		}
 
 		@Override
-		public void saveImage(String path) {
+		public void saveImage(String path, EntityPlayer player) {
 			paths.add(path);
 		}
 
@@ -108,7 +110,7 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 		}
 
 		@Override
-		public void saveImage(String path) {
+		public void saveImage(String path, EntityPlayer player) {
 			paths.add(path);
 		}
 
@@ -141,8 +143,14 @@ public interface ICameraStorageNBT extends INBTSerializable<NBTTagCompound> {
 		}
 
 		@Override
-		public void saveImage(String path) {
+		public void saveImage(String path, EntityPlayer player) {
 			paths.add(path);
+
+			ItemStack singlePhoto = new ItemStack(ItemRegistry.vintagePhoto);
+			singlePhoto.setTagCompound(new NBTTagCompound());
+			singlePhoto.getTagCompound().setString("Photo", path);
+
+			player.addItemStackToInventory(singlePhoto);
 		}
 
 		@Override

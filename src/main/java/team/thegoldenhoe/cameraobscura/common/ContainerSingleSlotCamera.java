@@ -11,18 +11,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import team.thegoldenhoe.cameraobscura.common.network.CameraTypes;
 
-public class ContainerSingleStorageCamera extends Container implements ICameraContainer {
+public class ContainerSingleSlotCamera extends Container implements ICameraContainer {
 
 	protected final IItemHandler itemHandler;
-	private IInventory playerInventory;
-	private final String bgName;
+	protected IInventory playerInventory;
+	protected final String bgName;
 
-	public ContainerSingleStorageCamera(InventoryPlayer inventory, IItemHandler itemHandler, EnumHand hand, String bgName) {
+	public ContainerSingleSlotCamera(InventoryPlayer inventory, IItemHandler itemHandler, EnumHand hand, String bgName, CameraTypes type) {
 		this.itemHandler = itemHandler;
 		this.playerInventory = inventory;
 		this.bgName = bgName;
-
+		
 		// Stacks slot
 		this.addSlotToContainer(new SlotItemHandler(itemHandler, 0, 80, 53) {
 			/**
@@ -30,7 +31,15 @@ public class ContainerSingleStorageCamera extends Container implements ICameraCo
 			 */
 			@Override
 			public boolean isItemValid(@Nullable ItemStack stack) {
-				return super.isItemValid(stack) && stack.getItem() instanceof ItemPolaroidStack && !this.getHasStack();
+				// this is hacky, but...modjam!
+				boolean initialReqs = super.isItemValid(stack) && !this.getHasStack();
+				if (type == CameraTypes.POLAROID) {
+					return initialReqs && stack.getItem() instanceof ItemPolaroidStack;
+				} else if (type == CameraTypes.VINTAGE) {
+					return initialReqs && stack.getItem() instanceof ItemVintagePaper;
+				}
+				
+				return false;
 			}
 		});
 
@@ -67,24 +76,24 @@ public class ContainerSingleStorageCamera extends Container implements ICameraCo
 			itemstack = itemstack1.copy();
 
 			if (index < this.playerInventory.getSizeInventory()) {
-                if (!this.mergeItemStack(itemstack1, this.playerInventory.getSizeInventory(), this.inventorySlots.size(), true)) {
-                    return ItemStack.EMPTY;
-                }
+				if (!this.mergeItemStack(itemstack1, this.playerInventory.getSizeInventory(), this.inventorySlots.size(), true)) {
+					return ItemStack.EMPTY;
+				}
 			} else if (this.getSlot(0).isItemValid(itemstack1)) {
-                if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-                    return ItemStack.EMPTY;
-                } else if (this.playerInventory.getSizeInventory() <= 1 || !this.mergeItemStack(itemstack1, 1, this.playerInventory.getSizeInventory(), false)) {
-                    return ItemStack.EMPTY;
-                }
-            }
-//			if (this.getSlot(0).isItemValid(itemstack1)) {
-//				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-//					System.out.println("Couldn't transfer stack in slot");
-//					return ItemStack.EMPTY;
-//				}
-//			} else {
-//				return ItemStack.EMPTY;
-//			}
+				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+					return ItemStack.EMPTY;
+				} else if (this.playerInventory.getSizeInventory() <= 1 || !this.mergeItemStack(itemstack1, 1, this.playerInventory.getSizeInventory(), false)) {
+					return ItemStack.EMPTY;
+				}
+			}
+			//			if (this.getSlot(0).isItemValid(itemstack1)) {
+			//				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+			//					System.out.println("Couldn't transfer stack in slot");
+			//					return ItemStack.EMPTY;
+			//				}
+			//			} else {
+			//				return ItemStack.EMPTY;
+			//			}
 
 			if (itemstack1.isEmpty()) {
 				slot.putStack(ItemStack.EMPTY);

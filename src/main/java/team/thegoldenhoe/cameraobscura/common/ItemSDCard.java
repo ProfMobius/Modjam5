@@ -1,5 +1,6 @@
 package team.thegoldenhoe.cameraobscura.common;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,8 +19,8 @@ public class ItemSDCard extends Item {
 		return CameraCapabilities.getProvider(CameraCapabilities.getSDCardStorageCapability(), () -> {
 			SDCardStorage ret = new SDCardStorage() {
 				@Override
-				public void saveImage(String path) {
-					super.saveImage(path);
+				public void saveImage(String path, EntityPlayer player) {
+					super.saveImage(path, player);
 					stack.setTagCompound(serializeNBT());
 				}
 			};
