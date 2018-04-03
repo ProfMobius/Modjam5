@@ -14,7 +14,6 @@ import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
 import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoRequest;
 
 import java.awt.image.BufferedImage;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TilePictureFrame extends TileProps implements ITickable {
     public enum Status {
@@ -26,19 +25,18 @@ public class TilePictureFrame extends TileProps implements ITickable {
         SERVER
     }
 
+    private String prevLocation = "";
     private String pictureLocation = "";
+    private Status prevStatus = Status.EMPTY;
     private Status status = Status.EMPTY;
     private int glTextureID = 0;
-    private AtomicBoolean dirty = new AtomicBoolean(true);
 
     public void setPicture(final String pictureLocation) {
         this.pictureLocation = pictureLocation;
-        this.dirty.set(true);
     }
 
     public void setStatus(final Status status) {
         this.status = status;
-        this.dirty.set(true);
     }
 
     public String getPictureLocation() {
@@ -85,15 +83,17 @@ public class TilePictureFrame extends TileProps implements ITickable {
 
     @Override
     public void update() {
-        if (dirty.get() && world.isRemote) {
-            if (!"".equals(pictureLocation) && status == Status.REQUEST){
+        if (world.isRemote && (!prevLocation.equals(pictureLocation) || prevStatus != status)) {
+            prevLocation = pictureLocation;
+            prevStatus = status;
+
+            if (!"".equals(pictureLocation) && status == Status.REQUEST) {
                 setStatus(Status.LOADING);
                 CONetworkHandler.NETWORK.sendToServer(new MessagePhotoRequest(world.provider.getDimension(), pos, pictureLocation));
             }
 
             float aspectRatio = tileParams.containsKey("aspectRatio") ? Float.valueOf(tileParams.get("aspectRatio")) : 1.0f;
             glTextureID = CameraObscura.proxy.uploadPictureToGPU(glTextureID, pictureLocation, status, aspectRatio);
-            dirty.set(false);
         }
     }
 }
