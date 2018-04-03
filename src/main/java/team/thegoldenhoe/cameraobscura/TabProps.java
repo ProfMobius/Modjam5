@@ -7,7 +7,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import team.thegoldenhoe.cameraobscura.common.item.ItemRegistry;
 
 public enum TabProps {
-    Main(0),;
+    Main(3),;
 
     private PropTab tab;
 
@@ -16,7 +16,7 @@ public enum TabProps {
         private ItemStack icon;
 
         public PropTab(int meta) {
-            super("cultivation." + name());
+            super("cameraobscura." + name());
             this.meta = meta;
         }
 
