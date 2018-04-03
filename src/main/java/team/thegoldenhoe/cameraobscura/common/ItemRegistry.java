@@ -16,6 +16,7 @@ public class ItemRegistry {
 	public static Item itemProps;
 	public static Item filter;
 	public static Item sdCard;
+	public static Item brush;
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
@@ -25,6 +26,7 @@ public class ItemRegistry {
 		itemProps = registerItem(registry, new ItemProps(), "csitem");
 		filter = registerMultiItem(registry, new ItemFilter(), "filter", "filter_sepia", "filter_gloomy", "filter_happy", "filter_retro", "filter_high_contrast");
 		sdCard = registerItem(registry, new ItemSDCard(), "sdcard");
+		brush = registerItem(registry, new ItemBrush(), "brush");
 	}
 
 	private static <I extends Item> I registerMultiItem(IForgeRegistry<Item> registry, I item, String name, String... variantNames) {
