@@ -15,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ScreenShotHelper;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
+import team.thegoldenhoe.cameraobscura.Utils;
 import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraNBT;
 import team.thegoldenhoe.cameraobscura.common.item.ItemProps;
@@ -33,12 +34,16 @@ public class PhotographHelper {
 		try {
 			Minecraft mc = Minecraft.getMinecraft();
 			ItemStack stack = mc.player.getHeldItemMainhand();
-			if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
+//			if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
+//				stack = mc.player.getHeldItemOffhand();
+//				if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
+//					System.err.println("CAMERA FAIL!");
+//					return;
+//				}
+//			}
+			
+			if (!Utils.isCamera(stack)) {
 				stack = mc.player.getHeldItemOffhand();
-				if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
-					System.err.println("CAMERA FAIL!");
-					return;
-				}
 			}
 
 			List<PhotoFilter> filters = new ArrayList<PhotoFilter>(2);
@@ -80,12 +85,15 @@ public class PhotographHelper {
 				byte[] subImageBytes = new byte[buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining()];
 				buff.get(subImageBytes, 0, buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining());
 				stack = mc.player.getHeldItemMainhand();
-				if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
+//				if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
+//					stack = mc.player.getHeldItemOffhand();
+//					if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
+//						System.err.println("CAMERA FAIL!");
+//						return;
+//					}
+//				}
+				if (!Utils.isCamera(stack)) {
 					stack = mc.player.getHeldItemOffhand();
-					if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
-						System.err.println("CAMERA FAIL!");
-						return;
-					}
 				}
 
 				MessagePhotoDataToServer msg = new MessagePhotoDataToServer(uuid, "test", subImageBytes, order, imageBytes.length, mc.player.getUniqueID());

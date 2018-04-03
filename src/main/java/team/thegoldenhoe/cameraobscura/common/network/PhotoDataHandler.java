@@ -26,7 +26,6 @@ import team.thegoldenhoe.cameraobscura.Utils;
 import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraNBT;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT;
-import team.thegoldenhoe.cameraobscura.common.item.ItemProps;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
 public class PhotoDataHandler {
@@ -103,10 +102,10 @@ public class PhotoDataHandler {
 				if (photographerUUID == null) {
 					photographerUUID = UUID.fromString(message.playerUUID);
 				}
-				
+
 				buffer.put(message.data);
 			}
-			
+
 			if (photographerUUID == null) {
 				messageBuffer.remove(uuid);
 				throw new NullPointerException("Photographer UUID is null, which means we can't produce an item. Sorry :(");
@@ -114,14 +113,17 @@ public class PhotoDataHandler {
 
 			EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
 			ItemStack stack = player.getHeldItemMainhand();
-			
+			if (!Utils.isCamera(stack)) {
+				stack = player.getHeldItemOffhand();
+			}
+
 			if (stack.isEmpty()) {
 				messageBuffer.remove(uuid);
 				throw new NullPointerException("Camera is null, which means we don't know how to produce the item properly. Sorry :(");
 			}
 
 			String savePath = saveImage(createImageFromBytes(bytes));
-			
+
 			// TODO: Check type of camera here, decrement film / storage space
 			// if digital, save to sd card if present
 			// if manual, save to photograph, decrement film level
@@ -130,16 +132,16 @@ public class PhotoDataHandler {
 			} else {
 				System.err.println("Save path for image was null. This should never happen, but it did. Look at you, you special person!");
 			}
-			
+
 			messageBuffer.remove(uuid);
 		}
 	}
-	
+
 	private static void postImageSaved(EntityPlayer player, ItemStack stack, World world, UUID photographerUUID, String savePath) {
-		if (stack.getItem() != null && stack.getItem() instanceof ItemProps) {
-			if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ItemProps) {
+		if (Utils.isCamera(stack)) {
+			if (Utils.isCamera(player.getHeldItemMainhand())) {
 				stack = player.getHeldItemMainhand();
-			} else {
+			} else if (Utils.isCamera(player.getHeldItemOffhand())) {
 				stack = player.getHeldItemOffhand();
 			}
 			CSModelMetadata data = ModelHandler.getModelFromStack(stack);
@@ -154,7 +156,7 @@ public class PhotoDataHandler {
 						// Remove the photo from the camera
 						cameraCap.extractItem(0, 1, false);
 					}
-					
+
 					cameraCap.markDirty();
 				} else {
 					System.err.println("Somehow between when the picture was taken and saved, the storage device became full. Whoops!");
@@ -197,13 +199,13 @@ public class PhotoDataHandler {
 		return photoID++;
 	}
 
-    public static File getFile(final String filename) {
-        final String dirName = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath();
-        final File directory = new File(dirName, "photographs");
-        final File picture = new File(directory, filename);
-        if (picture.exists() && picture.isFile()) {
-            return picture;
-        }
-        return null;
-    }
+	public static File getFile(final String filename) {
+		final String dirName = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath();
+		final File directory = new File(dirName, "photographs");
+		final File picture = new File(directory, filename);
+		if (picture.exists() && picture.isFile()) {
+			return picture;
+		}
+		return null;
+	}
 }

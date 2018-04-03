@@ -5,6 +5,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import net.minecraft.item.ItemStack;
+import team.thegoldenhoe.cameraobscura.common.item.ItemProps;
+import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
+
 public class Utils {
 	
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
@@ -28,5 +32,10 @@ public class Utils {
 
             ++i;
         }
+    }
+    
+    public static boolean isCamera(ItemStack stack) {
+    	CSModelMetadata data = ModelHandler.getModelFromStack(stack);
+    	return !stack.isEmpty() && !data.placeable && (stack.getItem() instanceof ItemProps);
     }
 }

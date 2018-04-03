@@ -37,11 +37,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.CameraObscura;
 import team.thegoldenhoe.cameraobscura.TabProps;
+import team.thegoldenhoe.cameraobscura.Utils;
 import team.thegoldenhoe.cameraobscura.client.ClientProxy;
 import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraNBT;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT;
-import team.thegoldenhoe.cameraobscura.common.capability.ICameraNBT.CameraHandler;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.BlockProps;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileProps;
 import team.thegoldenhoe.cameraobscura.common.network.CameraTypes;
@@ -87,68 +87,76 @@ public class ItemProps extends Item {
 	 * Called when the equipped item is right clicked.
 	 */
 	protected void takePicOrOpenGui(World world, EntityPlayer player, EnumHand hand, CameraTypes type) {
+		// We don't belong here if this is the case
+		if (type == CameraTypes.NOT_A_CAMERA) return;
+
 		if (hand == EnumHand.OFF_HAND) {
-			player.openGui(CameraObscura.instance, type.getGuiID(), world, hand.ordinal(), 0, 0);
-		} else {
-			if (!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() == this) {
+			// If camera in both hands, take picture with main hand
+			if (Utils.isCamera(player.getHeldItem(EnumHand.MAIN_HAND))) {
 				return;
 			}
-			if (world.isRemote) {
-				ItemStack stack = player.getHeldItemMainhand();
-				switch (type) {
-				case VINTAGE:
-					ICameraNBT vintageCap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
-					ItemStack vintageStack = vintageCap.getStackInSlot(0);
-					if (vintageStack.isEmpty()) {
-						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.missing_paper")), false);
+		}
+		// Open gui if player is sneaking
+		if (player.isSneaking()) {
+			player.openGui(CameraObscura.instance, type.getGuiID(), world, hand.ordinal(), 0, 0);
+			return;
+		}
+
+		if (world.isRemote) {
+			ItemStack stack = player.getHeldItem(hand);
+			switch (type) {
+			case VINTAGE:
+				ICameraNBT vintageCap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
+				ItemStack vintageStack = vintageCap.getStackInSlot(0);
+				if (vintageStack.isEmpty()) {
+					player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.missing_paper")), false);
+				} else {
+					ICameraStorageNBT storage = vintageCap.getStorageDevice();
+					if (storage != null && storage.canSave()) {
+						takePicture();
+						playSound("vintage");
 					} else {
-						ICameraStorageNBT storage = vintageCap.getStorageDevice();
-						if (storage != null && storage.canSave()) {
-							takePicture();
-							playSound("vintage");
-						} else {
-							player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_paper")), false);
-						}
+						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_paper")), false);
 					}
-					break;
-				case POLAROID:
-					ICameraNBT polaroidCap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
-					ItemStack polaroidStack = polaroidCap.getStackInSlot(0);
-					if (polaroidStack.isEmpty()) {
-						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.missing_stacks")), false);
-					} else {
-						ICameraStorageNBT storage = polaroidCap.getStorageDevice();
-						if (storage != null && storage.canSave()) {
-							takePicture();
-							playSound("polaroid");
-						} else {
-							player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_stacks")), false);
-						}
-					}
-					break;
-				case DIGITAL:
-					ICameraNBT cap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
-					ItemStack sdCard = cap.getStackInSlot(0);
-					if (sdCard.isEmpty()) {
-						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.missing_sd")), false);
-					} else {
-						ICameraStorageNBT storage = cap.getStorageDevice();
-						if (storage.canSave()) {
-							takePicture();
-							playSound("digital");
-						} else {
-							player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_sd")), false);
-						}
-					}
-					break;
-				case NOT_A_CAMERA:
-					System.err.println("Not sure how we got here, but a non camera was trying to save an image. Whoops!");
-					return;
 				}
+				break;
+			case POLAROID:
+				ICameraNBT polaroidCap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
+				ItemStack polaroidStack = polaroidCap.getStackInSlot(0);
+				if (polaroidStack.isEmpty()) {
+					player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.missing_stacks")), false);
+				} else {
+					ICameraStorageNBT storage = polaroidCap.getStorageDevice();
+					if (storage != null && storage.canSave()) {
+						takePicture();
+						playSound("polaroid");
+					} else {
+						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_stacks")), false);
+					}
+				}
+				break;
+			case DIGITAL:
+				ICameraNBT cap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
+				ItemStack sdCard = cap.getStackInSlot(0);
+				if (sdCard.isEmpty()) {
+					player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.missing_sd")), false);
+				} else {
+					ICameraStorageNBT storage = cap.getStorageDevice();
+					if (storage.canSave()) {
+						takePicture();
+						playSound("digital");
+					} else {
+						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_sd")), false);
+					}
+				}
+				break;
+			case NOT_A_CAMERA:
+				System.err.println("Not sure how we got here, but a non camera was trying to save an image. Whoops!");
+				return;
 			}
 		}
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	private void playSound(String name) {
 		Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getRecord(SoundRegistry.get(name), 1.0F, 5.0F));
