@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.imageio.ImageIO;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -27,6 +28,7 @@ import team.thegoldenhoe.cameraobscura.common.CameraCapabilities;
 import team.thegoldenhoe.cameraobscura.common.ICameraNBT;
 import team.thegoldenhoe.cameraobscura.common.ICameraStorageNBT;
 import team.thegoldenhoe.cameraobscura.common.ItemProps;
+import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
 public class PhotoDataHandler {
@@ -157,6 +159,21 @@ public class PhotoDataHandler {
 				} else {
 					System.err.println("Somehow between when the picture was taken and saved, the storage device became full. Whoops!");
 				}
+				
+				EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
+				//System.out.println(world.getLoadedEntityList().stream().filter(s -> s instanceof EntityPlayer).count());
+				//System.out.println(world);
+				if (player != null) {
+					System.out.println("Player is not null");
+					ItemStack n = new ItemStack(ItemRegistry.polaroidStack);
+					NBTTagCompound nbt2 = new NBTTagCompound();
+					nbt2.setString("Path", savePath);
+					n.setTagCompound(nbt2);
+					player.addItemStackToInventory(n);
+				} else {
+					System.out.println("Player is null");
+				}
+				
 				break;
 			case DIGITAL:
 				ICameraNBT cap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);

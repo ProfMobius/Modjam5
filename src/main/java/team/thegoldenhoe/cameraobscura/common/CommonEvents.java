@@ -2,6 +2,7 @@ package team.thegoldenhoe.cameraobscura.common;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.WorldServerMulti;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteractSpecific;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
@@ -15,8 +16,9 @@ public class CommonEvents {
 
 	@SubscribeEvent
 	public void tickServerWorld(WorldTickEvent event) {
-		if (event.side == Side.SERVER) {
+		if (event.side == Side.SERVER && !(event.world instanceof WorldServerMulti)) {
 			PhotoDataHandler.processMessageQueue();
+			//System.out.println(event.world);
 			PhotoDataHandler.processMessageBuffer(event.world);	
 		}
 	}

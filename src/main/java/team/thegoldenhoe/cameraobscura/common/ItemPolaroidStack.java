@@ -35,16 +35,17 @@ public class ItemPolaroidStack extends Item {
 		}
 
 		ICameraStorageNBT.PolaroidStackStorage storage = stack.getCapability(CameraCapabilities.getPolaroidStackCapability(), null);
-		NBTTagList paths = storage.serializeNBT().getTagList("Paths", 10);
-		
-		if (paths == null) {
-			System.out.println("No tag compound");
-		} else {
-			System.out.println("paths");
-		}
+//		NBTTagList paths = storage.serializeNBT().getTagList("Paths", 10);
+//		
+//		if (paths == null) {
+//			System.out.println("No tag compound");
+//		} else {
+//			System.out.println("paths");
+//		}
 		
 		//NBTTagList paths = stack.getTagCompound().getTagList("Paths", 10);
-		tooltip.add("Num paths: " + paths.tagCount());
+		tooltip.add("Num paths: " + storage.getSavedImagePaths().size());
+		//tooltip.add(stack.getTagCompound().getString("Path"));
 	}
 
 	@Override
