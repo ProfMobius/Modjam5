@@ -6,6 +6,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import team.thegoldenhoe.cameraobscura.client.gui.GuiCamera;
+import team.thegoldenhoe.cameraobscura.common.network.CameraTypes;
 
 public class COGuiHandler implements IGuiHandler {
 
@@ -15,12 +16,20 @@ public class COGuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		if (id == 0) {
+		CameraTypes cameraType = CameraTypes.getCameraTypeByGuiID(id);
+		if (cameraType == CameraTypes.DIGITAL) {
 			EnumHand hand = EnumHand.values()[x];
 			ItemStack held = player.getHeldItem(hand);
 
-			if (held != null && held.getItem() instanceof ItemCamera) {
-				return new ContainerCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand);
+			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
+				return new ContainerDigitalCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand);
+			}
+		} else if (cameraType == CameraTypes.POLAROID || cameraType == CameraTypes.VINTAGE) {
+			EnumHand hand = EnumHand.values()[x];
+			ItemStack held = player.getHeldItem(hand);
+
+			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
+				return new ContainerSingleStorageCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand, cameraType.getImagePath());
 			}
 		}
 
@@ -29,12 +38,20 @@ public class COGuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		if (id == 0) {
+		CameraTypes cameraType = CameraTypes.getCameraTypeByGuiID(id);
+		if (cameraType == CameraTypes.DIGITAL) {
 			EnumHand hand = EnumHand.values()[x];
 			ItemStack held = player.getHeldItem(hand);
 
-			if (held != null && held.getItem() instanceof ItemCamera) {
-				return new GuiCamera(new ContainerCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand));
+			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
+				return new GuiCamera(new ContainerDigitalCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand));
+			}
+		} else if (cameraType == CameraTypes.VINTAGE || cameraType == CameraTypes.POLAROID) {
+			EnumHand hand = EnumHand.values()[x];
+			ItemStack held = player.getHeldItem(hand);
+
+			if (!held.isEmpty() && held.getItem() instanceof ItemProps) {
+				return new GuiCamera(new ContainerSingleStorageCamera(player.inventory, held.getCapability(CameraCapabilities.getCameraCapability(), null), hand, cameraType.getImagePath()));
 			}
 		}
 		return null;

@@ -12,44 +12,25 @@ import net.minecraft.util.EnumHand;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerCamera extends Container {
+public class ContainerSingleStorageCamera extends Container implements ICameraContainer {
 
 	protected final IItemHandler itemHandler;
 	private IInventory playerInventory;
+	private final String bgName;
 
-	public ContainerCamera(InventoryPlayer inventory, IItemHandler itemHandler, EnumHand hand) {
+	public ContainerSingleStorageCamera(InventoryPlayer inventory, IItemHandler itemHandler, EnumHand hand, String bgName) {
 		this.itemHandler = itemHandler;
 		this.playerInventory = inventory;
+		this.bgName = bgName;
 
-		// SD Card Slot
-		this.addSlotToContainer(new SlotItemHandler(itemHandler, 0, 41, 53) {
+		// Stacks slot
+		this.addSlotToContainer(new SlotItemHandler(itemHandler, 0, 80, 53) {
 			/**
 			 * Check if the stack is allowed to be placed in this slot.
 			 */
 			@Override
 			public boolean isItemValid(@Nullable ItemStack stack) {
-				return super.isItemValid(stack) && stack.getItem() instanceof ItemSDCard && !this.getHasStack();
-			}
-		});
-		// Filter Slot 1
-		this.addSlotToContainer(new SlotItemHandler(itemHandler, 1, 93, 53) {
-			/**
-			 * Check if the stack is allowed to be placed in this slot.
-			 */
-			@Override
-			public boolean isItemValid(@Nullable ItemStack stack) {
-				return super.isItemValid(stack) && stack.getItem() instanceof ItemFilter && !this.getHasStack();
-			}
-		});
-
-		// Filter Slot 2
-		this.addSlotToContainer(new SlotItemHandler(itemHandler, 2, 119, 53) {
-			/**
-			 * Check if the stack is allowed to be placed in this slot.
-			 */
-			@Override
-			public boolean isItemValid(@Nullable ItemStack stack) {
-				return super.isItemValid(stack) && stack.getItem() instanceof ItemFilter && !this.getHasStack();
+				return super.isItemValid(stack) && stack.getItem() instanceof ItemPolaroidStack && !this.getHasStack();
 			}
 		});
 
@@ -85,25 +66,25 @@ public class ContainerCamera extends Container {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (index < 3) {
-				if (!this.mergeItemStack(itemstack1, 3, this.inventorySlots.size(), true)) {
-					return null;
-				}
-			} else if (this.getSlot(2).isItemValid(itemstack1) && !this.getSlot(2).getHasStack()) {
-				if (!this.mergeItemStack(itemstack1, 2, 3, false)) {
-					return null;
-				}
-			} else if (this.getSlot(1).isItemValid(itemstack1) && !this.getSlot(1).getHasStack()) {
-				if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
-					return null;
-				}
+			if (index < this.playerInventory.getSizeInventory()) {
+                if (!this.mergeItemStack(itemstack1, this.playerInventory.getSizeInventory(), this.inventorySlots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
 			} else if (this.getSlot(0).isItemValid(itemstack1)) {
-				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-					return null;
-				}
-			} else if (index <= 3 || !this.mergeItemStack(itemstack1, 3, 2, false)) {
-				return null;
-			}
+                if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+                    return ItemStack.EMPTY;
+                } else if (this.playerInventory.getSizeInventory() <= 1 || !this.mergeItemStack(itemstack1, 1, this.playerInventory.getSizeInventory(), false)) {
+                    return ItemStack.EMPTY;
+                }
+            }
+//			if (this.getSlot(0).isItemValid(itemstack1)) {
+//				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+//					System.out.println("Couldn't transfer stack in slot");
+//					return ItemStack.EMPTY;
+//				}
+//			} else {
+//				return ItemStack.EMPTY;
+//			}
 
 			if (itemstack1.isEmpty()) {
 				slot.putStack(ItemStack.EMPTY);
@@ -113,5 +94,10 @@ public class ContainerCamera extends Container {
 		}
 
 		return itemstack;
+	}
+
+	@Override
+	public String getContainerBackground() {
+		return this.bgName;
 	}
 }

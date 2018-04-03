@@ -10,19 +10,20 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public interface ICameraNBT extends IItemHandler, INBTSerializable<NBTTagCompound> {
 	
-	ISDCardNBT getSDCard();
+	ICameraStorageNBT getStorageDevice();
 	Pair<IFilterNBT, IFilterNBT> getFilters();
 	
-    @Override
-    default NBTTagCompound serializeNBT() {
-        NBTTagCompound ret = new NBTTagCompound();
-        return ret;
-    }
-    
-    @Override
-    default void deserializeNBT(NBTTagCompound nbt) {
-
-    }
+//    @Override
+//    default NBTTagCompound serializeNBT() {
+//        NBTTagCompound ret = new NBTTagCompound();
+//        System.out.println("serializing camera");
+//        return ret;
+//    }
+//    
+//    @Override
+//    default void deserializeNBT(NBTTagCompound nbt) {
+//    	System.out.println("deserializing camera");
+//    }
     
     default void markDirty() {}
     
@@ -39,15 +40,26 @@ public interface ICameraNBT extends IItemHandler, INBTSerializable<NBTTagCompoun
 		@Override
 		protected void onContentsChanged(int slot) {
 			super.onContentsChanged(slot);
+			System.out.println("Contents changed");
 			markDirty();
 		}
 
 		@Override
-		public ISDCardNBT getSDCard() {
-			ItemStack sdCard = getStackInSlot(0);
+		public ICameraStorageNBT getStorageDevice() {
+			ItemStack storageStack = getStackInSlot(0);
 			
-			if (!sdCard.isEmpty()) {
-				return sdCard.getCapability(CameraCapabilities.getSDCardCapability(), null);
+			if (!storageStack.isEmpty()) {
+				if (storageStack.getItem() instanceof ItemSDCard) {
+					return storageStack.getCapability(CameraCapabilities.getSDCardStorageCapability(), null);	
+				} else if (storageStack.getItem() instanceof ItemPolaroidStack) {
+					return storageStack.getCapability(CameraCapabilities.getPolaroidStackCapability(), null);
+				} else if (storageStack.getItem() instanceof ItemVintagePaper) {
+					return storageStack.getCapability(CameraCapabilities.getVintageStorageCapability(), null);
+				} else {
+					System.out.println("Storage stack is some unknown type: " + storageStack.getItem().getClass());
+				}
+			} else {
+				System.out.println("Storage stack is empty!");
 			}
 			
 			return null;
@@ -55,6 +67,7 @@ public interface ICameraNBT extends IItemHandler, INBTSerializable<NBTTagCompoun
 
 		@Override
 		public Pair<IFilterNBT, IFilterNBT> getFilters() {
+			// TODO
 			return null;
 		}
 

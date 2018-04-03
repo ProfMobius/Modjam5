@@ -1,38 +1,186 @@
 package team.thegoldenhoe.cameraobscura.common;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.CameraObscura;
 import team.thegoldenhoe.cameraobscura.TabProps;
+import team.thegoldenhoe.cameraobscura.client.ClientProxy;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.BlockProps;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileProps;
+import team.thegoldenhoe.cameraobscura.common.network.CameraTypes;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class ItemProps extends Item {
-    public ItemProps() {
-        super();
-        setMaxDamage(0);
-        setHasSubtypes(true);
-        setFull3D();
-    }
+
+	public ItemProps() {
+		super();
+		setMaxDamage(0);
+		setHasSubtypes(true);
+		setFull3D();
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
+		if (stack.getTagCompound() == null) {
+			System.out.println("null props");
+			//return;
+		} else {
+			NBTTagList paths = stack.getTagCompound().getTagList("Paths", 10);
+			System.out.println(stack.getTagCompound());
+//			System.out.println("Found some nbt on the item:" + paths.tagCount());
+		}
+//		ICameraNBT cam = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
+//		ICameraStorageNBT stor = cam.getStorageDevice();
+//		ItemStack polaroidStack = cam.getStackInSlot(0);
+//		tooltip.add("" + stor.getSavedImagePaths().size());
+		//tooltip.add("" + polaroidStack.serializeNBT());
+	}
+
+	/**
+	 * Called when the equipped item is right clicked.
+	 */
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		final ItemStack stack = player.getHeldItem(hand);
+
+		if (stack.getCount() == 0) {
+			return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+		}
+
+		CSModelMetadata data = ModelHandler.getModelFromStack(stack);
+		if (!data.placeable) {
+			takePicOrOpenGui(world, player, hand, data.getCameraType());
+		}
+
+		return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(hand));
+	}
+
+//	@Override
+//	public EnumActionResult onItemUse(final EntityPlayer player, final World world, final BlockPos pos, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+//		final ItemStack stack = player.getHeldItem(hand);
+//
+//		if (stack.getCount() == 0) {
+//			return EnumActionResult.FAIL;
+//		}
+//		CSModelMetadata data = ModelHandler.getModelFromStack(stack);
+//		if (data.placeable) {
+//			return place(player, world, pos, hand, side, hitX, hitY, hitZ);
+//		}
+//
+//		return EnumActionResult.FAIL;
+//	}
+
+	/**
+	 * Called when the equipped item is right clicked.
+	 */
+	protected void takePicOrOpenGui(World world, EntityPlayer player, EnumHand hand, CameraTypes type) {
+		if (hand == EnumHand.OFF_HAND) {
+			player.openGui(CameraObscura.instance, type.getGuiID(), world, hand.ordinal(), 0, 0);	
+		} else {
+			if (world.isRemote) {
+				ItemStack stack = player.getHeldItemMainhand();
+				switch (type) {
+				case VINTAGE:
+					// TODO: if camera doesn't have paper, print error message to screen
+					break;
+				case POLAROID:
+					ICameraNBT polaroidCap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
+					ItemStack polaroidStack = polaroidCap.getStackInSlot(0);
+					if (polaroidStack.isEmpty()) {
+						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.missing_stacks")), false);
+					} else {
+						ICameraStorageNBT storage = polaroidCap.getStorageDevice();
+						if (storage.canSave()) {
+							takePicture();
+						} else {
+							player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_stacks")), false);
+						}
+					}
+					break;
+				case DIGITAL:
+					ICameraNBT cap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
+					ItemStack sdCard = cap.getStackInSlot(0);
+					if (sdCard.isEmpty()) {
+						player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.missing_sd")), false);
+					} else {
+						ICameraStorageNBT storage = cap.getStorageDevice();
+						if (storage.canSave()) {
+							takePicture();
+						} else {
+							player.sendStatusMessage(new TextComponentString(I18n.format("cameraobscura.chat.full_sd")), false);
+						}
+					}
+					break;
+				case NOT_A_CAMERA:
+					System.err.println("Not sure how we got here, but a non camera was trying to save an image. Whoops!");
+					return;
+				}
+			}			
+		}
+	}
+
+	private void takePicture() {
+		ClientProxy.photographPending = true;
+		// Store the setting previous to taking the picture
+		ClientProxy.hideGUIDefault = Minecraft.getMinecraft().gameSettings.hideGUI;
+		Minecraft.getMinecraft().gameSettings.hideGUI = true;
+	}
+
+	@Override
+	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+		return CameraCapabilities.getProvider(CameraCapabilities.getCameraCapability(), () -> {
+			ICameraNBT ret = new ICameraNBT.CameraHandler() {
+				@Override
+				public void markDirty() {
+					NBTTagCompound nbtTmp = serializeNBT();
+					stack.setTagCompound(nbtTmp);
+				}
+			};
+			
+			System.out.println("stack in init cap: " + stack);
+			System.out.println(stack.getTagCompound());
+			
+			if (stack.hasTagCompound()) {
+				System.out.println("deser props" + ret.serializeNBT());
+				ret.deserializeNBT(stack.getTagCompound());
+			}
+			return ret;
+		});
+	}
 
     @Override
     public EnumActionResult onItemUse(final EntityPlayer player, final World world, final BlockPos pos, final EnumHand hand, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
