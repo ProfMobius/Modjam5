@@ -26,9 +26,10 @@ public enum ClientPhotoCache {
         recvCacheIndex.put(name, index + data.length);
 
         if (isFinal) {
-            ByteArrayInputStream bais = new ByteArrayInputStream(data);
+            ByteArrayInputStream bais = new ByteArrayInputStream(recvCache.get(name));
             try {
-                cache.put(name, ImageIO.read(bais));
+                BufferedImage img = ImageIO.read(bais);
+                cache.put(name, img);
                 recvCache.remove(name);
                 recvCacheIndex.remove(name);
             } catch (IOException e) {

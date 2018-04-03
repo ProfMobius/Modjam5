@@ -1,5 +1,9 @@
 package team.thegoldenhoe.cameraobscura.common.network;
 
+import net.minecraftforge.common.DimensionManager;
+import team.thegoldenhoe.cameraobscura.Utils;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -190,4 +194,14 @@ public class PhotoDataHandler {
 	public static int getUniqueID() {
 		return photoID++;
 	}
+
+    public static File getFile(final String filename) {
+        final String dirName = DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath();
+        final File directory = new File(dirName, "photographs");
+        final File picture = new File(directory, filename);
+        if (picture.exists() && picture.isFile()) {
+            return picture;
+        }
+        return null;
+    }
 }

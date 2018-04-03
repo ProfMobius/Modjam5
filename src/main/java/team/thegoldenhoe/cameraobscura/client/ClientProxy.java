@@ -16,6 +16,8 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -27,9 +29,11 @@ import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL14;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
 import team.thegoldenhoe.cameraobscura.Info;
+import team.thegoldenhoe.cameraobscura.client.commands.CommandMakeResources;
 import team.thegoldenhoe.cameraobscura.client.renderers.RendererProp;
 import team.thegoldenhoe.cameraobscura.common.CommonProxy;
 import team.thegoldenhoe.cameraobscura.common.ItemRegistry;
+import team.thegoldenhoe.cameraobscura.common.craftstudio.TilePictureFrame;
 import team.thegoldenhoe.cameraobscura.common.craftstudio.TileProps;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 import team.thegoldenhoe.cameraobscura.utils.SoundRegistry;
@@ -60,6 +64,8 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileProps.class, new RendererProp());
         ForgeHooksClient.registerTESRItemStack(ItemRegistry.itemProps, 0, TileProps.class);
+
+        ClientCommandHandler.instance.registerCommand(new CommandMakeResources());
     }
 
     @Override
@@ -173,31 +179,63 @@ public class ClientProxy extends CommonProxy implements IResourceManagerReloadLi
     }
 
     @Override
-    public int getPhotographGLId(final int oldID, final String pictureLocation) {
+    public int uploadPictureToGPU(final int oldID, final String pictureLocation, final TilePictureFrame.Status status, final float aspectRatio) {
         TextureUtil.deleteTexture(oldID);
         int glID = 0;
 
         BufferedImage img = ClientPhotoCache.INSTANCE.getImage(pictureLocation);
 
-        if ("MISSING".equals(pictureLocation)) {
+        if (status == TilePictureFrame.Status.MISSING) {
             try {
                 img = ImageIOCS.read(Minecraft.getMinecraft().getResourceManager().getResource(missing).getInputStream());
+                glID = TextureUtil.glGenTextures();
+                TextureUtil.uploadTextureImage(glID, img);
             } catch (final IOException e) {
                 e.printStackTrace();
             }
-        } else if ("LOADING".equals(pictureLocation)) {
+        } else if (status == TilePictureFrame.Status.LOADING) {
             try {
                 img = ImageIOCS.read(Minecraft.getMinecraft().getResourceManager().getResource(loading).getInputStream());
+                glID = TextureUtil.glGenTextures();
+                TextureUtil.uploadTextureImage(glID, img);
             } catch (final IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        if (img != null) {
+        } else if (img != null && status == TilePictureFrame.Status.AVAILABLE) {
             glID = TextureUtil.glGenTextures();
-            TextureUtil.uploadTextureImage(glID, img);
+
+            final int width = img.getWidth();
+            final int height = img.getHeight();
+            final float imgAspectRatio = (float) width / (float) height;
+
+            if (imgAspectRatio > aspectRatio) {
+                final int croppedWidth = ((int) Math.floor(height * aspectRatio));
+                final int offset = (width - croppedWidth) / 2;
+                TextureUtil.uploadTextureImage(glID, img.getSubimage(offset, 0, croppedWidth, height));
+            } else {
+                final int croppedHeight = ((int) Math.floor(width / aspectRatio));
+                final int offset = (height - croppedHeight) / 2;
+                TextureUtil.uploadTextureImage(glID, img.getSubimage(0, offset, width, croppedHeight));
+            }
+
+
+//            if (aspectRatio > 1.0f) {
+//                final int croppedHeight = ((int) Math.floor(width / aspectRatio));
+//                final int offset = (height - croppedHeight) / 2;
+//                TextureUtil.uploadTextureImage(glID, img.getSubimage(0, offset, width, croppedHeight));
+//            } else {
+//                final int croppedWidth = ((int) Math.floor(height * aspectRatio));
+//                final int offset = (width - croppedWidth) / 2;
+//                TextureUtil.uploadTextureImage(glID, img.getSubimage(offset, 0, croppedWidth, height));
+//            }
+//            TextureUtil.uploadTextureImage(glID, img);
         }
 
         return glID;
+    }
+
+    @Override
+    public World getClientWorld() {
+        return Minecraft.getMinecraft().world;
     }
 }

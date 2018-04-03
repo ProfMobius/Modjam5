@@ -1,0 +1,456 @@
+[
+  {
+    "name": "Stuffed Creeper",
+    "decocraftModelID": 0,
+    "creativeInv": false,
+    "craftstudioAssetName": "0000_Stuffed Creeper",
+    "craftstudioAssetID": 549
+  },
+  {
+    "name": "Picture frame",
+    "decocraftModelID": 1,
+    "tileType": "PictureFrame",
+    "craftstudioAssetName": "0001_PictureFrame",
+    "craftstudioAssetID": 1985,
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "Green screen",
+    "decocraftModelID": 2,
+    "creativeInv": false,
+    "craftstudioAssetName": "0002_GreenScreen",
+    "craftstudioAssetID": 2700,
+    "scale": 0.5
+  },
+  {
+    "name": "Polaroid Camera",
+    "decocraftModelID": 3,
+    "placeable": false,
+    "craftstudioAssetName": "0003_Polaroid Camera",
+    "craftstudioAssetID": 2701,
+    "tileParams": {
+      "cameraType": "POLAROID"
+    }
+  },
+  {
+    "name": "Polaroid Frame",
+    "decocraftModelID": 4,
+    "tileType": "PictureFrame",
+    "craftstudioAssetName": "0004_Polaroid Frame",
+    "craftstudioAssetID": 2703,
+    "tileParams": {
+      "greenScreen": "5",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PolaroidGreenScreen",
+    "decocraftModelID": 5,
+    "craftstudioAssetName": "00005_PolaroidGreenScreen",
+    "craftstudioAssetID": 2755
+  },
+  {
+    "name": "Vintage Camera",
+    "decocraftModelID": 6,
+    "placeable": false,
+    "craftstudioAssetName": "0006_Vintage_Camera",
+    "craftstudioAssetID": 2707,
+    "tileParams": {
+      "cameraType": "VINTAGE"
+    }
+  },
+  {
+    "name": "Digital Camera",
+    "decocraftModelID": 7,
+    "placeable": false,
+    "craftstudioAssetName": "0007_Digital Camera",
+    "craftstudioAssetID": 2716,
+    "tileParams": {
+      "cameraType": "DIGITAL"
+    }
+  },
+  {
+    "name": "PictureFrameSilver",
+    "decocraftModelID": 9,
+    "craftstudioAssetName": "0009_PictureFrameSilver",
+    "craftstudioAssetID": 2732,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameBlack",
+    "decocraftModelID": 10,
+    "craftstudioAssetName": "0010_PictureFrameBlack",
+    "craftstudioAssetID": 2733,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameGray",
+    "decocraftModelID": 11,
+    "craftstudioAssetName": "0011_PictureFrameGray",
+    "craftstudioAssetID": 2731,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFramePurple",
+    "decocraftModelID": 12,
+    "craftstudioAssetName": "0012_PictureFramePurple",
+    "craftstudioAssetID": 2730,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFramePink",
+    "decocraftModelID": 13,
+    "craftstudioAssetName": "0013_PictureFramePink",
+    "craftstudioAssetID": 2729,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameRed",
+    "decocraftModelID": 14,
+    "craftstudioAssetName": "0014_PictureFrameRed",
+    "craftstudioAssetID": 2728,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameOrange",
+    "decocraftModelID": 15,
+    "craftstudioAssetName": "0015_PictureFrameOrange",
+    "craftstudioAssetID": 2727,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameLime",
+    "decocraftModelID": 16,
+    "craftstudioAssetName": "0016_PictureFrameLime",
+    "craftstudioAssetID": 2726,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameGreen",
+    "decocraftModelID": 17,
+    "craftstudioAssetName": "0017_PictureFrameGreen",
+    "craftstudioAssetID": 2725,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameMagenta",
+    "decocraftModelID": 18,
+    "craftstudioAssetName": "0018_PictureFrameMagenta",
+    "craftstudioAssetID": 2724,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameCyan",
+    "decocraftModelID": 19,
+    "craftstudioAssetName": "0019_PictureFrameCyan",
+    "craftstudioAssetID": 2723,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameLightBlue",
+    "decocraftModelID": 20,
+    "craftstudioAssetName": "0020_PictureFrameLightBlue",
+    "craftstudioAssetID": 2722,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameBlue",
+    "decocraftModelID": 21,
+    "craftstudioAssetName": "0021_PictureFrameBlue",
+    "craftstudioAssetID": 2721,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameYellow",
+    "decocraftModelID": 22,
+    "craftstudioAssetName": "0022_PictureFrameYellow",
+    "craftstudioAssetID": 2720,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameWhite",
+    "decocraftModelID": 23,
+    "craftstudioAssetName": "0023_PictureFrameWhite",
+    "craftstudioAssetID": 2718,
+    "tileType": "PictureFrame",
+    "scale": 0.5,
+    "tileParams": {
+      "greenScreen": "2",
+      "aspectRatio": "1.0"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontal",
+    "decocraftModelID": 24,
+    "craftstudioAssetName": "0024_PictureFrameHorizontal",
+    "craftstudioAssetID": 2737,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "GreenScreenHorizontal",
+    "decocraftModelID": 25,
+    "craftstudioAssetName": "0025_GreenScreenHorizontal",
+    "craftstudioAssetID": 2739,
+    "scale": 0.7,
+    "creativeInv": false
+  },
+  {
+    "name": "PictureFrameHorizontalWhite",
+    "decocraftModelID": 26,
+    "craftstudioAssetName": "0026_PictureFrameHorizontalWhite",
+    "craftstudioAssetID": 2740,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalYellow",
+    "decocraftModelID": 27,
+    "craftstudioAssetName": "0027_PictureFrameHorizontalYellow",
+    "craftstudioAssetID": 2741,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalBlue",
+    "decocraftModelID": 28,
+    "craftstudioAssetName": "0028_PictureFrameHorizontalBlue",
+    "craftstudioAssetID": 2742,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalLightBlue",
+    "decocraftModelID": 29,
+    "craftstudioAssetName": "0029_PictureFrameHorizontalLightBlue",
+    "craftstudioAssetID": 2743,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalCyan",
+    "decocraftModelID": 30,
+    "craftstudioAssetName": "0030_PictureFrameHorizontalCyan",
+    "craftstudioAssetID": 2744,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalMagenta",
+    "decocraftModelID": 31,
+    "craftstudioAssetName": "0031_PictureFrameHorizontalMagenta",
+    "craftstudioAssetID": 2745,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalGreen",
+    "decocraftModelID": 32,
+    "craftstudioAssetName": "0032_PictureFrameHorizontalGreen",
+    "craftstudioAssetID": 2746,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalLime",
+    "decocraftModelID": 33,
+    "craftstudioAssetName": "0033_PictureFrameHorizontalLime",
+    "craftstudioAssetID": 2747,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalOrange",
+    "decocraftModelID": 34,
+    "craftstudioAssetName": "0034_PictureFrameHorizontalOrange",
+    "craftstudioAssetID": 2748,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalRed",
+    "decocraftModelID": 35,
+    "craftstudioAssetName": "0035_PictureFrameHorizontalRed",
+    "craftstudioAssetID": 2749,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalPink",
+    "decocraftModelID": 36,
+    "craftstudioAssetName": "0036_PictureFrameHorizontalPink",
+    "craftstudioAssetID": 2750,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalPurple",
+    "decocraftModelID": 37,
+    "craftstudioAssetName": "0037_PictureFrameHorizontalPurple",
+    "craftstudioAssetID": 2751,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalGrey",
+    "decocraftModelID": 38,
+    "craftstudioAssetName": "0038_PictureFrameHorizontalGrey",
+    "craftstudioAssetID": 2752,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalBlack",
+    "decocraftModelID": 39,
+    "craftstudioAssetName": "0039_PictureFrameHorizontalBlack",
+    "craftstudioAssetID": 2753,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  },
+  {
+    "name": "PictureFrameHorizontalSilver",
+    "decocraftModelID": 40,
+    "craftstudioAssetName": "0040_PictureFrameHorizontalSilver",
+    "craftstudioAssetID": 2754,
+    "tileType": "PictureFrame",
+    "scale": 0.7,
+    "tileParams": {
+      "greenScreen": "25",
+      "aspectRatio": "1.7"
+    }
+  }
+]
