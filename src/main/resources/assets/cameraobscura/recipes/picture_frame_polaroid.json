@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "cameraobscura:csitem",
+    "data": 4
+  },
+  "pattern": [
+    "XX",
+    "YY",
+    "XX"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:paper"
+    },
+    "Y": {
+      "item": "minecraft:wool",
+      "data": 32767
+    }
+  }
+}
