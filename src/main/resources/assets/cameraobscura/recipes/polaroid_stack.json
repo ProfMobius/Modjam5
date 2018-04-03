@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "cameraobscura:polaroid_stack"
+  },
+  "pattern": [
+    "XXX",
+    "YYY",
+    "XXX"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:paper"
+    },
+    "Y": {
+      "item": "#DYEBLACK"
+    }
+  }
+}

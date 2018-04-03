@@ -14,6 +14,44 @@ item.cameraobscura.vintage_photo.name=Vintage Photograph
 item.cameraobscura.sdcard.name=SD Card
 item.cameraobscura.brush.name=Frame Brush
 
+# Picture frames
+item.cameraobscura.pictureframe.name=Picture Frame
+item.cameraobscura.pictureframelime.name=Lime Picture Frame
+item.cameraobscura.pictureframesilver.name=Silver Picture Frame
+item.cameraobscura.pictureframeblack.name=Black Picture Frame
+item.cameraobscura.pictureframegray.name=Gray Picture Frame
+item.cameraobscura.pictureframepurple.name=Purple Picture Frame
+item.cameraobscura.pictureframepink.name=Pink Picture Frame
+item.cameraobscura.pictureframered.name=Red Picture Frame
+item.cameraobscura.pictureframeorange.name=Orange Picture Frame
+item.cameraobscura.pictureframelime.name=Lime Picture Frame
+item.cameraobscura.pictureframegreen.name=Green Picture Frame
+item.cameraobscura.pictureframemagenta.name=Magenta Picture Frame
+item.cameraobscura.pictureframecyan.name=Cyan Picture Frame
+item.cameraobscura.pictureframelightblue.name=Light Blue Picture Frame
+item.cameraobscura.pictureframeblue.name=Blue Picture Frame
+item.cameraobscura.pictureframeyellow.name=Yellow Picture Frame
+item.cameraobscura.pictureframewhite.name=White Picture Frame
+
+# Horizontal picture frames
+item.cameraobscura.pictureframehorizontal.name=Horizontal Picture Frame
+item.cameraobscura.pictureframehorizontallime.name=Horizontal Lime Picture Frame
+item.cameraobscura.pictureframehorizontalsilver.name=Horizontal Silver Picture Frame
+item.cameraobscura.pictureframehorizontalblack.name=Horizontal Black Picture Frame
+item.cameraobscura.pictureframehorizontalgray.name=Horizontal Gray Picture Frame
+item.cameraobscura.pictureframehorizontalpurple.name=Horizontal Purple Picture Frame
+item.cameraobscura.pictureframehorizontalpink.name=Horizontal Pink Picture Frame
+item.cameraobscura.pictureframehorizontalred.name=Horizontal Red Picture Frame
+item.cameraobscura.pictureframehorizontalorange.name=Horizontal Orange Picture Frame
+item.cameraobscura.pictureframehorizontallime.name=Horizontal Lime Picture Frame
+item.cameraobscura.pictureframehorizontalgreen.name=Horizontal Green Picture Frame
+item.cameraobscura.pictureframehorizontalmagenta.name=Horizontal Magenta Picture Frame
+item.cameraobscura.pictureframehorizontalcyan.name=Horizontal Cyan Picture Frame
+item.cameraobscura.pictureframehorizontallightblue.name=Horizontal Light Blue Picture Frame
+item.cameraobscura.pictureframehorizontalblue.name=Horizontal Blue Picture Frame
+item.cameraobscura.pictureframehorizontalyellow.name=Horizontal Yellow Picture Frame
+item.cameraobscura.pictureframehorizontalwhite.name=Horizontal White Picture Frame
+
 # Chat messages
 cameraobscura.chat.missing_sd=Your SD card is missing!
 cameraobscura.chat.full_sd=Your SD card is full!

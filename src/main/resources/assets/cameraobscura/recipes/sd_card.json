@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "cameraobscura:sdcard"
+  },
+  "pattern": [
+    "GGG",
+    "XRX",
+    "XXX"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:stained_glass_pane",
+      "data": 15
+    },
+    "R": {
+      "item": "#REDSTONEDUST"
+    },
+    "G": {
+      "item": "#INGOTGOLD"
+    }
+  }
+}

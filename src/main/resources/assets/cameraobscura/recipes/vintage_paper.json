@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "cameraobscura:vintage_photo"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "#DYEBLACK"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}
