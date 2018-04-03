@@ -1,24 +1,24 @@
 {
   "result": {
     "item": "cameraobscura:csitem",
-    "data": 6
+    "data": 43
   },
   "pattern": [
-    "BBA",
-    "BCB",
-    "ABB"
+    "XX ",
+    "YYS",
+    "XX "
   ],
   "type": "minecraft:crafting_shaped",
   "key": {
-  	"A": {
-      "item": "minecraft:glass_pane"
-  	},
-    "B": {
-      "item": "minecraft:wool",
-      "data": 15
+    "X": {
+      "item": "#STICKWOOD"
     },
-    "C": {
-      "item": "#REDSTONEDUST"
+    "Y": {
+      "item": "minecraft:wool",
+      "data": 32767
+    },
+    "S": {
+      "item": "minecraft:string"
     }
   }
 }
