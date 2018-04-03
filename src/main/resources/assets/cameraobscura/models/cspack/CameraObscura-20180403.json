@@ -42,6 +42,7 @@
     "tileType": "PictureFrame",
     "craftstudioAssetName": "0004_Polaroid Frame",
     "craftstudioAssetID": 2703,
+    "creativeInv": false,
     "tileParams": {
       "greenScreen": "5",
       "aspectRatio": "1.0"
@@ -51,7 +52,8 @@
     "name": "PolaroidGreenScreen",
     "decocraftModelID": 5,
     "craftstudioAssetName": "0005_PolaroidGreenScreen",
-    "craftstudioAssetID": 2755
+    "craftstudioAssetID": 2755,
+    "creativeInv": false
   },
   {
     "name": "Vintage Camera",
@@ -468,6 +470,7 @@
     "name": "Hanging Frame 1 GS",
     "decocraftModelID": 42,
     "craftstudioAssetName": "0042_Hanging Frame 1 GS",
-    "craftstudioAssetID": 2759
+    "craftstudioAssetID": 2759,
+    "creativeInv": false
   }
 ]
