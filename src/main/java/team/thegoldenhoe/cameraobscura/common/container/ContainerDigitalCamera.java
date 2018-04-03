@@ -74,38 +74,43 @@ public class ContainerDigitalCamera extends Container implements ICameraContaine
 		return this.playerInventory.isUsableByPlayer(playerIn);
 	}
 
-	/**
-	 * Take a stack from the specified inventory slot.
-	 */
-	@Override
-	@Nullable
-	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot)this.inventorySlots.get(index);
+    /**
+     * Take a stack from the specified inventory slot.
+     */
+    @Override
+    @Nullable
+    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
+    {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = (Slot)this.inventorySlots.get(index);
 
-		if (slot != null && slot.getHasStack()) {
+        if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
+			
+//			if (index == 0) {
+//				
+//			}
 
-			if (index < 3) {
-				if (!this.mergeItemStack(itemstack1, 3, this.inventorySlots.size(), true)) {
-					return ItemStack.EMPTY;
-				}
-			} else if (this.getSlot(2).isItemValid(itemstack1) && !this.getSlot(2).getHasStack()) {
-				if (!this.mergeItemStack(itemstack1, 2, 3, false)) {
-					return ItemStack.EMPTY;
-				}
-			} else if (this.getSlot(1).isItemValid(itemstack1) && !this.getSlot(1).getHasStack()) {
-				if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
+			if (index < this.playerInventory.getSizeInventory()) {
+				if (!this.mergeItemStack(itemstack1, this.playerInventory.getSizeInventory(), this.inventorySlots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
 			} else if (this.getSlot(0).isItemValid(itemstack1)) {
 				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
 					return ItemStack.EMPTY;
+				} else if (this.playerInventory.getSizeInventory() <= 1 || !this.mergeItemStack(itemstack1, 1, this.playerInventory.getSizeInventory(), false)) {
+					return ItemStack.EMPTY;
 				}
-			} else if (index <= 3 || !this.mergeItemStack(itemstack1, 3, 2, false)) {
-				return ItemStack.EMPTY;
 			}
+			//			if (this.getSlot(0).isItemValid(itemstack1)) {
+			//				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+			//					System.out.println("Couldn't transfer stack in slot");
+			//					return ItemStack.EMPTY;
+			//				}
+			//			} else {
+			//				return ItemStack.EMPTY;
+			//			}
 
 			if (itemstack1.isEmpty()) {
 				slot.putStack(ItemStack.EMPTY);
@@ -114,8 +119,8 @@ public class ContainerDigitalCamera extends Container implements ICameraContaine
 			}
 		}
 
-		return itemstack;
-	}
+        return itemstack;
+    }
 
 	@Override
 	public String getContainerBackground() {
