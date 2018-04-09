@@ -108,10 +108,16 @@ public class PhotoDataHandler {
 
 			if (photographerUUID == null) {
 				messageBuffer.remove(uuid);
-				throw new NullPointerException("Photographer UUID is null, which means we can't produce an item. Sorry :(");
+				System.err.println("Photographer UUID is null, which means we can't produce an item. Sorry :(");
 			}
 
 			EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
+
+			if (player == null) {
+				messageBuffer.remove(uuid);
+				System.err.println("Photographer player is null, which means we can't produce an item. Sorry :(");
+			}
+
 			ItemStack stack = player.getHeldItemMainhand();
 			if (!Utils.isCamera(stack)) {
 				stack = player.getHeldItemOffhand();
@@ -119,7 +125,7 @@ public class PhotoDataHandler {
 
 			if (stack.isEmpty()) {
 				messageBuffer.remove(uuid);
-				throw new NullPointerException("Camera is null, which means we don't know how to produce the item properly. Sorry :(");
+				System.err.println("Camera is null, which means we don't know how to produce the item properly. Sorry :(");
 			}
 
 			String savePath = saveImage(createImageFromBytes(bytes));
@@ -149,7 +155,7 @@ public class PhotoDataHandler {
 			if (type != CameraTypes.NOT_A_CAMERA) {
 				ICameraNBT cameraCap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
 				ICameraStorageNBT storage = cameraCap.getStorageDevice();
-				if (storage.canSave()) {
+				if (storage != null && storage.canSave()) {
 					storage.saveImage(savePath, player);
 
 					if (type == CameraTypes.VINTAGE) {
