@@ -74,6 +74,7 @@
     "rotHeld": 14,
     "craftstudioAssetName": "0007_Digital Camera",
     "craftstudioAssetID": 2716,
+    "textureOverride": "digital_camera.png",
     "tileParams": {
       "cameraType": "DIGITAL"
     }
