@@ -1,0 +1,106 @@
+item.cameraobscura.filter.sepia.name=Filtre sépia
+item.cameraobscura.filter.gloomy.name=Filtre sombre
+item.cameraobscura.filter.high_contrast.name=Filtre à contraste élevé
+item.cameraobscura.filter.retro.name=Filtre rétro
+item.cameraobscura.filter.happy.name=Filtre lumineux et heureux
+item.cameraobscura.filter.low_sobel.name=Filtre Sobel à seuil bas
+item.cameraobscura.filter.high_sobel.name=Filtre Sobel à seuil élevé
+item.cameraobscura.polaroid_stack.name=Pile de polaroids
+item.cameraobscura.polaroid_camera.name=Appareil photo polaroid
+item.cameraobscura.polaroid_photo.name=Photo polaroid
+item.cameraobscura.vintage_camera.name=Ancien appareil photo
+item.cameraobscura.digital_camera.name=Appareil photo numérique
+item.cameraobscura.vintage_photo.name=Photographie vintage
+item.cameraobscura.sdcard.name=Carte SD
+item.cameraobscura.brush.name=Pinceau de cadre
+
+# Cadres photo
+item.cameraobscura.pictureframe.name=Cadre photo
+item.cameraobscura.pictureframelime.name=Cadre photo vert clair
+item.cameraobscura.pictureframesilver.name=Cadre photo gris clair
+item.cameraobscura.pictureframeblack.name=Cadre photo noir
+item.cameraobscura.pictureframegray.name=Cadre photo gris
+item.cameraobscura.pictureframepurple.name=Cadre photo violet
+item.cameraobscura.pictureframepink.name=Cadre photo rose
+item.cameraobscura.pictureframered.name=Cadre photo rouge
+item.cameraobscura.pictureframeorange.name=Cadre photo orange
+item.cameraobscura.pictureframegreen.name=Cadre photo vert
+item.cameraobscura.pictureframemagenta.name=Cadre photo magenta
+item.cameraobscura.pictureframecyan.name=Cadre photo cyan
+item.cameraobscura.pictureframelightblue.name=Cadre photo bleu clair
+item.cameraobscura.pictureframeblue.name=Cadre photo bleu
+item.cameraobscura.pictureframeyellow.name=Cadre photo jaune
+item.cameraobscura.pictureframewhite.name=Cadre photo blanc
+
+# Cadres photo horizontaux
+item.cameraobscura.pictureframehorizontal.name=Cadre photo horizontal
+item.cameraobscura.pictureframehorizontallime.name=Cadre photo vert clair horizontal
+item.cameraobscura.pictureframehorizontalsilver.name=Cadre photo gris clair horizontal
+item.cameraobscura.pictureframehorizontalblack.name=Cadre photo noir horizontal
+item.cameraobscura.pictureframehorizontalgray.name=Cadre photo gris horizontal
+item.cameraobscura.pictureframehorizontalpurple.name=Cadre photo violet horizontal
+item.cameraobscura.pictureframehorizontalpink.name=Cadre photo rose horizontal
+item.cameraobscura.pictureframehorizontalred.name=Cadre photo rouge horizontal
+item.cameraobscura.pictureframehorizontalorange.name=Cadre photo orange horizontal
+item.cameraobscura.pictureframehorizontalgreen.name=Cadre photo vert horizontal
+item.cameraobscura.pictureframehorizontalmagenta.name=Cadre photo magenta horizontal
+item.cameraobscura.pictureframehorizontalcyan.name=Cadre photo cyan horizontal
+item.cameraobscura.pictureframehorizontallightblue.name=Cadre photo bleu clair horizontal
+item.cameraobscura.pictureframehorizontalblue.name=Cadre photo bleu horizontal
+item.cameraobscura.pictureframehorizontalyellow.name=Cadre photo jaune horizontal
+item.cameraobscura.pictureframehorizontalwhite.name=Cadre photo blanc horizontal
+
+# Messages de tchat
+cameraobscura.chat.missing_sd=Votre carte SD est manquante !
+cameraobscura.chat.full_sd=Votre carte SD est pleine !
+cameraobscura.chat.missing_stacks=Vous n'avez pas de piles de polaroids à utiliser !
+cameraobscura.chat.full_stacks=Les piles de polaroids de votre appareil photo sont pleines !
+cameraobscura.chat.missing_paper=Vous n'avez pas de papier dans votre appareil photo !
+cameraobscura.chat.full_paper=Votre papier photo contient déjà une photo !
+
+# Nom de l'onglet
+itemGroup.cameraobscura.Main=Camera Obscura
+
+cameraobscura.Main=Camera Obscura
+
+item.cameraobscura.stuffed_creeper.name=Creeper farci
+item.cameraobscura.picture_frame.name=Cadre photo
+item.cameraobscura.green_screen.name=Écran vert
+item.cameraobscura.polaroid_frame.name=Cadre de polaroid
+item.cameraobscura.polaroidgreenscreen.name=Écran vert de polaroid
+item.cameraobscura.pictureframesilver.name=Cadre photo gris clair
+item.cameraobscura.pictureframeblack.name=Cadre photo noir
+item.cameraobscura.pictureframegray.name=Cadre photo gris
+item.cameraobscura.pictureframepurple.name=Cadre photo violet
+item.cameraobscura.pictureframepink.name=Cadre photo rose
+item.cameraobscura.pictureframered.name=Cadre photo rouge
+item.cameraobscura.pictureframeorange.name=Cadre photo orange
+item.cameraobscura.pictureframelime.name=Cadre photo vert clair
+item.cameraobscura.pictureframegreen.name=Cadre photo vert
+item.cameraobscura.pictureframemagenta.name=Cadre photo magenta
+item.cameraobscura.pictureframecyan.name=Cadre photo cyan
+item.cameraobscura.pictureframelightblue.name=Cadre photo bleu clair
+item.cameraobscura.pictureframeblue.name=Cadre photo bleu
+item.cameraobscura.pictureframeyellow.name=Cadre photo jaune
+item.cameraobscura.pictureframewhite.name=Cadre photo blanc
+item.cameraobscura.pictureframehorizontal.name=Cadre photo horizontal
+item.cameraobscura.greenscreenhorizontal.name=Écran vert horizontal
+item.cameraobscura.pictureframehorizontalwhite.name=Cadre photo blanc horizontal
+item.cameraobscura.pictureframehorizontalyellow.name=Cadre photo jaune horizontal
+item.cameraobscura.pictureframehorizontalblue.name=Cadre photo bleu horizontal
+item.cameraobscura.pictureframehorizontallightblue.name=Cadre photo bleu clair horizontal
+item.cameraobscura.pictureframehorizontalcyan.name=Cadre photo cyan horizontal
+item.cameraobscura.pictureframehorizontalmagenta.name=Cadre photo magenta horizontal
+item.cameraobscura.pictureframehorizontalgreen.name=Cadre photo vert horizontal
+item.cameraobscura.pictureframehorizontallime.name=Cadre photo vert clair horizontal
+item.cameraobscura.pictureframehorizontalorange.name=Cadre photo orange horizontal
+item.cameraobscura.pictureframehorizontalred.name=Cadre photo rouge horizontal
+item.cameraobscura.pictureframehorizontalpink.name=Cadre photo rose horizontal
+item.cameraobscura.pictureframehorizontalpurple.name=Cadre photo violet horizontal
+item.cameraobscura.pictureframehorizontalgrey.name=Cadre photo gris horizontal
+item.cameraobscura.pictureframehorizontalblack.name=Cadre photo noir horizontal
+item.cameraobscura.pictureframehorizontalsilver.name=Cadre photo gris clair horizontal
+item.cameraobscura.hanging_frame_1.name=Cadre suspendu 1
+item.cameraobscura.hanging_frame_2.name=Cadre suspendu 2
+item.cameraobscura.hanging_frame_1_gs.name=Cadre suspendu 1 GS
+item.cameraobscura.hanging_frame_2_gs.name=Cadre suspendu 2 GS
