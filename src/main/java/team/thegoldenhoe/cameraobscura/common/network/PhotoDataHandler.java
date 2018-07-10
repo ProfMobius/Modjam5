@@ -109,6 +109,7 @@ public class PhotoDataHandler {
 			if (photographerUUID == null) {
 				messageBuffer.remove(uuid);
 				System.err.println("Photographer UUID is null, which means we can't produce an item. Sorry :(");
+				return;
 			}
 
 			EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
@@ -116,6 +117,7 @@ public class PhotoDataHandler {
 			if (player == null) {
 				messageBuffer.remove(uuid);
 				System.err.println("Photographer player is null, which means we can't produce an item. Sorry :(");
+				return;
 			}
 
 			ItemStack stack = player.getHeldItemMainhand();
@@ -126,6 +128,7 @@ public class PhotoDataHandler {
 			if (stack.isEmpty()) {
 				messageBuffer.remove(uuid);
 				System.err.println("Camera is null, which means we don't know how to produce the item properly. Sorry :(");
+				return;
 			}
 
 			String savePath = saveImage(createImageFromBytes(bytes));
