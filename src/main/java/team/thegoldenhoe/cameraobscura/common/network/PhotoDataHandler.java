@@ -19,6 +19,8 @@ import javax.imageio.ImageIO;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PlayerList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
@@ -112,7 +114,9 @@ public class PhotoDataHandler {
 				return;
 			}
 
-			EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
+			MinecraftServer server = world.getMinecraftServer();
+			PlayerList playerList = server.getPlayerList();
+			EntityPlayer player = playerList.getPlayerByUUID(photographerUUID);
 
 			if (player == null) {
 				messageBuffer.remove(uuid);
