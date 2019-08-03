@@ -19,6 +19,8 @@ import javax.imageio.ImageIO;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PlayerList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
@@ -109,13 +111,17 @@ public class PhotoDataHandler {
 			if (photographerUUID == null) {
 				messageBuffer.remove(uuid);
 				System.err.println("Photographer UUID is null, which means we can't produce an item. Sorry :(");
+				return;
 			}
 
-			EntityPlayer player = world.getPlayerEntityByUUID(photographerUUID);
+			MinecraftServer server = world.getMinecraftServer();
+			PlayerList playerList = server.getPlayerList();
+			EntityPlayer player = playerList.getPlayerByUUID(photographerUUID);
 
 			if (player == null) {
 				messageBuffer.remove(uuid);
 				System.err.println("Photographer player is null, which means we can't produce an item. Sorry :(");
+				return;
 			}
 
 			ItemStack stack = player.getHeldItemMainhand();
@@ -126,6 +132,7 @@ public class PhotoDataHandler {
 			if (stack.isEmpty()) {
 				messageBuffer.remove(uuid);
 				System.err.println("Camera is null, which means we don't know how to produce the item properly. Sorry :(");
+				return;
 			}
 
 			String savePath = saveImage(createImageFromBytes(bytes));
